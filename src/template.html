@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f0" />
+    <meta
+      name="description"
+      content="Holdem — 珍藏你的德州扑克高光时刻。皇家同花顺、同花顺与四条金刚的个人成就图鉴。"
+    />
+    <title>Holdem — 掬一捧的德州好牌图鉴</title>
+    <style>
+      /* INLINE_STYLES */
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" data-i18n="skip">跳至主要内容</a>
+    <header class="site-header wrap">
+      <a class="brand" href="#" aria-label="Holdem"
+        ><span class="brand-mark" aria-hidden="true">♠</span
+        ><span>Holdem<span class="brand-period">.</span></span></a
+      >
+      <nav class="header-nav" aria-label="导航" data-i18n-aria="navigation">
+        <a
+          href="#collection"
+          class="nav-link active"
+          data-view="achievements"
+          data-i18n="collection"
+          aria-current="page"
+          >成就图鉴</a
+        >
+        <a href="#ranges" class="nav-link" data-view="ranges" data-i18n="mNav"
+          >起手牌矩阵</a
+        >
+        <a href="#odds" class="nav-link" data-view="odds" data-i18n="cNav"
+          >牌力计算</a
+        >
+      </nav>
+      <div class="language-picker">
+        <span class="language-icon" aria-hidden="true">文<span>A</span></span
+        ><select id="language" aria-label="选择语言" data-menu-align="end">
+          <option value="zh-CN">简体中文</option>
+          <option value="zh-TW">繁體中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
+
+    <main class="wrap" id="main-content">
+      <div id="achievements-view">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <h1 id="hero-title" data-i18n="heroTitle">
+              好牌，值得<br /><span>被记住。</span>
+            </h1>
+            <p data-i18n="heroDescription">
+              有些牌，千载难逢。<br />把牌桌上的高光时刻，收藏在这里。
+            </p>
+            <a class="primary-button" href="#collection"
+              ><span data-i18n="explore">探索我的成就</span
+              ><span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <button
+            class="hero-table"
+            id="hero-achievement"
+            type="button"
+            aria-label="查看方片皇家同花顺"
+            data-i18n-aria="heroAria"
+          >
+            <span class="table-inner" aria-hidden="true"></span>
+            <span class="table-corner corner-top" aria-hidden="true"
+              >A<br />♦</span
+            ><span class="table-corner corner-bottom" aria-hidden="true"
+              >A<br />♦</span
+            >
+            <span class="table-eyebrow"
+              ><span aria-hidden="true">✦</span>
+              <span data-i18n="personalBest">个人最高成就</span>
+              <span aria-hidden="true">✦</span></span
+            >
+            <span class="hero-fan" id="hero-fan" aria-hidden="true"></span>
+            <span class="table-caption"
+              ><span class="hero-achievement-name" data-i18n="royal"
+                >皇家同花顺</span
+              ><span class="table-subtitle"
+                ><span data-i18n="diamonds">方片</span
+                ><span class="caption-dot">·</span>10 — A<span
+                  class="caption-dot"
+                  >·</span
+                ><span data-i18n="unlocked">已达成</span></span
+              ></span
+            >
+            <span class="hero-open" aria-hidden="true">↗</span>
+          </button>
+        </section>
+
+        <section
+          class="stats"
+          aria-label="成就统计"
+          data-i18n-aria="statistics"
+        >
+          <div class="stat stat-total">
+            <div class="progress-ring" id="progress-ring">
+              <span>12<small>%</small></span>
+            </div>
+            <div>
+              <div class="stat-label" data-i18n="totalProgress">收藏进度</div>
+              <div class="stat-value">
+                <span id="total-count">03</span
+                ><span class="stat-denominator"> / 25</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol" aria-hidden="true">♛</span>
+            <div>
+              <div class="stat-label" data-i18n="royal">皇家同花顺</div>
+              <div class="stat-value" id="royal-count">
+                01<span class="stat-denominator"> / 04</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol flush-symbol" aria-hidden="true">♠</span>
+            <div>
+              <div class="stat-label" data-i18n="straightFlush">同花顺</div>
+              <div class="stat-value" id="flush-count">
+                01<span class="stat-denominator"> / 16</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol quads-symbol" aria-hidden="true"
+              >4<span>♣</span></span
+            >
+            <div>
+              <div class="stat-label" data-i18n="quads">四条金刚</div>
+              <div class="stat-value" id="quads-count">
+                01<span class="stat-denominator"> / 05</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="collection"
+          id="collection"
+          aria-labelledby="collection-title"
+        >
+          <div class="collection-heading">
+            <div>
+              <h2 id="collection-title" data-i18n="collectionTitle">
+                把传奇，一手手集齐。
+              </h2>
+            </div>
+            <label class="unlocked-toggle"
+              ><input type="checkbox" id="unlocked-only" /><span
+                class="switch"
+                aria-hidden="true"
+              ></span
+              ><span data-i18n="onlyUnlocked">只看已达成</span></label
+            >
+          </div>
+          <div class="collection-toolbar">
+            <div
+              class="category-tabs"
+              role="group"
+              aria-label="牌型筛选"
+              data-i18n-aria="categoryFilter"
+              id="category-tabs"
+            ></div>
+            <span
+              class="results-count"
+              id="results-count"
+              role="status"
+              aria-live="polite"
+            ></span>
+          </div>
+          <div id="achievement-groups"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <span aria-hidden="true">♧</span>
+            <h3 data-i18n="emptyTitle">下一份成就，等你来点亮</h3>
+            <p data-i18n="emptyDescription">
+              这个分类还没有已达成的记录，先看看完整图鉴吧。
+            </p>
+            <button
+              id="reset-filters"
+              class="secondary-button"
+              type="button"
+              data-i18n="showAll"
+            >
+              查看全部成就
+            </button>
+          </div>
+        </section>
+      </div>
+      <section
+        id="ranges-view"
+        class="ranges-view"
+        aria-labelledby="ranges-title"
+        hidden
+      ></section>
+      <section
+        id="odds-view"
+        class="odds-view"
+        aria-labelledby="odds-title"
+        hidden
+      ></section>
+    </main>
+
+    <footer class="site-footer wrap">
+      <a class="brand footer-brand" href="#"
+        >Holdem<span class="brand-period">.</span></a
+      >
+      <p data-i18n="footer">读懂牌局，做出更好的选择。</p>
+      <span class="footer-suits" aria-hidden="true">
+        <span class="suit-spades">♠</span>
+        <span class="suit-hearts">♥</span>
+        <span class="suit-clubs">♣</span>
+        <span class="suit-diamonds">♦</span>
+      </span>
+    </footer>
+    <dialog
+      id="achievement-dialog"
+      aria-labelledby="detail-title"
+      aria-describedby="detail-description"
+    >
+      <div id="dialog-content"></div>
+    </dialog>
+    <noscript
+      ><p style="text-align: center; padding: 2rem">
+        请开启 JavaScript 以查看成就图鉴。Please enable JavaScript to view your
+        achievements.
+      </p></noscript
+    >
+    <script type="module">
+      /* INLINE_SCRIPT */
+    </script>
+  </body>
+</html>
