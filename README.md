@@ -2,6 +2,8 @@
 
 在线访问：[solome.github.io/holdem](https://solome.github.io/holdem/)。
 
+该入口沿用账号现有的 GitHub Pages 自定义域名，会跳转至 [solome.js.org/holdem](https://solome.js.org/holdem/)。两者指向同一份页面。
+
 一个可离线打开的德州扑克 HTML 页面，顶部导航切换 **起手牌矩阵**、**成就图鉴** 与 **牌力计算**。
 
 三页均支持简体中文、繁體中文和 English。扑克牌采用四种花色配色：黑桃黑色、梅花绿色、红桃红色、方片蓝色；未达成成就仍统一置灰。
@@ -100,6 +102,8 @@ npm run dev    # 构建并在 http://127.0.0.1:4173 本地预览，需要 Python
 发布流程定义在 [`.github/workflows/pages.yml`](.github/workflows/pages.yml)。每次推送 `main` 都会自动安装锁定依赖、运行全部测试、构建页面，再发布到 **https://solome.github.io/holdem/**。只有检查成功后才会部署。
 
 在仓库 [Settings → Pages](https://github.com/solome/holdem/settings/pages) 中，将 **Build and deployment → Source** 设置为 **GitHub Actions**。使用此工作流时无需选择 `main / root` 或创建 `gh-pages` 分支；发布分支由工作流中的 `push.branches: [main]` 控制。
+
+项目没有单独设置 CNAME，当前继承账号站点的 `solome.js.org` 域名。HTTPS 访问由该域名现有的 Cloudflare 配置提供；如需调整账号域名或源站证书，应在对应域名／账号站点配置中处理，而不是修改本项目的构建路径。
 
 可以在 [Actions → Deploy GitHub Pages](https://github.com/solome/holdem/actions/workflows/pages.yml) 查看构建和部署结果，也可以选择 `main` 后点击 **Run workflow** 手动重新发布。
 
