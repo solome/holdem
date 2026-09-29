@@ -1,0 +1,2185 @@
+{
+  "requestedTargets": {
+    "preflopEndApprox": 0.1,
+    "sawFlopMinimum": 0.8,
+    "multiwayFlopsPerHandApprox": 0.6,
+    "interpretation": "翻前结束和看到翻牌互补，故10%对应90%，80%按下限；三人以上按全部局计。"
+  },
+  "historicalV1": {
+    "hands": 10000,
+    "seed": 20260929,
+    "tableVersion": 2,
+    "policyVersion": 1,
+    "randomCalls": 650000,
+    "dealDigest": "b8bf96822a4586c53725f6327aabdbc0f76dc9b188660792079476f737b73848",
+    "endingStreets": {
+      "preflop": {
+        "count": 8134,
+        "rate": 0.8134
+      },
+      "flop": {
+        "count": 506,
+        "rate": 0.0506
+      },
+      "turn": {
+        "count": 171,
+        "rate": 0.0171
+      },
+      "river": {
+        "count": 1189,
+        "rate": 0.1189
+      }
+    },
+    "sawFlop": {
+      "count": 1866,
+      "rate": 0.1866
+    },
+    "flopPlayers": {
+      "total": 3856,
+      "meanPerHand": 0.3856,
+      "meanWhenFlopSeen": 2.066452
+    },
+    "multiwayFlops": {
+      "count": 113,
+      "ratePerHand": 0.0113,
+      "rateWhenFlopSeen": 0.060557
+    },
+    "maxConsecutivePreflopEndings": 30,
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 678,
+          "rate": 0.0678
+        },
+        "openRaise": {
+          "count": 678,
+          "rate": 0.0678
+        },
+        "foldToOpen": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        },
+        "foldToThreeBet": {
+          "opportunities": 78,
+          "count": 37,
+          "rate": 0.474359
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 1035,
+          "rate": 0.1035
+        },
+        "openRaise": {
+          "count": 994,
+          "rate": 0.0994
+        },
+        "foldToOpen": {
+          "opportunities": 678,
+          "count": 637,
+          "rate": 0.939528
+        },
+        "foldToThreeBet": {
+          "opportunities": 104,
+          "count": 69,
+          "rate": 0.663462
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 1261,
+          "rate": 0.1261
+        },
+        "openRaise": {
+          "count": 1162,
+          "rate": 0.1162
+        },
+        "foldToOpen": {
+          "opportunities": 1661,
+          "count": 1562,
+          "rate": 0.940397
+        },
+        "foldToThreeBet": {
+          "opportunities": 131,
+          "count": 104,
+          "rate": 0.793893
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 1967,
+          "rate": 0.1967
+        },
+        "openRaise": {
+          "count": 1787,
+          "rate": 0.1787
+        },
+        "foldToOpen": {
+          "opportunities": 2778,
+          "count": 2598,
+          "rate": 0.935205
+        },
+        "foldToThreeBet": {
+          "opportunities": 173,
+          "count": 153,
+          "rate": 0.884393
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 2300,
+          "rate": 0.23
+        },
+        "openRaise": {
+          "count": 2027,
+          "rate": 0.2027
+        },
+        "foldToOpen": {
+          "opportunities": 4499,
+          "count": 4226,
+          "rate": 0.93932
+        },
+        "foldToThreeBet": {
+          "opportunities": 231,
+          "count": 218,
+          "rate": 0.943723
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 1961,
+          "rate": 0.1961
+        },
+        "openRaise": {
+          "count": 1219,
+          "rate": 0.1219
+        },
+        "foldToOpen": {
+          "opportunities": 6439,
+          "count": 6027,
+          "rate": 0.936015
+        },
+        "foldToThreeBet": {
+          "opportunities": 257,
+          "count": 250,
+          "rate": 0.972763
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 1103,
+          "rate": 0.1103
+        },
+        "openRaise": {
+          "count": 10,
+          "rate": 0.001
+        },
+        "foldToOpen": {
+          "opportunities": 7509,
+          "count": 6424,
+          "rate": 0.855507
+        },
+        "foldToThreeBet": {
+          "opportunities": 358,
+          "count": 350,
+          "rate": 0.977654
+        }
+      }
+    },
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 88,
+            "rate": 0.066365
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1238,
+            "rate": 0.933635
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 138,
+            "rate": 0.104072
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1188,
+            "rate": 0.895928
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 176,
+            "rate": 0.13273
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1150,
+            "rate": 0.86727
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 318,
+            "rate": 0.239819
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1008,
+            "rate": 0.760181
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 486,
+            "rate": 0.366516
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 840,
+            "rate": 0.633484
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 486,
+            "rate": 0.366516
+          },
+          "call": {
+            "count": 128,
+            "rate": 0.096531
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 712,
+            "rate": 0.536953
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "before": {
+    "hands": 10000,
+    "seed": 20260929,
+    "tableVersion": 2,
+    "policyVersion": 2,
+    "randomCalls": 650000,
+    "dealDigest": "b8bf96822a4586c53725f6327aabdbc0f76dc9b188660792079476f737b73848",
+    "endingStreets": {
+      "preflop": {
+        "count": 5758,
+        "rate": 0.5758
+      },
+      "flop": {
+        "count": 1046,
+        "rate": 0.1046
+      },
+      "turn": {
+        "count": 468,
+        "rate": 0.0468
+      },
+      "river": {
+        "count": 2728,
+        "rate": 0.2728
+      }
+    },
+    "sawFlop": {
+      "count": 4242,
+      "rate": 0.4242
+    },
+    "flopPlayers": {
+      "total": 9171,
+      "meanPerHand": 0.9171,
+      "meanWhenFlopSeen": 2.161952
+    },
+    "multiwayFlops": {
+      "count": 632,
+      "ratePerHand": 0.0632,
+      "rateWhenFlopSeen": 0.148986
+    },
+    "maxConsecutivePreflopEndings": 16,
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 1256,
+          "rate": 0.1256
+        },
+        "openRaise": {
+          "count": 1256,
+          "rate": 0.1256
+        },
+        "foldToOpen": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        },
+        "foldToThreeBet": {
+          "opportunities": 159,
+          "count": 108,
+          "rate": 0.679245
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 1682,
+          "rate": 0.1682
+        },
+        "openRaise": {
+          "count": 1550,
+          "rate": 0.155
+        },
+        "foldToOpen": {
+          "opportunities": 1256,
+          "count": 1124,
+          "rate": 0.894904
+        },
+        "foldToThreeBet": {
+          "opportunities": 162,
+          "count": 116,
+          "rate": 0.716049
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 2093,
+          "rate": 0.2093
+        },
+        "openRaise": {
+          "count": 1824,
+          "rate": 0.1824
+        },
+        "foldToOpen": {
+          "opportunities": 2780,
+          "count": 2511,
+          "rate": 0.903237
+        },
+        "foldToThreeBet": {
+          "opportunities": 230,
+          "count": 201,
+          "rate": 0.873913
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 2279,
+          "rate": 0.2279
+        },
+        "openRaise": {
+          "count": 1509,
+          "rate": 0.1509
+        },
+        "foldToOpen": {
+          "opportunities": 4534,
+          "count": 3765,
+          "rate": 0.830393
+        },
+        "foldToThreeBet": {
+          "opportunities": 239,
+          "count": 218,
+          "rate": 0.912134
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 2533,
+          "rate": 0.2533
+        },
+        "openRaise": {
+          "count": 1499,
+          "rate": 0.1499
+        },
+        "foldToOpen": {
+          "opportunities": 5932,
+          "count": 4902,
+          "rate": 0.826365
+        },
+        "foldToThreeBet": {
+          "opportunities": 321,
+          "count": 305,
+          "rate": 0.950156
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 2348,
+          "rate": 0.2348
+        },
+        "openRaise": {
+          "count": 881,
+          "rate": 0.0881
+        },
+        "foldToOpen": {
+          "opportunities": 7301,
+          "count": 6061,
+          "rate": 0.83016
+        },
+        "foldToThreeBet": {
+          "opportunities": 400,
+          "count": 389,
+          "rate": 0.9725
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 1948,
+          "rate": 0.1948
+        },
+        "openRaise": {
+          "count": 8,
+          "rate": 0.0008
+        },
+        "foldToOpen": {
+          "opportunities": 8011,
+          "count": 6082,
+          "rate": 0.759206
+        },
+        "foldToThreeBet": {
+          "opportunities": 508,
+          "count": 497,
+          "rate": 0.978346
+        }
+      }
+    },
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 160,
+            "rate": 0.120664
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1166,
+            "rate": 0.879336
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 234,
+            "rate": 0.176471
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1092,
+            "rate": 0.823529
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 322,
+            "rate": 0.242836
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1004,
+            "rate": 0.757164
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 358,
+            "rate": 0.269985
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 968,
+            "rate": 0.730015
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 502,
+            "rate": 0.378582
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 824,
+            "rate": 0.621418
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 502,
+            "rate": 0.378582
+          },
+          "call": {
+            "count": 116,
+            "rate": 0.087481
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 708,
+            "rate": 0.533937
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "after": {
+    "hands": 10000,
+    "seed": 20260929,
+    "tableVersion": 2,
+    "policyVersion": 3,
+    "randomCalls": 650000,
+    "dealDigest": "b8bf96822a4586c53725f6327aabdbc0f76dc9b188660792079476f737b73848",
+    "endingStreets": {
+      "preflop": {
+        "count": 961,
+        "rate": 0.0961
+      },
+      "flop": {
+        "count": 1640,
+        "rate": 0.164
+      },
+      "turn": {
+        "count": 1110,
+        "rate": 0.111
+      },
+      "river": {
+        "count": 6289,
+        "rate": 0.6289
+      }
+    },
+    "sawFlop": {
+      "count": 9039,
+      "rate": 0.9039
+    },
+    "limpedHands": {
+      "count": 8514,
+      "rate": 0.8514
+    },
+    "overlimpedHands": {
+      "count": 5628,
+      "rate": 0.5628
+    },
+    "flopPlayers": {
+      "total": 27982,
+      "meanPerHand": 2.7982,
+      "meanWhenFlopSeen": 3.095696
+    },
+    "multiwayFlops": {
+      "count": 6150,
+      "ratePerHand": 0.615,
+      "rateWhenFlopSeen": 0.680385
+    },
+    "maxConsecutivePreflopEndings": 4,
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 3437,
+          "rate": 0.3437
+        },
+        "openRaise": {
+          "count": 252,
+          "rate": 0.0252
+        },
+        "foldToOpen": {
+          "opportunities": 420,
+          "count": 7,
+          "rate": 0.016667
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 23,
+          "rate": 0.45098
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 248,
+          "rate": 0.0248
+        },
+        "foldToOpen": {
+          "opportunities": 575,
+          "count": 194,
+          "rate": 0.337391
+        },
+        "foldToThreeBet": {
+          "opportunities": 39,
+          "count": 18,
+          "rate": 0.461538
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 269,
+          "rate": 0.0269
+        },
+        "foldToOpen": {
+          "opportunities": 760,
+          "count": 353,
+          "rate": 0.464474
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 28,
+          "rate": 0.54902
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 237,
+          "rate": 0.0237
+        },
+        "foldToOpen": {
+          "opportunities": 936,
+          "count": 543,
+          "rate": 0.580128
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 33,
+          "rate": 0.647059
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 3340,
+          "rate": 0.334
+        },
+        "openRaise": {
+          "count": 223,
+          "rate": 0.0223
+        },
+        "foldToOpen": {
+          "opportunities": 1106,
+          "count": 691,
+          "rate": 0.624774
+        },
+        "foldToThreeBet": {
+          "opportunities": 59,
+          "count": 45,
+          "rate": 0.762712
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 3201,
+          "rate": 0.3201
+        },
+        "openRaise": {
+          "count": 214,
+          "rate": 0.0214
+        },
+        "foldToOpen": {
+          "opportunities": 1248,
+          "count": 836,
+          "rate": 0.669872
+        },
+        "foldToThreeBet": {
+          "opportunities": 62,
+          "count": 58,
+          "rate": 0.935484
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 583,
+          "rate": 0.0583
+        },
+        "openRaise": {
+          "count": 199,
+          "rate": 0.0199
+        },
+        "foldToOpen": {
+          "opportunities": 1375,
+          "count": 993,
+          "rate": 0.722182
+        },
+        "foldToThreeBet": {
+          "opportunities": 68,
+          "count": 66,
+          "rate": 0.970588
+        }
+      }
+    },
+    "unopenedRangeMethod": "Exact 1326-combination enumeration in fixed contexts; policy decisions are deterministic.",
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "holdoutBefore": {
+    "hands": 10000,
+    "seed": 20261007,
+    "tableVersion": 2,
+    "policyVersion": 2,
+    "randomCalls": 650000,
+    "dealDigest": "01442f3c8da50786b26fa0c0d6cad3384ea10b96e3220c46e5d17a251dca6c41",
+    "endingStreets": {
+      "preflop": {
+        "count": 5874,
+        "rate": 0.5874
+      },
+      "flop": {
+        "count": 1010,
+        "rate": 0.101
+      },
+      "turn": {
+        "count": 466,
+        "rate": 0.0466
+      },
+      "river": {
+        "count": 2650,
+        "rate": 0.265
+      }
+    },
+    "sawFlop": {
+      "count": 4126,
+      "rate": 0.4126
+    },
+    "flopPlayers": {
+      "total": 8974,
+      "meanPerHand": 0.8974,
+      "meanWhenFlopSeen": 2.174988
+    },
+    "multiwayFlops": {
+      "count": 642,
+      "ratePerHand": 0.0642,
+      "rateWhenFlopSeen": 0.155599
+    },
+    "maxConsecutivePreflopEndings": 15,
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 1213,
+          "rate": 0.1213
+        },
+        "openRaise": {
+          "count": 1213,
+          "rate": 0.1213
+        },
+        "foldToOpen": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        },
+        "foldToThreeBet": {
+          "opportunities": 155,
+          "count": 101,
+          "rate": 0.651613
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 1672,
+          "rate": 0.1672
+        },
+        "openRaise": {
+          "count": 1562,
+          "rate": 0.1562
+        },
+        "foldToOpen": {
+          "opportunities": 1213,
+          "count": 1103,
+          "rate": 0.909316
+        },
+        "foldToThreeBet": {
+          "opportunities": 195,
+          "count": 154,
+          "rate": 0.789744
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 2175,
+          "rate": 0.2175
+        },
+        "openRaise": {
+          "count": 1873,
+          "rate": 0.1873
+        },
+        "foldToOpen": {
+          "opportunities": 2745,
+          "count": 2443,
+          "rate": 0.889982
+        },
+        "foldToThreeBet": {
+          "opportunities": 218,
+          "count": 184,
+          "rate": 0.844037
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 2174,
+          "rate": 0.2174
+        },
+        "openRaise": {
+          "count": 1472,
+          "rate": 0.1472
+        },
+        "foldToOpen": {
+          "opportunities": 4558,
+          "count": 3858,
+          "rate": 0.846424
+        },
+        "foldToThreeBet": {
+          "opportunities": 235,
+          "count": 214,
+          "rate": 0.910638
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 2601,
+          "rate": 0.2601
+        },
+        "openRaise": {
+          "count": 1537,
+          "rate": 0.1537
+        },
+        "foldToOpen": {
+          "opportunities": 5934,
+          "count": 4874,
+          "rate": 0.821368
+        },
+        "foldToThreeBet": {
+          "opportunities": 318,
+          "count": 298,
+          "rate": 0.937107
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 2345,
+          "rate": 0.2345
+        },
+        "openRaise": {
+          "count": 923,
+          "rate": 0.0923
+        },
+        "foldToOpen": {
+          "opportunities": 7331,
+          "count": 6094,
+          "rate": 0.831264
+        },
+        "foldToThreeBet": {
+          "opportunities": 390,
+          "count": 381,
+          "rate": 0.976923
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 1967,
+          "rate": 0.1967
+        },
+        "openRaise": {
+          "count": 9,
+          "rate": 0.0009
+        },
+        "foldToOpen": {
+          "opportunities": 8058,
+          "count": 6113,
+          "rate": 0.758625
+        },
+        "foldToThreeBet": {
+          "opportunities": 522,
+          "count": 509,
+          "rate": 0.975096
+        }
+      }
+    },
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 160,
+            "rate": 0.120664
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1166,
+            "rate": 0.879336
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 234,
+            "rate": 0.176471
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1092,
+            "rate": 0.823529
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 322,
+            "rate": 0.242836
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 1004,
+            "rate": 0.757164
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 358,
+            "rate": 0.269985
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 968,
+            "rate": 0.730015
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 502,
+            "rate": 0.378582
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 824,
+            "rate": 0.621418
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 502,
+            "rate": 0.378582
+          },
+          "call": {
+            "count": 116,
+            "rate": 0.087481
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 708,
+            "rate": 0.533937
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "holdout": {
+    "hands": 10000,
+    "seed": 20261007,
+    "tableVersion": 2,
+    "policyVersion": 3,
+    "randomCalls": 650000,
+    "dealDigest": "01442f3c8da50786b26fa0c0d6cad3384ea10b96e3220c46e5d17a251dca6c41",
+    "endingStreets": {
+      "preflop": {
+        "count": 956,
+        "rate": 0.0956
+      },
+      "flop": {
+        "count": 1617,
+        "rate": 0.1617
+      },
+      "turn": {
+        "count": 1126,
+        "rate": 0.1126
+      },
+      "river": {
+        "count": 6301,
+        "rate": 0.6301
+      }
+    },
+    "sawFlop": {
+      "count": 9044,
+      "rate": 0.9044
+    },
+    "limpedHands": {
+      "count": 8516,
+      "rate": 0.8516
+    },
+    "overlimpedHands": {
+      "count": 5644,
+      "rate": 0.5644
+    },
+    "flopPlayers": {
+      "total": 27912,
+      "meanPerHand": 2.7912,
+      "meanWhenFlopSeen": 3.086245
+    },
+    "multiwayFlops": {
+      "count": 6124,
+      "ratePerHand": 0.6124,
+      "rateWhenFlopSeen": 0.677134
+    },
+    "maxConsecutivePreflopEndings": 3,
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 3334,
+          "rate": 0.3334
+        },
+        "openRaise": {
+          "count": 250,
+          "rate": 0.025
+        },
+        "foldToOpen": {
+          "opportunities": 385,
+          "count": 5,
+          "rate": 0.012987
+        },
+        "foldToThreeBet": {
+          "opportunities": 50,
+          "count": 22,
+          "rate": 0.44
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 3332,
+          "rate": 0.3332
+        },
+        "openRaise": {
+          "count": 241,
+          "rate": 0.0241
+        },
+        "foldToOpen": {
+          "opportunities": 598,
+          "count": 188,
+          "rate": 0.314381
+        },
+        "foldToThreeBet": {
+          "opportunities": 42,
+          "count": 16,
+          "rate": 0.380952
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 3442,
+          "rate": 0.3442
+        },
+        "openRaise": {
+          "count": 263,
+          "rate": 0.0263
+        },
+        "foldToOpen": {
+          "opportunities": 757,
+          "count": 352,
+          "rate": 0.464993
+        },
+        "foldToThreeBet": {
+          "opportunities": 58,
+          "count": 29,
+          "rate": 0.5
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 3310,
+          "rate": 0.331
+        },
+        "openRaise": {
+          "count": 230,
+          "rate": 0.023
+        },
+        "foldToOpen": {
+          "opportunities": 948,
+          "count": 545,
+          "rate": 0.574895
+        },
+        "foldToThreeBet": {
+          "opportunities": 46,
+          "count": 29,
+          "rate": 0.630435
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 3427,
+          "rate": 0.3427
+        },
+        "openRaise": {
+          "count": 249,
+          "rate": 0.0249
+        },
+        "foldToOpen": {
+          "opportunities": 1098,
+          "count": 689,
+          "rate": 0.627505
+        },
+        "foldToThreeBet": {
+          "opportunities": 53,
+          "count": 42,
+          "rate": 0.792453
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 3245,
+          "rate": 0.3245
+        },
+        "openRaise": {
+          "count": 221,
+          "rate": 0.0221
+        },
+        "foldToOpen": {
+          "opportunities": 1250,
+          "count": 838,
+          "rate": 0.6704
+        },
+        "foldToThreeBet": {
+          "opportunities": 59,
+          "count": 56,
+          "rate": 0.949153
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 570,
+          "rate": 0.057
+        },
+        "openRaise": {
+          "count": 212,
+          "rate": 0.0212
+        },
+        "foldToOpen": {
+          "opportunities": 1375,
+          "count": 1017,
+          "rate": 0.739636
+        },
+        "foldToThreeBet": {
+          "opportunities": 79,
+          "count": 79,
+          "rate": 1
+        }
+      }
+    },
+    "unopenedRangeMethod": "Exact 1326-combination enumeration in fixed contexts; policy decisions are deterministic.",
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  },
+  "engineVerification": {
+    "hands": 10000,
+    "seed": 20260929,
+    "tableVersion": 3,
+    "policyVersion": 4,
+    "randomCalls": 650000,
+    "dealDigest": "b8bf96822a4586c53725f6327aabdbc0f76dc9b188660792079476f737b73848",
+    "endingStreets": {
+      "preflop": {
+        "count": 961,
+        "rate": 0.0961
+      },
+      "flop": {
+        "count": 1676,
+        "rate": 0.1676
+      },
+      "turn": {
+        "count": 1493,
+        "rate": 0.1493
+      },
+      "river": {
+        "count": 5870,
+        "rate": 0.587
+      }
+    },
+    "sawFlop": {
+      "count": 9039,
+      "rate": 0.9039
+    },
+    "limpedHands": {
+      "count": 8514,
+      "rate": 0.8514
+    },
+    "overlimpedHands": {
+      "count": 5628,
+      "rate": 0.5628
+    },
+    "flopPlayers": {
+      "total": 27982,
+      "meanPerHand": 2.7982,
+      "meanWhenFlopSeen": 3.095696
+    },
+    "multiwayFlops": {
+      "count": 6150,
+      "ratePerHand": 0.615,
+      "rateWhenFlopSeen": 0.680385
+    },
+    "maxConsecutivePreflopEndings": 4,
+    "actionRateDefinition": "Observed action counts / all recorded actions on that street; these are not a player's decision probabilities.",
+    "profileDefinition": "Fictional simulation parameters, not descriptions of the real people.",
+    "actionsByStreet": {
+      "preflop": {
+        "handsReached": 10000,
+        "totalActions": 70811,
+        "bets": {
+          "count": 0,
+          "rate": 0
+        },
+        "raises": {
+          "count": 1746,
+          "rate": 0.024657
+        },
+        "bluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 0,
+          "rate": 0
+        },
+        "handsWithRaise": {
+          "count": 1642,
+          "rateOfReachedHands": 0.1642
+        }
+      },
+      "flop": {
+        "handsReached": 9039,
+        "totalActions": 31591,
+        "bets": {
+          "count": 3011,
+          "rate": 0.095312
+        },
+        "raises": {
+          "count": 507,
+          "rate": 0.016049
+        },
+        "bluffs": {
+          "count": 201,
+          "rate": 0.006363
+        },
+        "semiBluffs": {
+          "count": 929,
+          "rate": 0.029407
+        },
+        "checkRaises": {
+          "count": 170,
+          "rate": 0.005381
+        },
+        "handsWithRaise": {
+          "count": 442,
+          "rateOfReachedHands": 0.048899
+        }
+      },
+      "turn": {
+        "handsReached": 7363,
+        "totalActions": 25217,
+        "bets": {
+          "count": 2907,
+          "rate": 0.115279
+        },
+        "raises": {
+          "count": 799,
+          "rate": 0.031685
+        },
+        "bluffs": {
+          "count": 78,
+          "rate": 0.003093
+        },
+        "semiBluffs": {
+          "count": 1270,
+          "rate": 0.050363
+        },
+        "checkRaises": {
+          "count": 253,
+          "rate": 0.010033
+        },
+        "handsWithRaise": {
+          "count": 710,
+          "rateOfReachedHands": 0.096428
+        }
+      },
+      "river": {
+        "handsReached": 5870,
+        "totalActions": 18697,
+        "bets": {
+          "count": 1956,
+          "rate": 0.104616
+        },
+        "raises": {
+          "count": 407,
+          "rate": 0.021768
+        },
+        "bluffs": {
+          "count": 55,
+          "rate": 0.002942
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 86,
+          "rate": 0.0046
+        },
+        "handsWithRaise": {
+          "count": 356,
+          "rateOfReachedHands": 0.060647
+        }
+      }
+    },
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 3437,
+          "rate": 0.3437
+        },
+        "openRaise": {
+          "count": 252,
+          "rate": 0.0252
+        },
+        "foldToOpen": {
+          "opportunities": 420,
+          "count": 7,
+          "rate": 0.016667
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 23,
+          "rate": 0.45098
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 248,
+          "rate": 0.0248
+        },
+        "foldToOpen": {
+          "opportunities": 575,
+          "count": 194,
+          "rate": 0.337391
+        },
+        "foldToThreeBet": {
+          "opportunities": 39,
+          "count": 18,
+          "rate": 0.461538
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 269,
+          "rate": 0.0269
+        },
+        "foldToOpen": {
+          "opportunities": 760,
+          "count": 353,
+          "rate": 0.464474
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 28,
+          "rate": 0.54902
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 3382,
+          "rate": 0.3382
+        },
+        "openRaise": {
+          "count": 237,
+          "rate": 0.0237
+        },
+        "foldToOpen": {
+          "opportunities": 936,
+          "count": 543,
+          "rate": 0.580128
+        },
+        "foldToThreeBet": {
+          "opportunities": 51,
+          "count": 33,
+          "rate": 0.647059
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 3340,
+          "rate": 0.334
+        },
+        "openRaise": {
+          "count": 223,
+          "rate": 0.0223
+        },
+        "foldToOpen": {
+          "opportunities": 1106,
+          "count": 691,
+          "rate": 0.624774
+        },
+        "foldToThreeBet": {
+          "opportunities": 59,
+          "count": 45,
+          "rate": 0.762712
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 3201,
+          "rate": 0.3201
+        },
+        "openRaise": {
+          "count": 214,
+          "rate": 0.0214
+        },
+        "foldToOpen": {
+          "opportunities": 1248,
+          "count": 836,
+          "rate": 0.669872
+        },
+        "foldToThreeBet": {
+          "opportunities": 62,
+          "count": 58,
+          "rate": 0.935484
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 583,
+          "rate": 0.0583
+        },
+        "openRaise": {
+          "count": 199,
+          "rate": 0.0199
+        },
+        "foldToOpen": {
+          "opportunities": 1375,
+          "count": 993,
+          "rate": 0.722182
+        },
+        "foldToThreeBet": {
+          "opportunities": 68,
+          "count": 66,
+          "rate": 0.970588
+        }
+      }
+    },
+    "unopenedRangeMethod": "Exact 1326-combination enumeration of the deterministic preflop base policy in fixed contexts; postflop profile decisions are excluded.",
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    }
+  }
+}

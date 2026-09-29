@@ -2,8 +2,11 @@ import { createRangeExplorer } from "./range-ui.js";
 import { enhanceSelects } from "./select-menu.js";
 import { RANGE_TRANSLATIONS } from "./range-i18n.mjs";
 import { createOddsCalculator } from "./odds-ui.js";
-import { ODDS_TRANSLATIONS } from "./odds-i18n.mjs";
-import { SUITS, ACHIEVEMENTS, rankLabel, getStats } from "./catalog.mjs";
+import { ODDS_TRANSLATIONS, ODDS_CATEGORY_KEYS } from "./odds-i18n.mjs";
+import { SUITS, ACHIEVEMENTS, rankLabel, getStats, getRecords, getOpponentHand } from "./catalog.mjs";
+import { CLOSE_ICON } from "./icons.mjs";
+import { createHandReview } from "./review-ui.js";
+import { REVIEW_TRANSLATIONS } from "./review-i18n.mjs";
 
 const translations = {
   "zh-CN": {
@@ -33,47 +36,30 @@ const translations = {
     onlyUnlocked: "只看已达成",
     categoryFilter: "牌型筛选",
     all: "全部成就",
-    emptyTitle: "下一份成就，等你来点亮",
-    emptyDescription: "这个分类还没有已达成的记录，先看看完整图鉴吧。",
-    showAll: "查看全部成就",
-    footer: "读懂牌局，做出更好的选择。",
-    royalDescription: "同一花色的 10 · J · Q · K · A",
-    flushDescription: "同一花色的五张连牌，最高牌 10 至 K",
-    quadsDescription: "四种花色，同一点数；10 至 A",
+    emptyTitle: "暂无已达成成就",
+    showAll: "查看全部",
+    footer: "收藏好牌，记录高光。",
+    royalDescription: "",
+    flushDescription: "10–K",
+    quadsDescription: "2–A",
     count: "{count} 项成就",
     groupProgress: "{unlocked} / {total} 已达成",
     royalName: "{suit}皇家同花顺",
     flushName: "{rank} 高同花顺",
+    flushSuitName: "{suit} {rank} 高同花顺",
     quadsName: "{rank} 金刚",
-    royalCode: "皇家",
-    flushCode: "同花顺",
-    quadsCode: "金刚",
-    highRange: "{low} — {high} · {suit}",
-    quadsSubtitle: "四条 {rank} · 四种花色",
-    viewAchievement: "{name}，{suit}，{state}，查看详情",
-    detailUnlocked: "已珍藏的高光时刻",
-    detailLocked: "待点亮的成就",
-    detailDescription: "{suit} · {range} · {state}",
-    quadsDetailDescription: "四张 {rank} · {state}",
+    viewAchievement: "{name}，{state}，查看详情",
+    achievedDate: "成就达成日期",
+    moreHits: "+{count} 次",
+    hitCount: "达成 {count} 次",
+    recordLabel: "{date}，记录 {index}",
+    unknownDate: "日期未记录",
+    opponentCards: "对手手牌",
+    opponentResult: "对手",
     close: "关闭详情",
-    tableLabel: "牌局回顾",
-    lockedTableLabel: "等待你的这手好牌",
-    holeCards: "我的起手牌",
-    boardCards: "五张公共牌",
-    twoCards: "2 张",
-    fiveCards: "5 张",
-    holeCaption: "从这两张牌开始",
-    boardCaption: "按记录顺序展示",
-    winningLegend: "金色描边标记组成成就的牌",
-    winningHand: "成就牌型",
+    holeCards: "我的手牌",
+    boardCards: "公共牌",
     replay: "重播发牌",
-    noHoleCaption: "等待你的起手牌",
-    noBoardCaption: "等待完整牌局",
-    noRecord: "尚无达成记录。下一次高光，也许就是这一手。",
-    requirementLabel: "达成条件",
-    royalRequirement: "在七张牌中凑齐 {suit} 10、J、Q、K、A。",
-    flushRequirement: "在七张牌中凑齐 {suit} {ranks}。",
-    quadsRequirement: "在七张牌中凑齐四种花色的 {rank}。",
     unknownCard: "尚未记录的牌",
   },
   "zh-TW": {
@@ -103,47 +89,30 @@ const translations = {
     onlyUnlocked: "只看已達成",
     categoryFilter: "牌型篩選",
     all: "全部成就",
-    emptyTitle: "下一份成就，等你來點亮",
-    emptyDescription: "這個分類還沒有已達成的紀錄，先看看完整圖鑑吧。",
-    showAll: "查看全部成就",
-    footer: "讀懂牌局，做出更好的選擇。",
-    royalDescription: "同一花色的 10 · J · Q · K · A",
-    flushDescription: "同一花色的五張連牌，最高牌 10 至 K",
-    quadsDescription: "四種花色，相同點數；10 至 A",
+    emptyTitle: "暫無已達成成就",
+    showAll: "查看全部",
+    footer: "收藏好牌，記錄高光。",
+    royalDescription: "",
+    flushDescription: "10–K",
+    quadsDescription: "2–A",
     count: "{count} 項成就",
     groupProgress: "{unlocked} / {total} 已達成",
     royalName: "{suit}皇家同花順",
     flushName: "{rank} 高同花順",
+    flushSuitName: "{suit} {rank} 高同花順",
     quadsName: "{rank} 金剛",
-    royalCode: "皇家",
-    flushCode: "同花順",
-    quadsCode: "金剛",
-    highRange: "{low} — {high} · {suit}",
-    quadsSubtitle: "四條 {rank} · 四種花色",
-    viewAchievement: "{name}，{suit}，{state}，查看詳情",
-    detailUnlocked: "已珍藏的高光時刻",
-    detailLocked: "待點亮的成就",
-    detailDescription: "{suit} · {range} · {state}",
-    quadsDetailDescription: "四張 {rank} · {state}",
+    viewAchievement: "{name}，{state}，查看詳情",
+    achievedDate: "成就達成日期",
+    moreHits: "+{count} 次",
+    hitCount: "達成 {count} 次",
+    recordLabel: "{date}，紀錄 {index}",
+    unknownDate: "日期未記錄",
+    opponentCards: "對手手牌",
+    opponentResult: "對手",
     close: "關閉詳情",
-    tableLabel: "牌局回顧",
-    lockedTableLabel: "等待你的這手好牌",
-    holeCards: "我的起手牌",
-    boardCards: "五張公共牌",
-    twoCards: "2 張",
-    fiveCards: "5 張",
-    holeCaption: "從這兩張牌開始",
-    boardCaption: "按紀錄順序顯示",
-    winningLegend: "金色外框標記組成成就的牌",
-    winningHand: "成就牌型",
+    holeCards: "我的手牌",
+    boardCards: "公共牌",
     replay: "重播發牌",
-    noHoleCaption: "等待你的起手牌",
-    noBoardCaption: "等待完整牌局",
-    noRecord: "尚無達成紀錄。下一次高光，也許就是這一手。",
-    requirementLabel: "達成條件",
-    royalRequirement: "在七張牌中湊齊 {suit} 10、J、Q、K、A。",
-    flushRequirement: "在七張牌中湊齊 {suit} {ranks}。",
-    quadsRequirement: "在七張牌中湊齊四種花色的 {rank}。",
     unknownCard: "尚未記錄的牌",
   },
   en: {
@@ -174,49 +143,30 @@ const translations = {
     onlyUnlocked: "Achieved only",
     categoryFilter: "Filter by hand",
     all: "All hands",
-    emptyTitle: "Your next achievement is waiting",
-    emptyDescription:
-      "No recorded hands in this category yet. Explore the full collection.",
-    showAll: "View all achievements",
-    footer: "Read the game. Make better decisions.",
-    royalDescription: "10 · J · Q · K · A, all of one suit",
-    flushDescription: "Five in a row, one suit. 10-high to K-high.",
-    quadsDescription: "One rank, four suits. Tens through aces.",
+    emptyTitle: "No achievements yet",
+    showAll: "View all",
+    footer: "Keep great hands. Remember the moments.",
+    royalDescription: "",
+    flushDescription: "10–K",
+    quadsDescription: "2–A",
     count: "{count} achievements",
     groupProgress: "{unlocked} / {total} achieved",
     royalName: "Royal flush · {suit}",
     flushName: "{rank}-high straight flush",
+    flushSuitName: "{rank}-high straight flush · {suit}",
     quadsName: "Four {rank}",
-    royalCode: "ROYAL",
-    flushCode: "STRAIGHT FLUSH",
-    quadsCode: "QUADS",
-    highRange: "{low} — {high} · {suit}",
-    quadsSubtitle: "Four of a kind · All suits",
-    viewAchievement: "{name}, {suit}, {state}. View details",
-    detailUnlocked: "A MOMENT TO REMEMBER",
-    detailLocked: "A HAND STILL TO COME",
-    detailDescription: "{suit} · {range} · {state}",
-    quadsDetailDescription: "Four {rank} · {state}",
+    viewAchievement: "{name}, {state}. View details",
+    achievedDate: "Achievement dates",
+    moreHits: "+{count} more",
+    hitCount: "Achieved {count} times",
+    recordLabel: "{date}, record {index}",
+    unknownDate: "Date unrecorded",
+    opponentCards: "Opponent",
+    opponentResult: "Opponent",
     close: "Close details",
-    tableLabel: "THE HAND, UNFOLDED",
-    lockedTableLabel: "YOUR NEXT GREAT HAND",
-    holeCards: "My hole cards",
-    boardCards: "The five community cards",
-    twoCards: "2 cards",
-    fiveCards: "5 cards",
-    holeCaption: "Where the story started",
-    boardCaption: "Shown in recorded order",
-    winningLegend: "Gold outlines mark the cards in this achievement",
-    winningHand: "THE ACHIEVEMENT HAND",
+    holeCards: "My hand",
+    boardCards: "Board",
     replay: "Replay deal",
-    noHoleCaption: "Your hole cards will appear here",
-    noBoardCaption: "Waiting for your hand",
-    noRecord: "No hand recorded yet. Your next great moment could be this one.",
-    requirementLabel: "HOW TO ACHIEVE IT",
-    royalRequirement: "Make 10, J, Q, K, A of {suit} from your seven cards.",
-    flushRequirement: "Make {ranks} of {suit} from your seven cards.",
-    quadsRequirement:
-      "Make four {rank}, one of each suit, from your seven cards.",
     unknownCard: "Unrecorded card",
   },
 };
@@ -226,6 +176,7 @@ for (const language of Object.keys(translations)) {
     translations[language],
     RANGE_TRANSLATIONS[language],
     ODDS_TRANSLATIONS[language],
+    REVIEW_TRANSLATIONS[language],
   );
 }
 
@@ -234,21 +185,18 @@ const CATEGORIES = [
     id: "royal",
     label: "royal",
     description: "royalDescription",
-    code: "royalCode",
     symbol: "♛",
   },
   {
     id: "straight-flush",
     label: "straightFlush",
     description: "flushDescription",
-    code: "flushCode",
     symbol: "♠",
   },
   {
     id: "quads",
     label: "quads",
     description: "quadsDescription",
-    code: "quadsCode",
     symbol: "♣",
   },
 ];
@@ -257,7 +205,9 @@ const stats = getStats();
 const uiState = {
   language: "zh-CN",
   view:
-    location.hash === "#odds"
+    location.hash === "#review"
+      ? "review"
+      : location.hash === "#odds"
       ? "odds"
       : location.hash === "#ranges"
         ? "ranges"
@@ -265,6 +215,7 @@ const uiState = {
   category: "all",
   onlyUnlocked: false,
   openAchievement: null,
+  openRecordIndex: 0,
 };
 try {
   const storedLanguage = localStorage.getItem("holdem.language");
@@ -300,8 +251,14 @@ const oddsCalculator = createOddsCalculator({
   translate: t,
   renderCard: cardMarkup,
 });
+const handReview = createHandReview({
+  element: $("#review-view"),
+  translate: t,
+  renderCard: cardMarkup,
+  getLanguage: () => uiState.language,
+});
 const titleKey = () =>
-  ({ achievements: "pageTitle", ranges: "mPageTitle", odds: "cPageTitle" })[
+  ({ achievements: "pageTitle", ranges: "mPageTitle", odds: "cPageTitle", review: "rPageTitle" })[
     uiState.view
   ];
 
@@ -309,10 +266,10 @@ const padCount = (value) => String(value).padStart(2, "0");
 const uiCardKey = (value) => `${value.rank}:${value.suit}`;
 
 function icon(name) {
+  if (name === "close") return CLOSE_ICON;
   const paths = {
     check: '<path d="m5 12 4 4L19 6"/>',
     lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/>',
-    close: '<path d="m6 6 12 12M6 18 18 6"/>',
     replay: '<path d="M3 10a9 9 0 1 1 1 7M3 4v6h6"/>',
   };
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] ?? ""}</svg>`;
@@ -320,9 +277,21 @@ function icon(name) {
 
 function quadRank(high) {
   if (uiState.language !== "en") return rankLabel(high);
-  return { 10: "tens", 11: "jacks", 12: "queens", 13: "kings", 14: "aces" }[
-    high
-  ];
+  return {
+    2: "twos",
+    3: "threes",
+    4: "fours",
+    5: "fives",
+    6: "sixes",
+    7: "sevens",
+    8: "eights",
+    9: "nines",
+    10: "tens",
+    11: "jacks",
+    12: "queens",
+    13: "kings",
+    14: "aces",
+  }[high];
 }
 
 function achievementName(achievement, includeSuit = false) {
@@ -332,15 +301,8 @@ function achievementName(achievement, includeSuit = false) {
       : t("royal");
   if (achievement.category === "quads")
     return t("quadsName", { rank: quadRank(achievement.high) });
-  return t("flushName", { rank: rankLabel(achievement.high) });
-}
-
-function achievementSubtitle(achievement) {
-  if (achievement.category === "quads")
-    return t("quadsSubtitle", { rank: rankLabel(achievement.high) });
-  return t("highRange", {
-    low: rankLabel(achievement.high - 4),
-    high: rankLabel(achievement.high),
+  return t(includeSuit ? "flushSuitName" : "flushName", {
+    rank: rankLabel(achievement.high),
     suit: t(achievement.suit),
   });
 }
@@ -367,17 +329,50 @@ function cardMarkup(value, options = {}) {
   return `<span class="${classes}" style="${style}" role="img" aria-label="${t(value.suit)} ${value.rank}" data-card="${uiCardKey(value)}"><span class="card-corner" aria-hidden="true">${value.rank}<span class="corner-suit">${suit.symbol}</span></span><span class="card-pip" aria-hidden="true">${suit.symbol}</span><span class="card-corner bottom" aria-hidden="true">${value.rank}<span class="corner-suit">${suit.symbol}</span></span>${winning ? '<span class="winning-dot" aria-hidden="true"></span>' : ""}</span>`;
 }
 
+function formatRecordDate(record) {
+  if (!record?.date) return t("unknownDate");
+  return new Intl.DateTimeFormat(uiState.language, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: "UTC",
+  }).format(new Date(`${record.date}T00:00:00Z`));
+}
+
+function recordDateMarkup(record, className = "") {
+  const date = formatRecordDate(record);
+  return record.date
+    ? `<time class="${className}" datetime="${record.date}">${date}</time>`
+    : `<span class="${className}">${date}</span>`;
+}
+
+function achievementDates(records, className = "achievement-dates") {
+  if (!records.length) return "";
+  return `<span class="${className}"><span class="achievement-dates-label">${t("achievedDate")}</span><span class="achievement-dates-values">${recordDateMarkup(records[0], "achievement-date")}${records.length > 1 ? `<span class="achievement-hit-count">${t("moreHits", { count: records.length - 1 })}</span>` : ""}</span></span>`;
+}
+
+function recordHistory(records) {
+  if (!records.length) return "";
+  const dates = records.length === 1
+    ? recordDateMarkup(records[0], "detail-date")
+    : records.map((record, index) => {
+        const sameDate = records.filter((item) => item.date === record.date);
+        const occurrence = records.slice(0, index + 1).filter((item) => item.date === record.date).length;
+        const label = t("recordLabel", { date: formatRecordDate(record), index: index + 1 });
+        return `<button type="button" class="record-date" data-record-index="${index}" aria-pressed="${uiState.openRecordIndex === index}" aria-label="${escapeHtml(label)}">${recordDateMarkup(record)}${sameDate.length > 1 ? `<span class="record-occurrence"> · ${occurrence}</span>` : ""}</button>`;
+      }).join("");
+  return `<div class="record-history"><span class="record-history-label" id="record-history-label">${t("achievedDate")}</span><div class="record-dates" role="group" aria-labelledby="record-history-label">${dates}</div></div>`;
+}
+
 function renderCard(achievement) {
-  const achieved = Boolean(achievement.record);
+  const records = getRecords(achievement);
+  const achieved = records.length > 0;
   const stateText = t(achieved ? "unlocked" : "locked");
-  const category = CATEGORIES.find(({ id }) => id === achievement.category);
-  const id = padCount(ACHIEVEMENTS.indexOf(achievement) + 1);
   const label = t("viewAchievement", {
-    name: achievementName(achievement),
-    suit: t(achievement.suit ?? "allSuits"),
-    state: stateText,
+    name: achievementName(achievement, true),
+    state: [stateText, records.length ? `${t("achievedDate")} ${formatRecordDate(records[0])}` : "", records.length > 1 ? t("hitCount", { count: records.length }) : ""].filter(Boolean).join(" · "),
   });
-  return `<button type="button" class="achievement-card ${achieved ? "is-unlocked" : "is-locked"}" data-achievement="${achievement.id}" data-category="${achievement.category}" aria-label="${escapeHtml(label)}" aria-haspopup="dialog"><span class="card-meta"><span class="achievement-id">${t(category.code)} · ${id}</span><span class="achievement-state">${icon(achieved ? "check" : "lock")}${stateText}</span></span><span class="mini-fan" aria-hidden="true">${achievement.cards.map((value, index) => cardMarkup(value, { index, count: achievement.cards.length })).join("")}</span><span class="achievement-bottom"><span><span class="achievement-name">${achievementName(achievement)}</span><span class="achievement-subtitle">${achievementSubtitle(achievement)}</span></span><span class="achievement-arrow" aria-hidden="true">↗</span></span></button>`;
+  return `<button type="button" class="achievement-card ${achieved ? "is-unlocked" : "is-locked"}" data-achievement="${achievement.id}" data-category="${achievement.category}" aria-label="${escapeHtml(label)}" aria-haspopup="dialog"><span class="card-meta" aria-hidden="true"><span class="achievement-state" title="${stateText}">${icon(achieved ? "check" : "lock")}</span></span><span class="mini-fan" aria-hidden="true">${achievement.cards.map((value, index) => cardMarkup(value, { index, count: achievement.cards.length })).join("")}</span><span class="achievement-bottom"><span><span class="achievement-name">${achievementName(achievement, true)}</span>${achievementDates(records)}</span><span class="achievement-arrow" aria-hidden="true">↗</span></span></button>`;
 }
 
 function renderTabs() {
@@ -394,7 +389,7 @@ function renderGroups() {
     (achievement) =>
       (uiState.category === "all" ||
         achievement.category === uiState.category) &&
-      (!uiState.onlyUnlocked || achievement.record),
+      (!uiState.onlyUnlocked || getRecords(achievement).length > 0),
   );
   $("#achievement-groups").innerHTML = CATEGORIES.map((category) => {
     const items = visible.filter(
@@ -435,62 +430,52 @@ function renderStatistics() {
   }
 }
 
-function requirement(achievement) {
-  const values = {
-    suit: t(achievement.suit ?? "allSuits"),
-    ranks: achievement.cards.map(({ rank }) => rank).join(" · "),
-    rank: quadRank(achievement.high),
-  };
-  return t(
-    achievement.category === "royal"
-      ? "royalRequirement"
-      : achievement.category === "quads"
-        ? "quadsRequirement"
-        : "flushRequirement",
-    values,
-  );
+function detailHand(achievement, record, part) {
+  const isBoard = part === "board";
+  const isOpponent = part === "opponent";
+  const count = isBoard ? 5 : 2;
+  const values = record[part];
+  const winningKeys = new Set(achievement.cards.map(uiCardKey));
+  const title = isBoard ? "boardCards" : isOpponent ? "opponentCards" : "holeCards";
+  const dealOffset = isBoard ? (record.opponent ? 4 : 2) : isOpponent ? 2 : 0;
+  return `<section class="hand-section${isBoard ? " hand-section-board" : ""}"><h3>${t(title)}</h3><div class="detail-hand" data-hand="${part}">${values.map((value, index) => cardMarkup(value, { index, count, detail: true, dealIndex: index + dealOffset, winning: !isOpponent && winningKeys.has(uiCardKey(value)), unused: !isOpponent && !winningKeys.has(uiCardKey(value)) })).join("")}</div></section>`;
 }
 
-function detailHand(achievement, part) {
-  const isHole = part === "hole";
-  const count = isHole ? 2 : 5;
-  const values = achievement.record
-    ? achievement.record[part]
-    : Array(count).fill(null);
-  const winningKeys = new Set(achievement.cards.map(uiCardKey));
-  return `<section class="hand-section"><h3>${t(isHole ? "holeCards" : "boardCards")}<small>${t(isHole ? "twoCards" : "fiveCards")}</small></h3><div class="detail-hand" data-hand="${part}">${values.map((value, index) => cardMarkup(value, { index, count, detail: true, dealIndex: index + (isHole ? 0 : 2), winning: Boolean(value && winningKeys.has(uiCardKey(value))), unused: Boolean(value && !winningKeys.has(uiCardKey(value))), back: !value })).join("")}</div><p class="hand-caption">${t(achievement.record ? (isHole ? "holeCaption" : "boardCaption") : isHole ? "noHoleCaption" : "noBoardCaption")}</p></section>`;
+function resultCards(cards) {
+  return cards.map(({ rank, suit }) =>
+    `<span class="result-card suit-${suit}" role="img" aria-label="${t(suit)} ${rank}">${rank}${suitMap[suit].symbol}</span>`,
+  ).join(" ");
 }
 
 function renderDetail(achievement) {
-  const achieved = Boolean(achievement.record);
-  const description =
-    achievement.category === "quads"
-      ? t("quadsDetailDescription", {
-          rank: quadRank(achievement.high),
-          state: t(achieved ? "unlocked" : "locked"),
-        })
-      : t("detailDescription", {
-          suit: t(achievement.suit),
-          range: `${rankLabel(achievement.high - 4)} — ${rankLabel(achievement.high)}`,
-          state: t(achieved ? "unlocked" : "locked"),
-        });
-  const result = achievement.cards
-    .map(
-      ({ rank, suit }) =>
-        `<span class="result-card suit-${suit}">${rank}${suitMap[suit].symbol}</span>`,
-    )
-    .join(" ");
+  const records = getRecords(achievement);
+  uiState.openRecordIndex = Math.min(uiState.openRecordIndex, Math.max(0, records.length - 1));
+  const record = records[uiState.openRecordIndex];
+  const achieved = Boolean(record);
+  const opponentHand = getOpponentHand(achievement, record);
+  const opponentResult = opponentHand
+    ? `<div class="opponent-result-hand"><strong>${t("opponentResult")} · ${t(ODDS_CATEGORY_KEYS[opponentHand.category])}</strong><span class="winning-result">${resultCards(opponentHand.bestCards)}</span></div>`
+    : "";
+  const table = achieved
+    ? `<div class="deal-layout ${opponentHand ? "has-opponent" : "no-opponent"}">${detailHand(achievement, record, "hole")}${opponentHand ? detailHand(achievement, record, "opponent") : ""}${detailHand(achievement, record, "board")}</div>`
+    : `<div class="detail-hand target-hand">${achievement.cards.map((value, index) => cardMarkup(value, { index, count: achievement.cards.length, detail: true })).join("")}</div>`;
   $("#dialog-content").innerHTML =
-    `<header class="detail-header"><div><div class="detail-eyebrow">${icon(achieved ? "check" : "lock")}${t(achieved ? "detailUnlocked" : "detailLocked")}</div><h2 id="detail-title">${achievementName(achievement, true)}</h2><p id="detail-description">${description}</p></div><button class="close-button" type="button" data-close-dialog aria-label="${t("close")}" autofocus>${icon("close")}</button></header><div class="detail-table"><div class="detail-table-top"><span>${t(achieved ? "tableLabel" : "lockedTableLabel")}</span><span aria-hidden="true">♠ ♥ ♣ ♦</span></div><div class="deal-layout">${detailHand(achievement, "hole")}${detailHand(achievement, "board")}</div>${achieved ? `<div class="table-legend"><span class="legend-dot" aria-hidden="true"></span>${t("winningLegend")}</div>` : `<p class="locked-record-note">${t("noRecord")}</p>`}</div>${achieved ? `<footer class="detail-footer"><div><span class="detail-result-label">${t("winningHand")}</span><span class="winning-result">${result}</span></div><button class="replay-button" type="button" data-replay>${icon("replay")}${t("replay")}</button></footer>` : `<footer class="detail-footer is-locked-footer"><span class="detail-result-label">${t("requirementLabel")}</span><p class="detail-requirement">${requirement(achievement)}</p></footer>`}`;
+    `<header class="detail-header"><div><h2 id="detail-title">${achievementName(achievement, true)}</h2>${recordHistory(records)}${!achieved ? `<p class="detail-state">${t("locked")}</p>` : ""}</div><button class="close-button" type="button" data-close-dialog aria-label="${t("close")}" autofocus>${icon("close")}</button></header><div class="detail-table">${table}</div>${achieved ? `<footer class="detail-footer">${opponentResult}<button class="replay-button" type="button" data-replay>${icon("replay")}${t("replay")}</button></footer>` : ""}`;
 }
 
 function openAchievement(id) {
   const achievement = ACHIEVEMENTS.find((item) => item.id === id);
   if (!achievement) return;
   uiState.openAchievement = id;
+  uiState.openRecordIndex = 0;
   renderDetail(achievement);
   document.body.classList.add("dialog-open");
   dialog.showModal();
+}
+
+function renderFooter() {
+  const key = { achievements: "footer", ranges: "mFooter", odds: "cFooter", review: "rFooter" }[uiState.view];
+  $("#footer-copy").textContent = t(key);
 }
 
 function setLanguage(language) {
@@ -499,6 +484,7 @@ function setLanguage(language) {
   document.documentElement.lang = language;
   document.documentElement.classList.toggle("en", language === "en");
   document.title = t(titleKey());
+  renderFooter();
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     // Markup is restricted to these local editorial strings; no user HTML is rendered.
     const key = element.dataset.i18n;
@@ -516,13 +502,17 @@ function setLanguage(language) {
   enhanceSelects($(".language-picker"));
   rangeExplorer.render();
   oddsCalculator.render();
+  handReview.render();
   renderStatistics();
   renderTabs();
   renderGroups();
-  $("#hero-fan").innerHTML = ACHIEVEMENTS.find(
+  const heroAchievement = ACHIEVEMENTS.find(
     ({ id }) => id === "royal-diamonds",
-  )
-    .cards.map((value, index) => cardMarkup(value, { index }))
+  );
+  $("#hero-name").textContent = achievementName(heroAchievement, true);
+  $("#hero-date").innerHTML = achievementDates(getRecords(heroAchievement), "hero-dates");
+  $("#hero-fan").innerHTML = heroAchievement.cards
+    .map((value, index) => cardMarkup(value, { index }))
     .join("");
   if (uiState.openAchievement)
     renderDetail(ACHIEVEMENTS.find(({ id }) => id === uiState.openAchievement));
@@ -560,6 +550,16 @@ $("#hero-achievement").addEventListener("click", () =>
 );
 dialog.addEventListener("click", (event) => {
   if (event.target.closest("[data-close-dialog]")) dialog.close();
+  const recordButton = event.target.closest("[data-record-index]");
+  if (recordButton) {
+    const achievement = ACHIEVEMENTS.find(({ id }) => id === uiState.openAchievement);
+    const index = Number(recordButton.dataset.recordIndex);
+    if (!achievement || !Number.isInteger(index) || index < 0 || index >= getRecords(achievement).length)
+      return;
+    uiState.openRecordIndex = index;
+    renderDetail(achievement);
+    dialog.querySelector(`[data-record-index="${index}"]`).focus({ preventScroll: true });
+  }
   if (event.target.closest("[data-replay]")) {
     // Restart only the deal animations so focus stays on the replay button.
     for (const animation of dialog.getAnimations({ subtree: true })) {
@@ -609,6 +609,7 @@ dialog.addEventListener("keydown", (event) => {
 });
 dialog.addEventListener("close", () => {
   uiState.openAchievement = null;
+  uiState.openRecordIndex = 0;
   document.body.classList.remove("dialog-open");
 });
 
@@ -616,6 +617,7 @@ function syncView() {
   const previousView = uiState.view;
   if (location.hash === "#ranges") uiState.view = "ranges";
   else if (location.hash === "#odds") uiState.view = "odds";
+  else if (location.hash === "#review") uiState.view = "review";
   else if (["", "#", "#collection"].includes(location.hash))
     uiState.view = "achievements";
   if (previousView !== uiState.view) {
@@ -625,6 +627,7 @@ function syncView() {
   $("#achievements-view").hidden = uiState.view !== "achievements";
   $("#ranges-view").hidden = uiState.view !== "ranges";
   $("#odds-view").hidden = uiState.view !== "odds";
+  $("#review-view").hidden = uiState.view !== "review";
   document.querySelectorAll("[data-view]").forEach((link) => {
     const selected = link.dataset.view === uiState.view;
     link.classList.toggle("active", selected);
@@ -632,6 +635,7 @@ function syncView() {
     else link.removeAttribute("aria-current");
   });
   document.title = t(titleKey());
+  renderFooter();
   if (previousView !== uiState.view)
     window.scrollTo({ top: 0, behavior: "instant" });
 }

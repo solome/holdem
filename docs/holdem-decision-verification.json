@@ -1,0 +1,3452 @@
+{
+  "scope": "Model-based equity/EV smoke test, fixed public-history diagnostics and local production-sampling latency. No guaranteed profit or equilibrium claim.",
+  "beforeBatch": {
+    "hands": 192,
+    "seed": 20260929,
+    "tableVersion": 3,
+    "policyVersion": 4,
+    "requestedDecisionSamples": 24,
+    "randomCalls": 12480,
+    "dealDigest": "20ca3d976f102b13f711f49818a154e702e7e8eeae1f2f033e0aa59eb1ba28ff",
+    "endingStreets": {
+      "preflop": {
+        "count": 14,
+        "rate": 0.072917
+      },
+      "flop": {
+        "count": 44,
+        "rate": 0.229167
+      },
+      "turn": {
+        "count": 24,
+        "rate": 0.125
+      },
+      "river": {
+        "count": 110,
+        "rate": 0.572917
+      }
+    },
+    "sawFlop": {
+      "count": 178,
+      "rate": 0.927083
+    },
+    "limpedHands": {
+      "count": 172,
+      "rate": 0.895833
+    },
+    "overlimpedHands": {
+      "count": 114,
+      "rate": 0.59375
+    },
+    "flopPlayers": {
+      "total": 571,
+      "meanPerHand": 2.973958,
+      "meanWhenFlopSeen": 3.207865
+    },
+    "multiwayFlops": {
+      "count": 125,
+      "ratePerHand": 0.651042,
+      "rateWhenFlopSeen": 0.702247
+    },
+    "maxConsecutivePreflopEndings": 2,
+    "actionRateDefinition": "Observed action counts / all recorded actions on that street; these are not a player's decision probabilities.",
+    "profileDefinition": "Fictional simulation parameters, not descriptions of the real people.",
+    "continuationDefinition": "C-bet opportunities use the last preflop raiser facing no flop bet. Value bets count too. Delayed c-bets require a checked-through flop; turn barrels continue the last flop aggressor. Policy reasons are counted separately.",
+    "actionsByStreet": {
+      "preflop": {
+        "handsReached": 192,
+        "totalActions": 1362,
+        "bets": {
+          "count": 0,
+          "rate": 0
+        },
+        "raises": {
+          "count": 28,
+          "rate": 0.020558
+        },
+        "bluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 0,
+          "rate": 0
+        },
+        "handsWithRaise": {
+          "count": 28,
+          "rateOfReachedHands": 0.145833
+        },
+        "isolations": {
+          "count": 20,
+          "rate": 0.014684
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "preflop-limp": 163,
+          "preflop-fold-range": 759,
+          "preflop-overlimp": 155,
+          "preflop-complete": 58,
+          "free-check": 152,
+          "preflop-open": 28,
+          "preflop-loose-call": 47
+        }
+      },
+      "flop": {
+        "handsReached": 178,
+        "totalActions": 645,
+        "bets": {
+          "count": 67,
+          "rate": 0.103876
+        },
+        "raises": {
+          "count": 10,
+          "rate": 0.015504
+        },
+        "bluffs": {
+          "count": 6,
+          "rate": 0.009302
+        },
+        "semiBluffs": {
+          "count": 22,
+          "rate": 0.034109
+        },
+        "checkRaises": {
+          "count": 4,
+          "rate": 0.006202
+        },
+        "handsWithRaise": {
+          "count": 9,
+          "rateOfReachedHands": 0.050562
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 23,
+          "count": 6,
+          "rateOfOpportunities": 0.26087
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "value-bet": 43,
+          "pair-fold-price": 31,
+          "weak-fold": 58,
+          "pot-control-check": 408,
+          "draw-fold-price": 9,
+          "slow-play-check": 28,
+          "value-call": 21,
+          "semi-bluff-bet": 18,
+          "semi-bluff-raise": 4,
+          "bluff-bet": 6,
+          "check-raise": 1,
+          "pair-call-price": 2,
+          "value-raise": 4,
+          "pressure-fold": 3,
+          "draw-call": 7,
+          "value-reraise": 1,
+          "profile-call": 1
+        }
+      },
+      "turn": {
+        "handsReached": 134,
+        "totalActions": 487,
+        "bets": {
+          "count": 50,
+          "rate": 0.102669
+        },
+        "raises": {
+          "count": 16,
+          "rate": 0.032854
+        },
+        "bluffs": {
+          "count": 1,
+          "rate": 0.002053
+        },
+        "semiBluffs": {
+          "count": 19,
+          "rate": 0.039014
+        },
+        "checkRaises": {
+          "count": 3,
+          "rate": 0.00616
+        },
+        "handsWithRaise": {
+          "count": 15,
+          "rateOfReachedHands": 0.11194
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 14,
+          "count": 4,
+          "rateOfOpportunities": 0.285714
+        },
+        "turnBarrels": {
+          "opportunities": 18,
+          "count": 8,
+          "rateOfOpportunities": 0.444444
+        },
+        "reasons": {
+          "pot-control-check": 284,
+          "slow-play-check": 14,
+          "value-bet": 35,
+          "semi-bluff-raise": 5,
+          "pair-fold-price": 16,
+          "value-call": 22,
+          "board-danger-check": 28,
+          "semi-bluff-bet": 14,
+          "weak-fold": 19,
+          "value-raise": 9,
+          "draw-fold-price": 25,
+          "draw-call": 7,
+          "pair-call-price": 1,
+          "bluff-bet": 1,
+          "check-raise": 1,
+          "board-danger-fold": 4,
+          "value-reraise": 1,
+          "profile-call": 1
+        }
+      },
+      "river": {
+        "handsReached": 110,
+        "totalActions": 380,
+        "bets": {
+          "count": 37,
+          "rate": 0.097368
+        },
+        "raises": {
+          "count": 8,
+          "rate": 0.021053
+        },
+        "bluffs": {
+          "count": 2,
+          "rate": 0.005263
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 0,
+          "rate": 0
+        },
+        "handsWithRaise": {
+          "count": 7,
+          "rateOfReachedHands": 0.063636
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "pot-control-check": 187,
+          "value-bet": 35,
+          "weak-fold": 22,
+          "pair-call-price": 1,
+          "slow-play-check": 20,
+          "board-danger-check": 55,
+          "pair-fold-price": 11,
+          "value-raise": 7,
+          "value-call": 18,
+          "board-danger-fold": 21,
+          "value-reraise": 1,
+          "bluff-bet": 2
+        }
+      }
+    },
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 71,
+          "rate": 0.369792
+        },
+        "openRaise": {
+          "count": 5,
+          "rate": 0.026042
+        },
+        "foldToOpen": {
+          "opportunities": 5,
+          "count": 0,
+          "rate": 0
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 67,
+          "rate": 0.348958
+        },
+        "openRaise": {
+          "count": 1,
+          "rate": 0.005208
+        },
+        "foldToOpen": {
+          "opportunities": 14,
+          "count": 5,
+          "rate": 0.357143
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 63,
+          "rate": 0.328125
+        },
+        "openRaise": {
+          "count": 2,
+          "rate": 0.010417
+        },
+        "foldToOpen": {
+          "opportunities": 13,
+          "count": 3,
+          "rate": 0.230769
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 72,
+          "rate": 0.375
+        },
+        "openRaise": {
+          "count": 5,
+          "rate": 0.026042
+        },
+        "foldToOpen": {
+          "opportunities": 12,
+          "count": 8,
+          "rate": 0.666667
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 73,
+          "rate": 0.380208
+        },
+        "openRaise": {
+          "count": 6,
+          "rate": 0.03125
+        },
+        "foldToOpen": {
+          "opportunities": 15,
+          "count": 8,
+          "rate": 0.533333
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 65,
+          "rate": 0.338542
+        },
+        "openRaise": {
+          "count": 5,
+          "rate": 0.026042
+        },
+        "foldToOpen": {
+          "opportunities": 22,
+          "count": 17,
+          "rate": 0.772727
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 11,
+          "rate": 0.057292
+        },
+        "openRaise": {
+          "count": 4,
+          "rate": 0.020833
+        },
+        "foldToOpen": {
+          "opportunities": 24,
+          "count": 17,
+          "rate": 0.708333
+        },
+        "foldToThreeBet": {
+          "opportunities": 0,
+          "count": 0,
+          "rate": 0
+        }
+      }
+    },
+    "unopenedRangeMethod": "Exact 1326-combination enumeration of entry and sizing proposals before shared EV selection; these are not observed action frequencies.",
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 416,
+            "rate": 0.313725
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 34,
+            "rate": 0.025641
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1292,
+            "rate": 0.974359
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    },
+    "performance": {
+      "simulationElapsedMs": 421.426333,
+      "handLatencyMs": {
+        "count": 192,
+        "mean": 2.178291,
+        "p95": 4.323167,
+        "min": 0.066042,
+        "max": 8.1195
+      },
+      "analyzedDecisions": 0,
+      "loggedEquitySamples": 0,
+      "note": "Logged samples describe estimates attached to actions; cached worlds may be reused. Timings are measured on this machine, not deterministic output."
+    }
+  },
+  "afterBatch": {
+    "hands": 192,
+    "seed": 20260929,
+    "tableVersion": 3,
+    "policyVersion": 5,
+    "requestedDecisionSamples": 24,
+    "randomCalls": 12480,
+    "dealDigest": "20ca3d976f102b13f711f49818a154e702e7e8eeae1f2f033e0aa59eb1ba28ff",
+    "endingStreets": {
+      "preflop": {
+        "count": 35,
+        "rate": 0.182292
+      },
+      "flop": {
+        "count": 69,
+        "rate": 0.359375
+      },
+      "turn": {
+        "count": 32,
+        "rate": 0.166667
+      },
+      "river": {
+        "count": 56,
+        "rate": 0.291667
+      }
+    },
+    "sawFlop": {
+      "count": 157,
+      "rate": 0.817708
+    },
+    "limpedHands": {
+      "count": 112,
+      "rate": 0.583333
+    },
+    "overlimpedHands": {
+      "count": 64,
+      "rate": 0.333333
+    },
+    "flopPlayers": {
+      "total": 417,
+      "meanPerHand": 2.171875,
+      "meanWhenFlopSeen": 2.656051
+    },
+    "multiwayFlops": {
+      "count": 72,
+      "ratePerHand": 0.375,
+      "rateWhenFlopSeen": 0.458599
+    },
+    "maxConsecutivePreflopEndings": 2,
+    "actionRateDefinition": "Observed action counts / all recorded actions on that street; these are not a player's decision probabilities.",
+    "profileDefinition": "Fictional simulation parameters, not descriptions of the real people.",
+    "continuationDefinition": "C-bet opportunities use the last preflop raiser facing no flop bet. Value bets count too. Delayed c-bets require a checked-through flop; turn barrels continue the last flop aggressor. Policy reasons are counted separately.",
+    "actionsByStreet": {
+      "preflop": {
+        "handsReached": 192,
+        "totalActions": 1532,
+        "bets": {
+          "count": 0,
+          "rate": 0
+        },
+        "raises": {
+          "count": 213,
+          "rate": 0.139034
+        },
+        "bluffs": {
+          "count": 140,
+          "rate": 0.091384
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 0,
+          "rate": 0
+        },
+        "handsWithRaise": {
+          "count": 134,
+          "rateOfReachedHands": 0.697917
+        },
+        "isolations": {
+          "count": 56,
+          "rate": 0.036554
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "ev-fold": 892,
+          "ev-call": 371,
+          "ev-check": 56,
+          "preflop-open": 78,
+          "preflop-isolate": 56,
+          "preflop-three-bet": 66,
+          "preflop-four-bet": 13
+        }
+      },
+      "flop": {
+        "handsReached": 157,
+        "totalActions": 539,
+        "bets": {
+          "count": 119,
+          "rate": 0.220779
+        },
+        "raises": {
+          "count": 50,
+          "rate": 0.092764
+        },
+        "bluffs": {
+          "count": 15,
+          "rate": 0.027829
+        },
+        "semiBluffs": {
+          "count": 30,
+          "rate": 0.055659
+        },
+        "checkRaises": {
+          "count": 9,
+          "rate": 0.016698
+        },
+        "handsWithRaise": {
+          "count": 36,
+          "rateOfReachedHands": 0.229299
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 68,
+          "count": 33,
+          "rateOfOpportunities": 0.485294
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "value-bet": 60,
+          "ev-fold": 146,
+          "ev-check": 165,
+          "value-protection-bet": 20,
+          "ev-call": 59,
+          "check-raise": 3,
+          "value-reraise": 12,
+          "semi-bluff-bet": 12,
+          "value-raise": 22,
+          "continuation-bet": 24,
+          "bluff-bet": 3,
+          "semi-bluff-raise": 13
+        }
+      },
+      "turn": {
+        "handsReached": 88,
+        "totalActions": 238,
+        "bets": {
+          "count": 52,
+          "rate": 0.218487
+        },
+        "raises": {
+          "count": 8,
+          "rate": 0.033613
+        },
+        "bluffs": {
+          "count": 3,
+          "rate": 0.012605
+        },
+        "semiBluffs": {
+          "count": 11,
+          "rate": 0.046218
+        },
+        "checkRaises": {
+          "count": 3,
+          "rate": 0.012605
+        },
+        "handsWithRaise": {
+          "count": 7,
+          "rateOfReachedHands": 0.079545
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 21,
+          "count": 7,
+          "rateOfOpportunities": 0.333333
+        },
+        "turnBarrels": {
+          "opportunities": 45,
+          "count": 20,
+          "rateOfOpportunities": 0.444444
+        },
+        "reasons": {
+          "semi-bluff-bet": 5,
+          "ev-call": 24,
+          "ev-fold": 47,
+          "value-raise": 3,
+          "ev-check": 107,
+          "value-protection-bet": 7,
+          "value-bet": 33,
+          "semi-bluff-raise": 4,
+          "value-reraise": 1,
+          "delayed-continuation-bet": 5,
+          "turn-barrel": 1,
+          "bluff-bet": 1
+        }
+      },
+      "river": {
+        "handsReached": 56,
+        "totalActions": 137,
+        "bets": {
+          "count": 21,
+          "rate": 0.153285
+        },
+        "raises": {
+          "count": 0,
+          "rate": 0
+        },
+        "bluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "semiBluffs": {
+          "count": 0,
+          "rate": 0
+        },
+        "checkRaises": {
+          "count": 0,
+          "rate": 0
+        },
+        "handsWithRaise": {
+          "count": 0,
+          "rateOfReachedHands": 0
+        },
+        "isolations": {
+          "count": 0,
+          "rate": 0
+        },
+        "continuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "delayedContinuationBets": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "turnBarrels": {
+          "opportunities": 0,
+          "count": 0,
+          "rateOfOpportunities": null
+        },
+        "reasons": {
+          "ev-check": 91,
+          "value-protection-bet": 2,
+          "ev-fold": 22,
+          "value-bet": 19,
+          "ev-call": 3
+        }
+      }
+    },
+    "positions": {
+      "UTG": {
+        "vpip": {
+          "count": 64,
+          "rate": 0.333333
+        },
+        "openRaise": {
+          "count": 28,
+          "rate": 0.145833
+        },
+        "foldToOpen": {
+          "opportunities": 14,
+          "count": 2,
+          "rate": 0.142857
+        },
+        "foldToThreeBet": {
+          "opportunities": 24,
+          "count": 11,
+          "rate": 0.458333
+        }
+      },
+      "LJ": {
+        "vpip": {
+          "count": 61,
+          "rate": 0.317708
+        },
+        "openRaise": {
+          "count": 21,
+          "rate": 0.109375
+        },
+        "foldToOpen": {
+          "opportunities": 41,
+          "count": 26,
+          "rate": 0.634146
+        },
+        "foldToThreeBet": {
+          "opportunities": 22,
+          "count": 10,
+          "rate": 0.454545
+        }
+      },
+      "HJ": {
+        "vpip": {
+          "count": 62,
+          "rate": 0.322917
+        },
+        "openRaise": {
+          "count": 23,
+          "rate": 0.119792
+        },
+        "foldToOpen": {
+          "opportunities": 58,
+          "count": 41,
+          "rate": 0.706897
+        },
+        "foldToThreeBet": {
+          "opportunities": 24,
+          "count": 20,
+          "rate": 0.833333
+        }
+      },
+      "CO": {
+        "vpip": {
+          "count": 64,
+          "rate": 0.333333
+        },
+        "openRaise": {
+          "count": 20,
+          "rate": 0.104167
+        },
+        "foldToOpen": {
+          "opportunities": 70,
+          "count": 44,
+          "rate": 0.628571
+        },
+        "foldToThreeBet": {
+          "opportunities": 29,
+          "count": 25,
+          "rate": 0.862069
+        }
+      },
+      "BTN": {
+        "vpip": {
+          "count": 66,
+          "rate": 0.34375
+        },
+        "openRaise": {
+          "count": 19,
+          "rate": 0.098958
+        },
+        "foldToOpen": {
+          "opportunities": 80,
+          "count": 58,
+          "rate": 0.725
+        },
+        "foldToThreeBet": {
+          "opportunities": 35,
+          "count": 26,
+          "rate": 0.742857
+        }
+      },
+      "SB": {
+        "vpip": {
+          "count": 107,
+          "rate": 0.557292
+        },
+        "openRaise": {
+          "count": 12,
+          "rate": 0.0625
+        },
+        "foldToOpen": {
+          "opportunities": 89,
+          "count": 50,
+          "rate": 0.561798
+        },
+        "foldToThreeBet": {
+          "opportunities": 45,
+          "count": 34,
+          "rate": 0.755556
+        }
+      },
+      "BB": {
+        "vpip": {
+          "count": 68,
+          "rate": 0.354167
+        },
+        "openRaise": {
+          "count": 11,
+          "rate": 0.057292
+        },
+        "foldToOpen": {
+          "opportunities": 82,
+          "count": 33,
+          "rate": 0.402439
+        },
+        "foldToThreeBet": {
+          "opportunities": 52,
+          "count": 38,
+          "rate": 0.730769
+        }
+      }
+    },
+    "unopenedRangeMethod": "Exact 1326-combination enumeration of entry and sizing proposals before shared EV selection; these are not observed action frequencies.",
+    "unopenedRanges": {
+      "UTG": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "LJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "HJ": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "CO": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BTN": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "SB": {
+        "context": "unopened",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 410,
+            "rate": 0.309201
+          },
+          "check": {
+            "count": 0,
+            "rate": 0
+          },
+          "fold": {
+            "count": 876,
+            "rate": 0.660633
+          }
+        }
+      },
+      "BB": {
+        "context": "vs-sb-limp",
+        "combinations": 1326,
+        "actions": {
+          "raise": {
+            "count": 40,
+            "rate": 0.030166
+          },
+          "call": {
+            "count": 0,
+            "rate": 0
+          },
+          "check": {
+            "count": 1286,
+            "rate": 0.969834
+          },
+          "fold": {
+            "count": 0,
+            "rate": 0
+          }
+        }
+      }
+    },
+    "performance": {
+      "simulationElapsedMs": 13313.866291,
+      "handLatencyMs": {
+        "count": 192,
+        "mean": 69.310248,
+        "p95": 125.760458,
+        "min": 26.226333,
+        "max": 173.3495
+      },
+      "analyzedDecisions": 2446,
+      "loggedEquitySamples": 58704,
+      "note": "Logged samples describe estimates attached to actions; cached worlds may be reused. Timings are measured on this machine, not deterministic output."
+    },
+    "strategyDiagnostics": {
+      "definition": "Observed decisions for fixed public histories over reproducible seeds and all seven simulation profiles. C-bets use the last preflop raiser and an unopened flop, including value bets; reason counts report policy branches separately. These are not population poker frequencies.",
+      "isolationDefinition": "Legal sizing proposals before EV selection; unreachable limper counts are omitted and a BB walk has no decision.",
+      "samplesPerProfile": 16,
+      "equitySamplesPerDecision": 128,
+      "seedStart": 1,
+      "profileCount": 7,
+      "scenarios": {
+        "ak_q72_rainbow": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 96,
+            "check": 16,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 96,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.857143,
+            "check": 0.142857,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.857143,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 3.677083,
+          "opportunityRates": {
+            "continuationBet": 0.857143,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 16,
+            "continuation-bet": 96
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "kelin": {
+              "betCount": 12,
+              "betRate": 0.75
+            },
+            "xingxing": {
+              "betCount": 13,
+              "betRate": 0.8125
+            },
+            "juyipeng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "minmin": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "wangwang": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "jianjian": {
+              "betCount": 14,
+              "betRate": 0.875
+            }
+          }
+        },
+        "ak_884_rainbow": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "8s 8h 4d",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 96,
+            "check": 16,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 96,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.857143,
+            "check": 0.142857,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.857143,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 3.817708,
+          "opportunityRates": {
+            "continuationBet": 0.857143,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 16,
+            "continuation-bet": 96
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "kelin": {
+              "betCount": 12,
+              "betRate": 0.75
+            },
+            "xingxing": {
+              "betCount": 13,
+              "betRate": 0.8125
+            },
+            "juyipeng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "minmin": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "wangwang": {
+              "betCount": 14,
+              "betRate": 0.875
+            },
+            "jianjian": {
+              "betCount": 14,
+              "betRate": 0.875
+            }
+          }
+        },
+        "ak_987_two_tone": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "9h 8h 7c",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 24,
+            "check": 88,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 24,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.214286,
+            "check": 0.785714,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.214286,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 3.229167,
+          "opportunityRates": {
+            "continuationBet": 0.214286,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 88,
+            "continuation-bet": 24
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 3,
+              "betRate": 0.1875
+            },
+            "kelin": {
+              "betCount": 4,
+              "betRate": 0.25
+            },
+            "xingxing": {
+              "betCount": 3,
+              "betRate": 0.1875
+            },
+            "juyipeng": {
+              "betCount": 2,
+              "betRate": 0.125
+            },
+            "minmin": {
+              "betCount": 5,
+              "betRate": 0.3125
+            },
+            "wangwang": {
+              "betCount": 4,
+              "betRate": 0.25
+            },
+            "jianjian": {
+              "betCount": 3,
+              "betRate": 0.1875
+            }
+          }
+        },
+        "ak_q72_four_way": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d",
+          "activePlayers": 4,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 7,
+            "check": 105,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 7,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.0625,
+            "check": 0.9375,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.0625,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 4.357143,
+          "opportunityRates": {
+            "continuationBet": 0.0625,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 105,
+            "continuation-bet": 7
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "kelin": {
+              "betCount": 2,
+              "betRate": 0.125
+            },
+            "xingxing": {
+              "betCount": 3,
+              "betRate": 0.1875
+            },
+            "juyipeng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "minmin": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "wangwang": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "jianjian": {
+              "betCount": 1,
+              "betRate": 0.0625
+            }
+          }
+        },
+        "jj_t62_rainbow": {
+          "street": "flop",
+          "hand": "Js Jc",
+          "board": "10s 6h 2d",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 105,
+            "check": 7,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 105,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 105
+          },
+          "rates": {
+            "bet": 0.9375,
+            "check": 0.0625,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.9375,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0.9375
+          },
+          "meanBetTo": 4.852381,
+          "opportunityRates": {
+            "continuationBet": 0.9375,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "value-protection-bet": 105,
+            "ev-check": 7
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "kelin": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "xingxing": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "juyipeng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "minmin": {
+              "betCount": 16,
+              "betRate": 1
+            },
+            "wangwang": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "jianjian": {
+              "betCount": 14,
+              "betRate": 0.875
+            }
+          }
+        },
+        "jj_832_rainbow": {
+          "street": "flop",
+          "hand": "Js Jc",
+          "board": "8h 3c 2d",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 105,
+            "check": 7,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 112,
+            "continuationBet": 105,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 105
+          },
+          "rates": {
+            "bet": 0.9375,
+            "check": 0.0625,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 1,
+            "continuationBet": 0.9375,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0.9375
+          },
+          "meanBetTo": 4.685714,
+          "opportunityRates": {
+            "continuationBet": 0.9375,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "value-protection-bet": 105,
+            "ev-check": 7
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "kelin": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "xingxing": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "juyipeng": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "minmin": {
+              "betCount": 16,
+              "betRate": 1
+            },
+            "wangwang": {
+              "betCount": 15,
+              "betRate": 0.9375
+            },
+            "jianjian": {
+              "betCount": 14,
+              "betRate": 0.875
+            }
+          }
+        },
+        "ak_cold_caller": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d",
+          "activePlayers": 2,
+          "initiative": "opponent",
+          "samples": 112,
+          "counts": {
+            "bet": 11,
+            "check": 101,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.098214,
+            "check": 0.901786,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 2.954545,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 101,
+            "bluff-bet": 11
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "kelin": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "xingxing": {
+              "betCount": 2,
+              "betRate": 0.125
+            },
+            "juyipeng": {
+              "betCount": 2,
+              "betRate": 0.125
+            },
+            "minmin": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "wangwang": {
+              "betCount": 3,
+              "betRate": 0.1875
+            },
+            "jianjian": {
+              "betCount": 1,
+              "betRate": 0.0625
+            }
+          }
+        },
+        "ak_called_three_bet": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d",
+          "activePlayers": 2,
+          "initiative": "three-bettor",
+          "samples": 112,
+          "counts": {
+            "bet": 8,
+            "check": 104,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.071429,
+            "check": 0.928571,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 12.0625,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 104,
+            "bluff-bet": 8
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "kelin": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "xingxing": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "juyipeng": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "minmin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "wangwang": {
+              "betCount": 3,
+              "betRate": 0.1875
+            },
+            "jianjian": {
+              "betCount": 2,
+              "betRate": 0.125
+            }
+          }
+        },
+        "ak_faces_flop_raise": {
+          "street": "flop",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 0,
+            "check": 0,
+            "call": 0,
+            "raise": 0,
+            "fold": 112,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0,
+            "check": 0,
+            "call": 0,
+            "raise": 0,
+            "fold": 1,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 0,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-fold": 112
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "kelin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "xingxing": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "juyipeng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "minmin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "wangwang": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "jianjian": {
+              "betCount": 0,
+              "betRate": 0
+            }
+          }
+        },
+        "ak_turn_draw": {
+          "street": "turn",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d Js",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 54,
+            "check": 58,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 112,
+            "turnBarrel": 54,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.482143,
+            "check": 0.517857,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 1,
+            "turnBarrel": 0.482143,
+            "valueProtection": 0
+          },
+          "meanBetTo": 6.185185,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": 0.482143
+          },
+          "reasons": {
+            "ev-check": 58,
+            "turn-barrel": 54
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 10,
+              "betRate": 0.625
+            },
+            "kelin": {
+              "betCount": 10,
+              "betRate": 0.625
+            },
+            "xingxing": {
+              "betCount": 8,
+              "betRate": 0.5
+            },
+            "juyipeng": {
+              "betCount": 7,
+              "betRate": 0.4375
+            },
+            "minmin": {
+              "betCount": 6,
+              "betRate": 0.375
+            },
+            "wangwang": {
+              "betCount": 8,
+              "betRate": 0.5
+            },
+            "jianjian": {
+              "betCount": 5,
+              "betRate": 0.3125
+            }
+          }
+        },
+        "ak_turn_blank": {
+          "street": "turn",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d 4c",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 2,
+            "check": 110,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 112,
+            "turnBarrel": 2,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.017857,
+            "check": 0.982143,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 1,
+            "turnBarrel": 0.017857,
+            "valueProtection": 0
+          },
+          "meanBetTo": 4.5,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": 0.017857
+          },
+          "reasons": {
+            "ev-check": 110,
+            "bluff-bet": 2
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "kelin": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "xingxing": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "juyipeng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "minmin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "wangwang": {
+              "betCount": 1,
+              "betRate": 0.0625
+            },
+            "jianjian": {
+              "betCount": 0,
+              "betRate": 0
+            }
+          }
+        },
+        "ak_delayed_turn": {
+          "street": "turn",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d Jh",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 70,
+            "check": 42,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 112,
+            "delayedContinuationBet": 70,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0.625,
+            "check": 0.375,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 1,
+            "delayedContinuationBet": 0.625,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 3.635714,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": 0.625,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 42,
+            "delayed-continuation-bet": 70
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 11,
+              "betRate": 0.6875
+            },
+            "kelin": {
+              "betCount": 10,
+              "betRate": 0.625
+            },
+            "xingxing": {
+              "betCount": 9,
+              "betRate": 0.5625
+            },
+            "juyipeng": {
+              "betCount": 11,
+              "betRate": 0.6875
+            },
+            "minmin": {
+              "betCount": 10,
+              "betRate": 0.625
+            },
+            "wangwang": {
+              "betCount": 10,
+              "betRate": 0.625
+            },
+            "jianjian": {
+              "betCount": 9,
+              "betRate": 0.5625
+            }
+          }
+        },
+        "ak_missed_river": {
+          "street": "river",
+          "hand": "As Ks",
+          "board": "Qs 7h 2d Jh 4c",
+          "activePlayers": 2,
+          "initiative": "hero",
+          "samples": 112,
+          "counts": {
+            "bet": 0,
+            "check": 112,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "rates": {
+            "bet": 0,
+            "check": 1,
+            "call": 0,
+            "raise": 0,
+            "fold": 0,
+            "cbetOpportunities": 0,
+            "continuationBet": 0,
+            "delayedOpportunities": 0,
+            "delayedContinuationBet": 0,
+            "barrelOpportunities": 0,
+            "turnBarrel": 0,
+            "valueProtection": 0
+          },
+          "meanBetTo": 0,
+          "opportunityRates": {
+            "continuationBet": null,
+            "delayedContinuationBet": null,
+            "turnBarrel": null
+          },
+          "reasons": {
+            "ev-check": 112
+          },
+          "profiles": {
+            "tengteng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "kelin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "xingxing": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "juyipeng": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "minmin": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "wangwang": {
+              "betCount": 0,
+              "betRate": 0
+            },
+            "jianjian": {
+              "betCount": 0,
+              "betRate": 0
+            }
+          }
+        }
+      },
+      "isolation": {
+        "UTG": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          }
+        },
+        "LJ": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          },
+          "1": {
+            "action": "raise",
+            "to": 4,
+            "reason": "preflop-isolate"
+          }
+        },
+        "HJ": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          },
+          "1": {
+            "action": "raise",
+            "to": 4,
+            "reason": "preflop-isolate"
+          }
+        },
+        "CO": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          },
+          "1": {
+            "action": "raise",
+            "to": 4,
+            "reason": "preflop-isolate"
+          },
+          "3": {
+            "action": "raise",
+            "to": 6,
+            "reason": "preflop-isolate"
+          }
+        },
+        "BTN": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          },
+          "1": {
+            "action": "raise",
+            "to": 4,
+            "reason": "preflop-isolate"
+          },
+          "3": {
+            "action": "raise",
+            "to": 6,
+            "reason": "preflop-isolate"
+          }
+        },
+        "SB": {
+          "0": {
+            "action": "raise",
+            "to": 3,
+            "reason": "preflop-open"
+          },
+          "1": {
+            "action": "raise",
+            "to": 5,
+            "reason": "preflop-isolate"
+          },
+          "3": {
+            "action": "raise",
+            "to": 7,
+            "reason": "preflop-isolate"
+          }
+        },
+        "BB": {
+          "0": {
+            "action": "walk",
+            "to": null,
+            "reason": "No opponent remains; the big blind has no decision."
+          },
+          "1": {
+            "action": "raise",
+            "to": 4,
+            "reason": "preflop-isolate"
+          },
+          "3": {
+            "action": "raise",
+            "to": 7,
+            "reason": "preflop-isolate"
+          }
+        }
+      }
+    },
+    "productionBenchmark": {
+      "samplesPerDecision": 128,
+      "seed": 20261019,
+      "firstDecisionMs": 16.931542,
+      "decisionLatencyMs": {
+        "count": 32,
+        "mean": 6.466954,
+        "p95": 14.79525,
+        "min": 2.798791,
+        "max": 16.931542
+      },
+      "handLatencyMs": {
+        "count": 8,
+        "mean": 81.242313,
+        "p95": 112.89625,
+        "min": 40.153542,
+        "max": 112.89625
+      },
+      "loggedActions": 95,
+      "note": "Fresh decision engines and complete hands measured at production sampling; wall times vary by machine and process warm-up.",
+      "processCondition": "Dedicated fresh Node process before any other decision analysis; firstDecisionMs excludes module import time."
+    }
+  },
+  "diagnosticsBefore": {
+    "definition": "Observed decisions for fixed public histories over reproducible seeds and all seven simulation profiles. C-bets use the last preflop raiser and an unopened flop, including value bets; reason counts report policy branches separately. These are not population poker frequencies.",
+    "isolationDefinition": "Legal sizing proposals before EV selection; unreachable limper counts are omitted and a BB walk has no decision.",
+    "samplesPerProfile": 16,
+    "equitySamplesPerDecision": 0,
+    "seedStart": 1,
+    "profileCount": 7,
+    "scenarios": {
+      "ak_q72_rainbow": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 11,
+          "check": 101,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 11,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.098214,
+          "check": 0.901786,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0.098214,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 3.318182,
+        "opportunityRates": {
+          "continuationBet": 0.098214,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 101,
+          "bluff-bet": 11
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "juyipeng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "minmin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 1,
+            "betRate": 0.0625
+          }
+        }
+      },
+      "ak_884_rainbow": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "8s 8h 4d",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 11,
+          "check": 101,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 11,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.098214,
+          "check": 0.901786,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0.098214,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 3.318182,
+        "opportunityRates": {
+          "continuationBet": 0.098214,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 101,
+          "bluff-bet": 11
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "juyipeng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "minmin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 1,
+            "betRate": 0.0625
+          }
+        }
+      },
+      "ak_987_two_tone": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "9h 8h 7c",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 11,
+          "check": 101,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 11,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.098214,
+          "check": 0.901786,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0.098214,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 3.318182,
+        "opportunityRates": {
+          "continuationBet": 0.098214,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 101,
+          "bluff-bet": 11
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "juyipeng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "minmin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 1,
+            "betRate": 0.0625
+          }
+        }
+      },
+      "ak_q72_four_way": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d",
+        "activePlayers": 4,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 0,
+          "check": 112,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0,
+          "check": 1,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 0,
+        "opportunityRates": {
+          "continuationBet": 0,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 112
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "kelin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "xingxing": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "juyipeng": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "minmin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "wangwang": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "jianjian": {
+            "betCount": 0,
+            "betRate": 0
+          }
+        }
+      },
+      "jj_t62_rainbow": {
+        "street": "flop",
+        "hand": "Js Jc",
+        "board": "10s 6h 2d",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 78,
+          "check": 34,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 78,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.696429,
+          "check": 0.303571,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0.696429,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 2,
+        "opportunityRates": {
+          "continuationBet": 0.696429,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "slow-play-check": 34,
+          "value-bet": 78
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 10,
+            "betRate": 0.625
+          },
+          "kelin": {
+            "betCount": 9,
+            "betRate": 0.5625
+          },
+          "xingxing": {
+            "betCount": 13,
+            "betRate": 0.8125
+          },
+          "juyipeng": {
+            "betCount": 13,
+            "betRate": 0.8125
+          },
+          "minmin": {
+            "betCount": 11,
+            "betRate": 0.6875
+          },
+          "wangwang": {
+            "betCount": 14,
+            "betRate": 0.875
+          },
+          "jianjian": {
+            "betCount": 8,
+            "betRate": 0.5
+          }
+        }
+      },
+      "jj_832_rainbow": {
+        "street": "flop",
+        "hand": "Js Jc",
+        "board": "8h 3c 2d",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 78,
+          "check": 34,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 112,
+          "continuationBet": 78,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.696429,
+          "check": 0.303571,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 1,
+          "continuationBet": 0.696429,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 2,
+        "opportunityRates": {
+          "continuationBet": 0.696429,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "slow-play-check": 34,
+          "value-bet": 78
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 10,
+            "betRate": 0.625
+          },
+          "kelin": {
+            "betCount": 9,
+            "betRate": 0.5625
+          },
+          "xingxing": {
+            "betCount": 13,
+            "betRate": 0.8125
+          },
+          "juyipeng": {
+            "betCount": 13,
+            "betRate": 0.8125
+          },
+          "minmin": {
+            "betCount": 11,
+            "betRate": 0.6875
+          },
+          "wangwang": {
+            "betCount": 14,
+            "betRate": 0.875
+          },
+          "jianjian": {
+            "betCount": 8,
+            "betRate": 0.5
+          }
+        }
+      },
+      "ak_cold_caller": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d",
+        "activePlayers": 2,
+        "initiative": "opponent",
+        "samples": 112,
+        "counts": {
+          "bet": 11,
+          "check": 101,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.098214,
+          "check": 0.901786,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 3.818182,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 101,
+          "bluff-bet": 11
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "juyipeng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "minmin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 1,
+            "betRate": 0.0625
+          }
+        }
+      },
+      "ak_called_three_bet": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d",
+        "activePlayers": 2,
+        "initiative": "three-bettor",
+        "samples": 112,
+        "counts": {
+          "bet": 11,
+          "check": 101,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.098214,
+          "check": 0.901786,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 10.090909,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 101,
+          "bluff-bet": 11
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "juyipeng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "minmin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 1,
+            "betRate": 0.0625
+          }
+        }
+      },
+      "ak_faces_flop_raise": {
+        "street": "flop",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 0,
+          "check": 0,
+          "call": 0,
+          "raise": 0,
+          "fold": 112,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0,
+          "check": 0,
+          "call": 0,
+          "raise": 0,
+          "fold": 1,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 0,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "weak-fold": 112
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "kelin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "xingxing": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "juyipeng": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "minmin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "wangwang": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "jianjian": {
+            "betCount": 0,
+            "betRate": 0
+          }
+        }
+      },
+      "ak_turn_draw": {
+        "street": "turn",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d Js",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 38,
+          "check": 74,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 112,
+          "turnBarrel": 38,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.339286,
+          "check": 0.660714,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 1,
+          "turnBarrel": 0.339286,
+          "valueProtection": 0
+        },
+        "meanBetTo": 6.105263,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": 0.339286
+        },
+        "reasons": {
+          "pot-control-check": 74,
+          "semi-bluff-bet": 38
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 4,
+            "betRate": 0.25
+          },
+          "kelin": {
+            "betCount": 8,
+            "betRate": 0.5
+          },
+          "xingxing": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "juyipeng": {
+            "betCount": 6,
+            "betRate": 0.375
+          },
+          "minmin": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "wangwang": {
+            "betCount": 8,
+            "betRate": 0.5
+          },
+          "jianjian": {
+            "betCount": 7,
+            "betRate": 0.4375
+          }
+        }
+      },
+      "ak_turn_blank": {
+        "street": "turn",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d 4c",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 16,
+          "check": 96,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 112,
+          "turnBarrel": 16,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.142857,
+          "check": 0.857143,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 1,
+          "turnBarrel": 0.142857,
+          "valueProtection": 0
+        },
+        "meanBetTo": 5.75,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": 0.142857
+        },
+        "reasons": {
+          "pot-control-check": 96,
+          "bluff-bet": 16
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "kelin": {
+            "betCount": 4,
+            "betRate": 0.25
+          },
+          "xingxing": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "juyipeng": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "minmin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 5,
+            "betRate": 0.3125
+          }
+        }
+      },
+      "ak_delayed_turn": {
+        "street": "turn",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d Jh",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 16,
+          "check": 96,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 112,
+          "delayedContinuationBet": 16,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.142857,
+          "check": 0.857143,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 1,
+          "delayedContinuationBet": 0.142857,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 3.4375,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": 0.142857,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 96,
+          "semi-bluff-bet": 16
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "kelin": {
+            "betCount": 4,
+            "betRate": 0.25
+          },
+          "xingxing": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "juyipeng": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "minmin": {
+            "betCount": 0,
+            "betRate": 0
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 5,
+            "betRate": 0.3125
+          }
+        }
+      },
+      "ak_missed_river": {
+        "street": "river",
+        "hand": "As Ks",
+        "board": "Qs 7h 2d Jh 4c",
+        "activePlayers": 2,
+        "initiative": "hero",
+        "samples": 112,
+        "counts": {
+          "bet": 15,
+          "check": 97,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "rates": {
+          "bet": 0.133929,
+          "check": 0.866071,
+          "call": 0,
+          "raise": 0,
+          "fold": 0,
+          "cbetOpportunities": 0,
+          "continuationBet": 0,
+          "delayedOpportunities": 0,
+          "delayedContinuationBet": 0,
+          "barrelOpportunities": 0,
+          "turnBarrel": 0,
+          "valueProtection": 0
+        },
+        "meanBetTo": 11.033333,
+        "opportunityRates": {
+          "continuationBet": null,
+          "delayedContinuationBet": null,
+          "turnBarrel": null
+        },
+        "reasons": {
+          "pot-control-check": 97,
+          "bluff-bet": 15
+        },
+        "profiles": {
+          "tengteng": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "kelin": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "xingxing": {
+            "betCount": 4,
+            "betRate": 0.25
+          },
+          "juyipeng": {
+            "betCount": 1,
+            "betRate": 0.0625
+          },
+          "minmin": {
+            "betCount": 2,
+            "betRate": 0.125
+          },
+          "wangwang": {
+            "betCount": 3,
+            "betRate": 0.1875
+          },
+          "jianjian": {
+            "betCount": 2,
+            "betRate": 0.125
+          }
+        }
+      }
+    },
+    "isolation": {
+      "UTG": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "LJ": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "HJ": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "CO": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "3": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "BTN": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "3": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "SB": {
+        "0": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "3": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      },
+      "BB": {
+        "0": {
+          "action": "walk",
+          "to": null,
+          "reason": "No opponent remains; the big blind has no decision."
+        },
+        "1": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        },
+        "3": {
+          "action": "raise",
+          "to": 3,
+          "reason": "preflop-open"
+        }
+      }
+    },
+    "estimator": "Policy 4 heuristic baseline; no range Monte Carlo."
+  },
+  "validation": {
+    "coreEvAndPlanningTests": 18,
+    "premiumOpeningRegression": {
+      "hands": 100,
+      "samplesPerDecision": 128,
+      "passed": true
+    },
+    "note": "After switching the strategic opening regression to the production 128-sample budget, the full 187-test suite and standalone HTML build passed. Structural batch checks retain their explicitly reported lower budget.",
+    "fullCheck": {
+      "command": "npm run check",
+      "tests": 187,
+      "passed": 187,
+      "failed": 0,
+      "buildPassed": true
+    }
+  }
+}

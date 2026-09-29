@@ -1,17 +1,13 @@
 import { ODDS_CATEGORIES, ODDS_DECK, calculateOdds } from "./poker-odds.mjs";
-
-const CATEGORY_KEYS = {
-  "high-card": "cCategoryHighCard",
-  "one-pair": "cCategoryOnePair",
-  "two-pair": "cCategoryTwoPair",
-  "three-kind": "cCategoryThreeKind",
-  straight: "cCategoryStraight",
-  flush: "cCategoryFlush",
-  "full-house": "cCategoryFullHouse",
-  "four-kind": "cCategoryFourKind",
-  "straight-flush": "cCategoryStraightFlush",
-  "royal-flush": "cCategoryRoyalFlush",
-};
+import { ODDS_CATEGORY_KEYS as CATEGORY_KEYS } from "./odds-i18n.mjs";
+import { CLOSE_ICON } from "./icons.mjs";
+import {
+  createCardSelection,
+  activateSelectionSlot,
+  pickSelectionCard,
+  clearSelectionCard,
+  commitCardSelection,
+} from "./odds-selection.mjs";
 const PICKER_SUITS = [
   { id: "spades", symbol: "♠", label: "cSpades" },
   { id: "hearts", symbol: "♥", label: "cHearts" },
@@ -54,6 +50,8 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     version: 0,
     picker: null,
     pickerSuit: "all",
+    pickerError: false,
+    undo: null,
   };
   const escape = (value) =>
     String(value).replace(
@@ -96,7 +94,7 @@ export function createOddsCalculator({ element, translate, renderCard }) {
       .slice(0, count)
       .map(
         (card, index) =>
-          `<button type="button" class="odds-card-slot${card ? " is-filled" : ""}" data-slot-group="${group}" data-slot-index="${index}" aria-haspopup="dialog" aria-label="${escape(t("cSelectCard", { target: groupLabel(group), index: index + 1 }) + (card ? ` · ${cardName(card)}` : ""))}">${card ? renderCard(card, { fan: false }) : `<span class="slot-plus" aria-hidden="true">+</span><span>${t("cEmptyCard")}</span>`}</button>`,
+          `<div class="odds-slot-wrap"><button type="button" class="odds-card-slot${card ? " is-filled" : ""}" data-slot-group="${group}" data-slot-index="${index}" aria-haspopup="dialog" aria-label="${escape(t(card ? "cReplaceCard" : "cSelectCard", { target: groupLabel(group), index: index + 1, card: card ? cardName(card) : "" }))}">${card ? renderCard(card, { fan: false }) : `<span class="slot-plus" aria-hidden="true">+</span><span>${t("cEmptyCard")}</span>`}</button></div>`,
       )
       .join("")}</div>`;
   }
@@ -140,26 +138,69 @@ export function createOddsCalculator({ element, translate, renderCard }) {
       )}</tbody>${result ? `<tfoot><tr><th scope="row">${t("cPercentageTotal")}</th><td>100.00%</td><td>${result.totalOutcomes.toLocaleString()}</td></tr></tfoot>` : ""}</table><div class="odds-distribution-note"><span>${t("cFinalHand")}</span><p>${t("cDistributionNote")} ${t("cRounding")}</p></div>${playerResult ? `<div class="current-hand"><div><span>${t("cCurrentHand")}</span><strong>${t(CATEGORY_KEYS[playerResult.current.category])}</strong></div><div class="current-hand-cards">${playerResult.current.bestCards.map((card) => renderCard(card, { fan: false })).join("")}</div></div>` : ""}</section>`;
   }
 
-  function closePicker() {
+  const slotSelector = (group, index) =>
+    `[data-slot-group="${group}"][data-slot-index="${index}"]`;
+  const dealSignature = () => JSON.stringify([
+    state.hero, state.board, state.villain, state.stage, state.useVillain,
+  ]);
+
+  function changeDeal(update, focusSelector) {
+    const before = dealSignature();
+    const previous = {
+      hero: state.hero.map((card) => card && { ...card }),
+      board: state.board.map((card) => card && { ...card }),
+      villain: state.villain.map((card) => card && { ...card }),
+      stage: state.stage,
+      useVillain: state.useVillain,
+      player: state.player,
+      result: state.result,
+      error: state.error,
+    };
+    update();
+    if (dealSignature() !== before) {
+      state.undo = previous;
+      invalidate();
+    }
+    render(focusSelector);
+  }
+
+  function undoChange() {
+    if (!state.undo) return;
+    const previous = state.undo;
+    invalidate();
+    Object.assign(state, previous);
+    state.undo = null;
+    render(slotSelector("hero", 0));
+  }
+
+  function removeCard(group, index) {
+    if (!state[group]?.[index]) return;
+    changeDeal(() => { state[group][index] = null; }, slotSelector(group, index));
+  }
+
+  function closePicker({ restoreFocus = true } = {}) {
     const picker = element.querySelector(".card-picker");
+    const selection = state.picker;
+    state.picker = null;
+    state.pickerError = false;
     if (picker?.open) picker.close();
     document.body.classList.remove("card-picker-open");
+    if (restoreFocus && selection)
+      element.querySelector(slotSelector(selection.group, selection.originIndex))?.focus({ preventScroll: true });
   }
 
   function render(focusSelector) {
-    closePicker();
-    state.picker = null;
-    element.innerHTML = `<header class="odds-page-header"><h1 id="odds-title">${t("cTitle")}</h1><span>${t("cFinalHand")}<i aria-hidden="true">·</i>${t("cExact")}</span></header><div class="odds-layout"><section class="odds-input-panel" aria-label="${t("cKnownCards")}"><div class="odds-panel-heading"><h2>${t("cHero")}</h2><button type="button" class="odds-text-button" data-odds-example>${t("cExample")}</button></div>${slots("hero", 2)}<div class="odds-board-heading"><h2>${t("cBoard")}</h2><div class="odds-stage" role="group" aria-label="${t("cStage")}">${[3, 4, 5].map((stage) => `<button type="button" data-odds-stage="${stage}" aria-pressed="${state.stage === stage}">${t({ 3: "cFlop", 4: "cTurn", 5: "cRiver" }[stage])}<span>${stage}</span></button>`).join("")}</div></div>${slots("board", state.stage)}<div class="odds-villain-heading"><h2>${t("cVillain")}</h2><label class="odds-villain-toggle"><input type="checkbox" id="odds-use-villain" ${state.useVillain ? "checked" : ""}><span class="odds-toggle-track" aria-hidden="true"></span><span>${t(state.useVillain ? "cHeadsUp" : "cAddVillain")}</span></label></div>${state.useVillain ? slots("villain", 2) : `<p class="odds-opponent-note">${t("cNoOpponent")}</p>`}<div class="odds-form-actions"><button type="button" class="odds-calculate" data-odds-calculate ${!complete() || state.busy ? "disabled" : ""}>${t(state.busy ? "cCalculating" : "cCalculate")}<span aria-hidden="true">${state.busy ? "…" : "↗"}</span></button><button type="button" class="odds-reset" data-odds-reset>${t("cReset")}</button></div><p class="odds-input-status${state.error ? " is-error" : ""}" role="status">${state.error ? t("cError") : state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : readiness()}</p><div class="odds-deck-count"><span>${t("cKnownCards")} <strong>${knownCards().length}</strong></span><span>${t("cRemainingCards", { count: 52 - knownCards().length })}</span></div></section><div class="odds-output" aria-busy="${state.busy}">${showdown()}${distribution()}</div></div><details class="odds-method"><summary>${t("cMethod")}<span aria-hidden="true">+</span></summary><p>${t("cCardRule")}</p><p>${t("cMethodNote")}</p><a href="https://www.pokerstars.com/poker/learn/lesson/poker-hand-rankings/" target="_blank" rel="noopener noreferrer">${t("cRankReference")} ↗</a></details><p class="odds-live-region" aria-live="polite">${state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : ""}</p><dialog class="card-picker" aria-labelledby="card-picker-title"><div class="card-picker-content"></div></dialog>`;
+    closePicker({ restoreFocus: false });
+    element.innerHTML = `<header class="odds-page-header"><h1 id="odds-title">${t("cTitle")}</h1><span>${t("cFinalHand")}<i aria-hidden="true">·</i>${t("cExact")}</span></header><div class="odds-layout"><section class="odds-input-panel" aria-label="${t("cKnownCards")}"><div class="odds-panel-heading"><h2>${t("cHero")}</h2><button type="button" class="odds-text-button" data-odds-example>${t("cExample")}</button></div>${slots("hero", 2)}<div class="odds-board-heading"><h2>${t("cBoard")}</h2><div class="odds-stage" role="group" aria-label="${t("cStage")}">${[3, 4, 5].map((stage) => `<button type="button" data-odds-stage="${stage}" aria-pressed="${state.stage === stage}">${t({ 3: "cFlop", 4: "cTurn", 5: "cRiver" }[stage])}<span>${stage}</span></button>`).join("")}</div></div>${slots("board", state.stage)}<div class="odds-villain-heading"><h2>${t("cVillain")}</h2><label class="odds-villain-toggle"><input type="checkbox" id="odds-use-villain" ${state.useVillain ? "checked" : ""}><span class="odds-toggle-track" aria-hidden="true"></span><span>${t(state.useVillain ? "cHeadsUp" : "cAddVillain")}</span></label></div>${state.useVillain ? slots("villain", 2) : `<p class="odds-opponent-note">${t("cNoOpponent")}</p>`}<div class="odds-form-actions"><button type="button" class="odds-calculate" data-odds-calculate ${!complete() || state.busy ? "disabled" : ""}>${t(state.busy ? "cCalculating" : "cCalculate")}<span aria-hidden="true">${state.busy ? "…" : "↗"}</span></button><button type="button" class="odds-reset" data-odds-reset>${t("cReset")}</button>${state.undo ? `<button type="button" class="odds-undo" data-odds-undo aria-label="${t("cUndoLabel")}">${t("cUndo")}</button>` : ""}</div><p class="odds-input-status${state.error ? " is-error" : ""}" role="status">${state.error ? t("cError") : state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : readiness()}</p><div class="odds-deck-count"><span>${t("cKnownCards")} <strong>${knownCards().length}</strong></span><span>${t("cRemainingCards", { count: 52 - knownCards().length })}</span></div></section><div class="odds-output" aria-busy="${state.busy}">${showdown()}${distribution()}</div></div><details class="odds-method"><summary>${t("cMethod")}<span aria-hidden="true">+</span></summary><p>${t("cCardRule")}</p><p>${t("cMethodNote")}</p><a href="https://www.pokerstars.com/poker/learn/lesson/poker-hand-rankings/" target="_blank" rel="noopener noreferrer">${t("cRankReference")} ↗</a></details><p class="odds-live-region" aria-live="polite">${state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : ""}</p><dialog class="card-picker" aria-labelledby="card-picker-title"><div class="card-picker-content"></div></dialog>`;
     const picker = element.querySelector(".card-picker");
+    picker.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closePicker();
+    });
     picker.addEventListener("close", () => {
-      // Ignore close events from a dialog discarded by a newer render.
-      if (!picker.isConnected || !state.picker) return;
-      document.body.classList.remove("card-picker-open");
-      const slot = state.picker;
-      state.picker = null;
-      render(
-        `[data-slot-group="${slot.group}"][data-slot-index="${slot.index}"]`,
-      );
+      // A queued close can belong to a discarded dialog or an earlier opening.
+      if (!picker.isConnected || picker.open || !state.picker) return;
+      closePicker();
     });
     let backdropStart = false;
     const outside = (event) => {
@@ -183,14 +224,17 @@ export function createOddsCalculator({ element, translate, renderCard }) {
       element.querySelector(focusSelector)?.focus({ preventScroll: true });
   }
 
-  function renderPicker() {
+  function renderPicker(focusSelector, resetScroll = false) {
     if (!state.picker) return;
-    const { group, index } = state.picker;
-    const current = state[group][index];
-    const used = new Set(knownCards().map(keyOf));
-    if (current) used.delete(keyOf(current));
+    const { group, index, cards, blockedKeys } = state.picker;
+    const selectedKeys = new Set(cards.filter(Boolean).map(keyOf));
+    const scrollTop = resetScroll ? 0 : element.querySelector(".card-picker-deck")?.scrollTop ?? 0;
+    const selectionSlots = cards.map((card, slotIndex) => {
+      const label = t("cDraftSlot", { target: groupLabel(group), index: slotIndex + 1, card: card ? cardName(card) : t("cEmptyCard") });
+      return `<div class="picker-slot-wrap"><button type="button" class="picker-slot" data-picker-slot="${slotIndex}" aria-pressed="${index === slotIndex}" aria-label="${escape(label)}"><small class="picker-slot-number">${slotIndex + 1}</small>${card ? renderCard(card, { fan: false }) : `<span class="slot-plus" aria-hidden="true">+</span>`}</button></div>`;
+    }).join("");
     element.querySelector(".card-picker-content").innerHTML =
-      `<header class="card-picker-header"><div><h2 id="card-picker-title">${t("cPickTitle")}</h2><p>${t("cPickerFor", { target: groupLabel(group), index: index + 1 })}</p></div><button type="button" class="card-picker-close" data-picker-close aria-label="${t("cClose")}">×</button></header><div class="picker-suit-filters" role="group" aria-label="${t("cAllSuits")}"><button type="button" data-picker-suit="all" aria-pressed="${state.pickerSuit === "all"}">${t("cAllSuits")}</button>${PICKER_SUITS.map((suit) => `<button type="button" class="suit-${suit.id}" data-picker-suit="${suit.id}" aria-pressed="${state.pickerSuit === suit.id}" aria-label="${t(suit.label)}">${suit.symbol}</button>`).join("")}</div><div class="card-picker-deck">${PICKER_SUITS.filter(
+      `<header class="card-picker-header"><div><h2 id="card-picker-title">${t("cPickTitle")}</h2><p role="status">${t("cPickerFor", { target: groupLabel(group), index: index + 1 })}</p></div><button type="button" class="card-picker-close" data-picker-close aria-label="${t("cClose")}">${CLOSE_ICON}</button></header><div class="picker-selection"><div class="picker-selection-slots" role="group" aria-label="${groupLabel(group)}">${selectionSlots}</div><p class="picker-selection-hint">${t("cPickerHint")}</p>${state.pickerError ? `<p class="picker-error" role="alert">${t("cPickerError")}</p>` : ""}</div><div class="picker-suit-filters" role="group" aria-label="${t("cAllSuits")}"><button type="button" data-picker-suit="all" aria-pressed="${state.pickerSuit === "all"}">${t("cAllSuits")}</button>${PICKER_SUITS.map((suit) => `<button type="button" class="suit-${suit.id}" data-picker-suit="${suit.id}" aria-pressed="${state.pickerSuit === suit.id}" aria-label="${t(suit.label)}">${suit.symbol}</button>`).join("")}</div><div class="card-picker-deck">${PICKER_SUITS.filter(
         (suit) => state.pickerSuit === "all" || state.pickerSuit === suit.id,
       )
         .map(
@@ -199,55 +243,61 @@ export function createOddsCalculator({ element, translate, renderCard }) {
               (rank) => {
                 const card = { rank, suit: suit.id },
                   key = keyOf(card),
-                  unavailable = used.has(key),
-                  selected = current && keyOf(current) === key;
+                  unavailable = blockedKeys.has(key),
+                  selected = selectedKeys.has(key);
                 const label = unavailable
                   ? t("cUsedCard", { card: cardName(card) })
-                  : cardName(card);
+                  : selected ? t("cUnselectCard", { card: cardName(card) }) : cardName(card);
                 return `<button type="button" class="picker-card${selected ? " is-selected" : ""}" data-pick-card="${key}" ${unavailable ? "disabled" : ""} aria-label="${escape(label)}" aria-pressed="${Boolean(selected)}">${renderCard(card, { fan: false })}</button>`;
               },
             ).join("")}</div></section>`,
         )
         .join(
           "",
-        )}</div><footer class="card-picker-footer"><span>${t("cPickerHint")}</span><button type="button" data-picker-clear ${!current ? "disabled" : ""}>${t("cClearCard")}</button></footer>`;
+        )}</div><footer class="card-picker-footer"><div class="picker-actions"><button type="button" class="picker-cancel" data-picker-close>${t("cCancel")}</button><button type="button" class="picker-done" data-picker-done>${t("cDone")}</button></div></footer>`;
+    element.querySelector(".card-picker-deck").scrollTop = scrollTop;
+    if (focusSelector)
+      element.querySelector(focusSelector)?.focus({ preventScroll: true });
   }
 
   function openPicker(group, index) {
-    state.picker = { group, index, advance: !state[group][index] };
+    state.picker = createCardSelection(state, group, index);
+    state.pickerError = false;
     state.pickerSuit = "all";
-    renderPicker();
+    renderPicker(undefined, true);
     element.querySelector(".card-picker").showModal();
     document.body.classList.add("card-picker-open");
+    element.querySelector(`[data-picker-slot="${index}"]`).focus({ preventScroll: true });
   }
 
   function chooseCard(key) {
     const card = deckByKey.get(key);
     if (!card || !state.picker) return;
-    const { group, index, advance } = state.picker;
-    const current = state[group][index];
-    if (
-      knownCards().some((known) => keyOf(known) === key) &&
-      (!current || keyOf(current) !== key)
-    )
-      return;
-    if (current && keyOf(current) === key) {
-      closePicker();
+    state.picker = pickSelectionCard(state.picker, card);
+    state.pickerError = false;
+    renderPicker(`[data-pick-card="${key}"]`);
+  }
+
+  function clearPickerCard(index = state.picker?.index) {
+    if (!state.picker) return;
+    state.picker = clearSelectionCard(state.picker, index);
+    state.pickerError = false;
+    renderPicker(`[data-picker-slot="${state.picker.index}"]`);
+  }
+
+  function finishPicker() {
+    if (!state.picker) return;
+    const selection = state.picker;
+    let next;
+    try {
+      next = commitCardSelection(state, selection);
+    } catch {
+      state.pickerError = true;
+      renderPicker("[data-picker-done]");
       return;
     }
-    state[group][index] = { ...card };
-    invalidate();
-    const count = group === "board" ? state.stage : 2;
-    const next = state[group].findIndex(
-      (value, nextIndex) => nextIndex > index && nextIndex < count && !value,
-    );
-    if (advance && next >= 0) {
-      state.picker.index = next;
-      renderPicker();
-      element
-        .querySelector(".card-picker-close")
-        .focus({ preventScroll: true });
-    } else closePicker();
+    closePicker({ restoreFocus: false });
+    changeDeal(() => { state[selection.group] = next[selection.group]; }, slotSelector(selection.group, selection.originIndex));
   }
 
   async function calculate() {
@@ -279,36 +329,36 @@ export function createOddsCalculator({ element, translate, renderCard }) {
 
   element.addEventListener("change", (event) => {
     if (event.target.id !== "odds-use-villain") return;
-    state.useVillain = event.target.checked;
-    if (!state.useVillain) {
-      state.villain = emptyCards(2);
-      state.player = "hero";
-    }
-    invalidate();
-    render("#odds-use-villain");
+    changeDeal(() => {
+      state.useVillain = event.target.checked;
+      if (!state.useVillain) {
+        state.villain = emptyCards(2);
+        state.player = "hero";
+      }
+    }, "#odds-use-villain");
   });
   element.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button || button.disabled) return;
     if (button.dataset.slotGroup)
       openPicker(button.dataset.slotGroup, Number(button.dataset.slotIndex));
-    else if (button.dataset.pickCard) chooseCard(button.dataset.pickCard);
+    else if (button.hasAttribute("data-picker-slot")) {
+      state.picker = activateSelectionSlot(state.picker, Number(button.dataset.pickerSlot));
+      renderPicker(`[data-picker-slot="${state.picker.index}"]`);
+    } else if (button.dataset.pickCard) chooseCard(button.dataset.pickCard);
     else if (button.dataset.pickerSuit) {
       state.pickerSuit = button.dataset.pickerSuit;
-      renderPicker();
-      element.querySelector(`[data-picker-suit="${state.pickerSuit}"]`).focus();
+      renderPicker(`[data-picker-suit="${state.pickerSuit}"]`, true);
     } else if (button.hasAttribute("data-picker-close")) closePicker();
-    else if (button.hasAttribute("data-picker-clear")) {
-      state[state.picker.group][state.picker.index] = null;
-      invalidate();
-      closePicker();
-    } else if (button.dataset.oddsStage) {
+    else if (button.hasAttribute("data-picker-done")) finishPicker();
+    else if (button.hasAttribute("data-odds-undo")) undoChange();
+    else if (button.dataset.oddsStage) {
       if (state.stage === Number(button.dataset.oddsStage)) return;
-      state.stage = Number(button.dataset.oddsStage);
-      for (let index = state.stage; index < 5; index++)
-        state.board[index] = null;
-      invalidate();
-      render(`[data-odds-stage="${state.stage}"]`);
+      changeDeal(() => {
+        state.stage = Number(button.dataset.oddsStage);
+        for (let index = state.stage; index < 5; index++)
+          state.board[index] = null;
+      }, `[data-odds-stage="${button.dataset.oddsStage}"]`);
     } else if (button.dataset.oddsSort) {
       state.sort = button.dataset.oddsSort;
       render(`[data-odds-sort="${state.sort}"]`);
@@ -317,37 +367,49 @@ export function createOddsCalculator({ element, translate, renderCard }) {
       render(`[data-distribution-player="${state.player}"]`);
     } else if (button.hasAttribute("data-odds-calculate")) calculate();
     else if (button.hasAttribute("data-odds-reset")) {
-      state.hero = emptyCards(2);
-      state.board = emptyCards(5);
-      state.villain = emptyCards(2);
-      state.stage = 3;
-      state.useVillain = false;
-      state.player = "hero";
-      invalidate();
-      render("[data-odds-reset]");
+      changeDeal(() => {
+        state.hero = emptyCards(2);
+        state.board = emptyCards(5);
+        state.villain = emptyCards(2);
+        state.stage = 3;
+        state.useVillain = false;
+        state.player = "hero";
+      }, "[data-odds-reset]");
     } else if (button.hasAttribute("data-odds-example")) {
-      state.hero = [
-        { rank: "A", suit: "spades" },
-        { rank: "K", suit: "spades" },
-      ];
-      state.board = [
-        { rank: "Q", suit: "spades" },
-        { rank: "J", suit: "spades" },
-        { rank: "2", suit: "diamonds" },
-        null,
-        null,
-      ];
-      state.villain = emptyCards(2);
-      state.stage = 3;
-      state.useVillain = false;
-      state.player = "hero";
-      invalidate();
-      render();
+      changeDeal(() => {
+        state.hero = [
+          { rank: "A", suit: "spades" },
+          { rank: "K", suit: "spades" },
+        ];
+        state.board = [
+          { rank: "Q", suit: "spades" },
+          { rank: "J", suit: "spades" },
+          { rank: "2", suit: "diamonds" },
+          null,
+          null,
+        ];
+        state.villain = emptyCards(2);
+        state.stage = 3;
+        state.useVillain = false;
+        state.player = "hero";
+      });
       calculate();
     }
   });
   element.addEventListener("keydown", (event) => {
     const picker = element.querySelector(".card-picker");
+    if (["Backspace", "Delete"].includes(event.key)) {
+      const draftSlot = event.target.closest("[data-picker-slot]");
+      const slot = event.target.closest("[data-slot-group]");
+      if (picker?.open && draftSlot) {
+        event.preventDefault();
+        clearPickerCard(Number(draftSlot.dataset.pickerSlot));
+      } else if (!picker?.open && slot) {
+        event.preventDefault();
+        removeCard(slot.dataset.slotGroup, Number(slot.dataset.slotIndex));
+      }
+      return;
+    }
     if (!picker?.open || event.key !== "Tab") return;
     const buttons = [...picker.querySelectorAll("button:not([disabled])")];
     const first = buttons[0],

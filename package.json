@@ -7,6 +7,8 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:pages": "npm run build && node scripts/package-pages.mjs",
+    "generate:reviews": "node scripts/generate-review-equity.mjs",
+    "analyze:friends": "node scripts/analyze-friend-table.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "node --check src/app.js && node --check src/catalog.mjs && npm test && npm run build",
     "dev": "npm run build && python3 -m http.server 4173 --bind 127.0.0.1"

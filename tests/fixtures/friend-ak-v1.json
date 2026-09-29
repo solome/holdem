@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "board": [
+    {"rank":"8","suit":"spades"},
+    {"rank":"5","suit":"hearts"},
+    {"rank":"Q","suit":"hearts"},
+    {"rank":"7","suit":"hearts"},
+    {"rank":"A","suit":"spades"}
+  ],
+  "seats": [
+    {"position":"UTG","personId":"juyipeng","holeCards":[{"rank":"A","suit":"diamonds"},{"rank":"K","suit":"clubs"}],"initialStack":190,"foldStreet":"preflop","contributions":{"preflop":1,"flop":1,"turn":1,"river":1}},
+    {"position":"LJ","personId":"wangwang","holeCards":[{"rank":"5","suit":"clubs"},{"rank":"K","suit":"spades"}],"initialStack":230,"foldStreet":"flop","contributions":{"preflop":5,"flop":5,"turn":5,"river":5}},
+    {"position":"HJ","personId":"tengteng","holeCards":[{"rank":"4","suit":"spades"},{"rank":"7","suit":"spades"}],"initialStack":190,"foldStreet":null,"contributions":{"preflop":5,"flop":13,"turn":21,"river":27}},
+    {"position":"CO","personId":"kelin","holeCards":[{"rank":"Q","suit":"diamonds"},{"rank":"J","suit":"diamonds"}],"initialStack":130,"foldStreet":null,"contributions":{"preflop":5,"flop":13,"turn":21,"river":27}},
+    {"position":"BTN","personId":"jianjian","holeCards":[{"rank":"8","suit":"diamonds"},{"rank":"10","suit":"diamonds"}],"initialStack":220,"foldStreet":null,"contributions":{"preflop":5,"flop":13,"turn":21,"river":27}},
+    {"position":"SB","personId":"minmin","holeCards":[{"rank":"K","suit":"diamonds"},{"rank":"K","suit":"hearts"}],"initialStack":200,"foldStreet":null,"contributions":{"preflop":5,"flop":13,"turn":21,"river":27}},
+    {"position":"BB","personId":"xingxing","holeCards":[{"rank":"8","suit":"hearts"},{"rank":"10","suit":"spades"}],"initialStack":120,"foldStreet":"turn","contributions":{"preflop":5,"flop":13,"turn":13,"river":13}}
+  ]
+}

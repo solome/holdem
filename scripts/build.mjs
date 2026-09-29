@@ -3,13 +3,14 @@ import { fileURLToPath } from "node:url";
 import { build } from "esbuild";
 
 const root = new URL("../", import.meta.url);
-const [template, css, rangeCss, selectCss, oddsCss] = await Promise.all(
+const [template, css, rangeCss, selectCss, oddsCss, reviewCss] = await Promise.all(
   [
     "src/template.html",
     "src/styles.css",
     "src/ranges.css",
     "src/select-menu.css",
     "src/odds.css",
+    "src/review.css",
   ].map((file) => readFile(new URL(file, root), "utf8")),
 );
 const bundle = await build({
@@ -19,13 +20,14 @@ const bundle = await build({
   format: "iife",
   platform: "browser",
   target: ["es2020"],
+  loader: { ".png": "dataurl", ".jpg": "dataurl" },
   legalComments: "none",
 });
 const script = bundle.outputFiles[0].text;
 const html = template
   .replace(
     "/* INLINE_STYLES */",
-    () => `${css}\n${rangeCss}\n${selectCss}\n${oddsCss}`,
+    () => `${css}\n${rangeCss}\n${selectCss}\n${oddsCss}\n${reviewCss}`,
   )
   .replace("/* INLINE_SCRIPT */", () =>
     script.replace(/<\/script/gi, "<\\/script"),
