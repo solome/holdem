@@ -177,6 +177,20 @@ const RECORDS = {
       ],
     },
   ],
+  "quads-12": [
+    {
+      date: "2026-10-26",
+      hole: [card("Q", "spades"), card("K", "diamonds")],
+      board: [
+        card("Q", "clubs"),
+        card("Q", "hearts"),
+        card("K", "spades"),
+        card("10", "clubs"),
+        card("Q", "diamonds"),
+      ],
+      opponent: [card("K", "clubs"), card("9", "clubs")],
+    },
+  ],
   "quads-7": [
     {
       date: "2026-09-24",

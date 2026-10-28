@@ -19,12 +19,12 @@ test("catalog has 33 distinct achievements with the requested category coverage"
   assert.equal(new Set(ACHIEVEMENTS.map(({ id }) => id)).size, 33);
   assert.deepEqual(getStats(), {
     total: 33,
-    unlocked: 4,
-    remaining: 29,
+    unlocked: 5,
+    remaining: 28,
     byCategory: {
       royal: { total: 4, unlocked: 1, remaining: 3 },
       "straight-flush": { total: 16, unlocked: 1, remaining: 15 },
-      quads: { total: 13, unlocked: 2, remaining: 11 },
+      quads: { total: 13, unlocked: 3, remaining: 10 },
     },
   });
 });
@@ -124,10 +124,10 @@ test("quad achievement ranks outside 2–A or non-integer ranks are rejected", (
   }
 });
 
-test("the four records preserve dates, hole cards and board order exactly", () => {
+test("the five records preserve dates, hole cards and board order exactly", () => {
   assert.deepEqual(
     ACHIEVEMENTS.filter(({ records }) => records.length).map(({ id }) => id),
-    ["royal-diamonds", "straight-flush-spades-12", "quads-13", "quads-7"],
+    ["royal-diamonds", "straight-flush-spades-12", "quads-13", "quads-12", "quads-7"],
   );
   assert.deepEqual(find("royal-diamonds").records[0], {
     date: "2026-08-08",
@@ -161,6 +161,18 @@ test("the four records preserve dates, hole cards and board order exactly", () =
       card("6", "spades"),
       card("J", "spades"),
     ],
+  });
+  assert.deepEqual(find("quads-12").records[0], {
+    date: "2026-10-26",
+    hole: [card("Q", "spades"), card("K", "diamonds")],
+    board: [
+      card("Q", "clubs"),
+      card("Q", "hearts"),
+      card("K", "spades"),
+      card("10", "clubs"),
+      card("Q", "diamonds"),
+    ],
+    opponent: [card("K", "clubs"), card("9", "clubs")],
   });
   assert.deepEqual(find("quads-7").records[0], {
     date: "2026-09-24",
