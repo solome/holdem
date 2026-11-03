@@ -4,9 +4,9 @@
 
 该入口沿用账号现有的 GitHub Pages 自定义域名，会跳转至 [solome.js.org/holdem](https://solome.js.org/holdem/)。两者指向同一份页面。
 
-一个可离线打开的德州扑克 HTML 页面，顶部导航切换 **起手牌矩阵**、**成就图鉴**、**牌力计算** 与 **牌局复盘**。
+一个可离线打开的德州扑克 HTML 页面，包含 **起手牌矩阵**、**成就图鉴**、**牌力计算**、**牌局复盘**、**松凶手册**、**情绪管理** 与 **读人识牌**。顶部下拉菜单可切换复盘、手册、情绪管理和读人识牌，菜单名称随当前页面显示；手机上导航显示在顶栏第二行。
 
-四页均支持简体中文、繁體中文和 English。扑克牌采用四种花色配色：黑桃黑色、梅花绿色、红桃红色、方片蓝色；未达成成就仍统一置灰。
+导航支持简体中文、繁體中文和 English；松凶手册、情绪管理与读人识牌正文为简体中文。扑克牌采用四种花色配色：黑桃黑色、梅花绿色、红桃红色、方片蓝色；未达成成就仍统一置灰。
 
 ## 起手牌矩阵
 
@@ -104,6 +104,22 @@
 
 底池仅统计已知投入，未含可能弃牌的盲注、前注及抽水；第二手筹码为约数。分析区明确区分半诈唬加注与后续跟全下的决策节点。规则参考：[底池赔率](https://www.pokerstars.com/poker/learn/lesson/pot-odds/)、[补牌与概率](https://www.pokerstars.com/poker/learn/lesson/calculating-outs/)、[边池规则](https://www.pokerstars.com/help/articles/poker-rules-master/217459/)。
 
+## 松凶手册
+
+通过顶部「牌局复盘 → 松凶手册」或 `index.html#handbook` 阅读。正文以《松凶型德州扑克实战手册》为基础，整理为项目内的图文页面。位置图、同花／非同花手牌对照、翻前决策分支、三手牌例的行动路径，以及心理调整和赔率图配合解释段落。具体手牌与公共牌复用项目的四色扑克牌组件，点数与花色保留清楚；目录支持直达章节，例如 `index.html#handbook/psychology` 可直接打开「对手心理博弈」。
+
+手册以 **6–9 人、约 100 BB 有效筹码的无限注现金局** 为教学前提，覆盖位置与边缘起手牌、翻前及翻后 SOP、86s／J8s／95s 三个案例、对手调整、心理博弈、底池赔率与 SPR，以及训练和桌边速查。范围和下注尺寸随位置、筹码、抽水及底池人数调整。
+
+心理博弈结合桌面形象、行动习惯、反制与自身纪律，说明如何观察对手并调整范围与下注。正文与图表可离线阅读，文中提供相关资料链接。
+
+## 情绪管理
+
+通过顶部菜单的「情绪管理」或 `index.html#tilt` 阅读。围绕 PokerStars 的 [Understanding Poker Tilt](https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/) 整理中文专题，覆盖理解失控、常见触发、早期信号、个人情绪档案、桌边处理、具体场景、赛后复盘、训练与速查。目录可直接定位章节，正文沿用手册的图文阅读布局。
+
+## 读人识牌
+
+通过顶部菜单的「读人识牌」或 `index.html#reading` 阅读。中文专题从日常观察进入手牌范围，结合位置、下注线、牌面、尺寸与底池赔率，分析对手在取价值还是诈唬，并通过具体牌例练习跟注与弃牌判断。内容覆盖观察习惯、范围与行动线、价值与诈唬、价格、行为线索、案例与桌边速查；目录支持章节直达。
+
 ## 直接使用
 
 用现代浏览器打开根目录的 `index.html` 即可。页面的样式、脚本、扑克牌和牌友头像全部内嵌，**无需安装依赖、启动服务或联网**，复制这一个 HTML 文件即可分享。
@@ -140,6 +156,12 @@
 | `src/review-avatar-urls.js`、`src/assets/avatars/` | 卡通头像与 GitHub 原头像快照，构建时内嵌图片资源 |
 | `src/review-ui.js`、`src/review-i18n.mjs`、`src/review.css` | 复盘阶段切换、概率／边池与分析展示 |
 | `src/review-equity.mjs`、`src/review-equity-data.mjs` | 多人精确权益、边池计算与预计算结果 |
+| `src/review-menu.js`、`src/review-menu.css` | 复盘／手册／情绪管理／读人识牌菜单、当前页名称、键盘交互与手机导航 |
+| `src/lag-handbook-content.mjs` | 松凶手册章节正文与参考来源 |
+| `src/lag-handbook-visuals.mjs` | 场景图、牌组解析与复用现有扑克牌组件的渲染 |
+| `src/lag-handbook-ui.js`、`src/lag-handbook.css` | 手册目录、图文展示、章节定位与响应式布局 |
+| `src/tilt-guide-ui.js`、`src/tilt-guide.css` | 中文情绪管理专题、章节定位与响应式布局 |
+| `src/opponent-guide-ui.js`、`src/opponent-guide.css` | 中文读人识牌专题、牌例展示、章节定位与响应式布局 |
 | `scripts/generate-review-equity.mjs`        | 重新生成两手牌的逐街精确概率                       |
 | `scripts/analyze-friend-table.mjs`          | 固定种子统计结束阶段、翻牌人数、入池率及开池范围   |
 | `src/select-menu.js`、`src/select-menu.css` | 语言与对手位置共用的浮层选择器、键盘交互和焦点管理 |

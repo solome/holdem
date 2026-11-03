@@ -7,6 +7,10 @@ import { SUITS, ACHIEVEMENTS, rankLabel, getStats, getRecords, getOpponentHand }
 import { CLOSE_ICON } from "./icons.mjs";
 import { createHandReview } from "./review-ui.js";
 import { REVIEW_TRANSLATIONS } from "./review-i18n.mjs";
+import { createLagHandbook, HANDBOOK_TRANSLATIONS } from "./lag-handbook-ui.js";
+import { createReviewMenu } from "./review-menu.js";
+import { createTiltGuide, TILT_TRANSLATIONS } from "./tilt-guide-ui.js";
+import { createOpponentGuide, OPPONENT_TRANSLATIONS } from "./opponent-guide-ui.js";
 
 const translations = {
   "zh-CN": {
@@ -177,6 +181,9 @@ for (const language of Object.keys(translations)) {
     RANGE_TRANSLATIONS[language],
     ODDS_TRANSLATIONS[language],
     REVIEW_TRANSLATIONS[language],
+    HANDBOOK_TRANSLATIONS[language],
+    TILT_TRANSLATIONS[language],
+    OPPONENT_TRANSLATIONS[language],
   );
 }
 
@@ -205,7 +212,13 @@ const stats = getStats();
 const uiState = {
   language: "zh-CN",
   view:
-    location.hash === "#review"
+    location.hash === "#reading" || location.hash.startsWith("#reading/")
+      ? "reading"
+      : location.hash === "#tilt" || location.hash.startsWith("#tilt/")
+      ? "tilt"
+      : location.hash === "#handbook" || location.hash.startsWith("#handbook/")
+      ? "handbook"
+      : location.hash === "#review"
       ? "review"
       : location.hash === "#odds"
       ? "odds"
@@ -257,8 +270,17 @@ const handReview = createHandReview({
   renderCard: cardMarkup,
   getLanguage: () => uiState.language,
 });
+const lagHandbook = createLagHandbook({
+  element: $("#handbook-view"),
+  translate: t,
+  renderCard: cardMarkup,
+  getLanguage: () => uiState.language,
+});
+const tiltGuide = createTiltGuide({ element: $("#tilt-view") });
+const opponentGuide = createOpponentGuide({ element: $("#reading-view"), renderCard: cardMarkup });
+const reviewMenu = createReviewMenu({ element: $("#review-nav-menu"), translate: t });
 const titleKey = () =>
-  ({ achievements: "pageTitle", ranges: "mPageTitle", odds: "cPageTitle", review: "rPageTitle" })[
+  ({ achievements: "pageTitle", ranges: "mPageTitle", odds: "cPageTitle", review: "rPageTitle", handbook: "hPageTitle", tilt: "tPageTitle", reading: "oPageTitle" })[
     uiState.view
   ];
 
@@ -474,7 +496,7 @@ function openAchievement(id) {
 }
 
 function renderFooter() {
-  const key = { achievements: "footer", ranges: "mFooter", odds: "cFooter", review: "rFooter" }[uiState.view];
+  const key = { achievements: "footer", ranges: "mFooter", odds: "cFooter", review: "rFooter", handbook: "hFooter", tilt: "tFooter", reading: "oFooter" }[uiState.view];
   $("#footer-copy").textContent = t(key);
 }
 
@@ -503,6 +525,9 @@ function setLanguage(language) {
   rangeExplorer.render();
   oddsCalculator.render();
   handReview.render();
+  lagHandbook.render();
+  tiltGuide.render();
+  opponentGuide.render();
   renderStatistics();
   renderTabs();
   renderGroups();
@@ -521,6 +546,10 @@ function setLanguage(language) {
   } catch {
     /* The page remains usable without storage. */
   }
+  reviewMenu.sync(uiState.view);
+  if (uiState.view === "handbook") lagHandbook.syncHash();
+  if (uiState.view === "tilt") tiltGuide.syncHash();
+  if (uiState.view === "reading") opponentGuide.syncHash();
 }
 
 $("#language").addEventListener("change", (event) =>
@@ -618,6 +647,12 @@ function syncView() {
   if (location.hash === "#ranges") uiState.view = "ranges";
   else if (location.hash === "#odds") uiState.view = "odds";
   else if (location.hash === "#review") uiState.view = "review";
+  else if (location.hash === "#handbook" || location.hash.startsWith("#handbook/"))
+    uiState.view = "handbook";
+  else if (location.hash === "#tilt" || location.hash.startsWith("#tilt/"))
+    uiState.view = "tilt";
+  else if (location.hash === "#reading" || location.hash.startsWith("#reading/"))
+    uiState.view = "reading";
   else if (["", "#", "#collection"].includes(location.hash))
     uiState.view = "achievements";
   if (previousView !== uiState.view) {
@@ -628,16 +663,23 @@ function syncView() {
   $("#ranges-view").hidden = uiState.view !== "ranges";
   $("#odds-view").hidden = uiState.view !== "odds";
   $("#review-view").hidden = uiState.view !== "review";
+  $("#handbook-view").hidden = uiState.view !== "handbook";
+  $("#tilt-view").hidden = uiState.view !== "tilt";
+  $("#reading-view").hidden = uiState.view !== "reading";
   document.querySelectorAll("[data-view]").forEach((link) => {
     const selected = link.dataset.view === uiState.view;
     link.classList.toggle("active", selected);
     if (selected) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
+  reviewMenu.sync(uiState.view);
   document.title = t(titleKey());
   renderFooter();
   if (previousView !== uiState.view)
     window.scrollTo({ top: 0, behavior: "instant" });
+  if (uiState.view === "handbook") lagHandbook.syncHash();
+  if (uiState.view === "tilt") tiltGuide.syncHash();
+  if (uiState.view === "reading") opponentGuide.syncHash();
 }
 window.addEventListener("hashchange", syncView);
 $(".skip-link").addEventListener("click", (event) => {

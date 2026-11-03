@@ -39,38 +39,68 @@ export function focusSelectControl(control) {
   (instances.get(control)?.button ?? control).focus({ preventScroll: true });
 }
 
+// Both header menus use the same viewport bounds and scrolling limits.
+export function floatingMenuLayout({ anchor, viewport, menuHeight, align = "start" }) {
+  const margin = 10;
+  const gap = 7;
+  const leftEdge = viewport.left + margin;
+  const rightEdge = viewport.right - margin;
+  const topEdge = viewport.top + margin;
+  const bottomEdge = viewport.bottom - margin;
+  if (rightEdge <= leftEdge || bottomEdge <= topEdge || !anchor.width ||
+      anchor.bottom < viewport.top || anchor.top > viewport.bottom ||
+      anchor.right < viewport.left || anchor.left > viewport.right) return null;
+  const width = Math.min(Math.max(anchor.width, 184), rightEdge - leftEdge);
+  const below = Math.max(0, bottomEdge - anchor.bottom - gap);
+  const above = Math.max(0, anchor.top - gap - topEdge);
+  const desiredHeight = Math.min(menuHeight, 310);
+  const opensAbove = below < Math.min(desiredHeight, 150) && above > below;
+  const maxHeight = Math.min(310, Math.max(32, opensAbove ? above : below), bottomEdge - topEdge);
+  const height = Math.min(menuHeight, maxHeight);
+  const clamp = (value, low, high) => Math.max(low, Math.min(value, high));
+  return {
+    width,
+    maxHeight,
+    left: clamp(align === "end" ? anchor.right - width : anchor.left, leftEdge, rightEdge - width),
+    top: clamp(opensAbove ? anchor.top - gap - height : anchor.bottom + gap, topEdge, bottomEdge - height),
+    side: opensAbove ? "top" : "bottom",
+  };
+}
+
+export function positionFloatingMenu(anchor, panel, align = "start") {
+  const ownerDocument = anchor.ownerDocument;
+  const view = ownerDocument.defaultView;
+  const visualViewport = view.visualViewport;
+  const rootStyle = view.getComputedStyle(ownerDocument.documentElement);
+  const inset = (side) => parseFloat(rootStyle.getPropertyValue(`--safe-area-${side}`)) || 0;
+  const viewportLeft = visualViewport?.offsetLeft ?? 0;
+  const viewportTop = visualViewport?.offsetTop ?? 0;
+  const viewport = {
+    left: viewportLeft + inset("left"),
+    top: viewportTop + inset("top"),
+    right: viewportLeft + (visualViewport?.width ?? ownerDocument.documentElement.clientWidth) - inset("right"),
+    bottom: viewportTop + (visualViewport?.height ?? view.innerHeight) - inset("bottom"),
+  };
+  const rect = anchor.getBoundingClientRect();
+  let layout = floatingMenuLayout({ anchor: rect, viewport, menuHeight: panel.scrollHeight, align });
+  if (!layout) return false;
+  panel.style.width = `${layout.width}px`;
+  // Width can change when an unfolded screen becomes a narrow outer screen.
+  layout = floatingMenuLayout({ anchor: rect, viewport, menuHeight: panel.scrollHeight, align });
+  panel.style.maxHeight = `${layout.maxHeight}px`;
+  panel.style.left = `${layout.left}px`;
+  panel.style.top = `${layout.top}px`;
+  panel.dataset.side = layout.side;
+  return true;
+}
+
 function positionMenu() {
   if (!openMenu) return;
   const { instance, panel } = openMenu;
-  const rect = instance.button.getBoundingClientRect();
-  const width = document.documentElement.clientWidth;
-  const height = window.innerHeight;
-  const margin = 10,
-    gap = 7;
-  if (
-    !instance.button.isConnected ||
-    rect.bottom < 0 ||
-    rect.top > height ||
-    !rect.width
-  ) {
+  if (!instance.button.isConnected || !positionFloatingMenu(instance.button, panel, instance.select.dataset.menuAlign)) {
     closeSelectMenu();
     return;
   }
-  const menuWidth = Math.min(Math.max(rect.width, 184), width - margin * 2);
-  panel.style.width = `${menuWidth}px`;
-  const below = height - rect.bottom - gap - margin;
-  const above = rect.top - gap - margin;
-  const desired = Math.min(panel.scrollHeight, 310);
-  const opensAbove = below < Math.min(desired, 150) && above > below;
-  panel.style.maxHeight = `${Math.min(310, Math.max(60, opensAbove ? above : below))}px`;
-  const menuHeight = panel.getBoundingClientRect().height;
-  const left =
-    instance.select.dataset.menuAlign === "end"
-      ? rect.right - menuWidth
-      : rect.left;
-  panel.style.left = `${Math.max(margin, Math.min(left, width - menuWidth - margin))}px`;
-  panel.style.top = `${Math.max(margin, Math.min(opensAbove ? rect.top - gap - menuHeight : rect.bottom + gap, height - menuHeight - margin))}px`;
-  panel.dataset.side = opensAbove ? "top" : "bottom";
 }
 
 function activate(index, scroll = true) {
@@ -169,6 +199,7 @@ function open(instance, edge) {
   document.body.append(panel);
   instance.button.setAttribute("aria-expanded", "true");
   positionMenu();
+  if (!openMenu) return;
   const index =
     edge === "first"
       ? 0
@@ -271,6 +302,8 @@ function installListeners() {
     true,
   );
   window.addEventListener("resize", positionMenu);
+  window.visualViewport?.addEventListener("resize", positionMenu);
+  window.visualViewport?.addEventListener("scroll", positionMenu);
   window.addEventListener("hashchange", () => closeSelectMenu());
 }
 
