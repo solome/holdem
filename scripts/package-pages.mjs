@@ -1,11 +1,16 @@
-import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, copyFile, mkdir, rm, writeFile } from "node:fs/promises";
+import { pages } from "./site-pages.mjs";
+
+import { verifySite } from "./verify-site.mjs";
 
 const root = new URL("../", import.meta.url);
-const output = new URL("_site/", root);
-
-// _site is generated and ignored by Git. Publish only the standalone page.
-await rm(output, { recursive: true, force: true });
-await mkdir(output, { recursive: true });
-await copyFile(new URL("index.html", root), new URL("index.html", output));
-await writeFile(new URL(".nojekyll", output), "");
-console.log("GitHub Pages artifact ready: _site/index.html");
+const out = new URL("_site/", root);
+await rm(out, { recursive: true, force: true });
+await mkdir(out, { recursive: true });
+await Promise.all([
+  ...pages.map(p => copyFile(new URL(p.file, root), new URL(p.file, out))),
+  cp(new URL("assets/", root), new URL("assets/", out), { recursive: true }),
+  writeFile(new URL(".nojekyll", out), ""),
+]);
+await verifySite(out);
+console.log(`GitHub Pages artifact ready: ${pages.length} documents and assets in _site/.`);

@@ -1,17 +1,5 @@
-const SUIT_IDS = { s: "spades", h: "hearts", c: "clubs", d: "diamonds" };
-
-export function parseHandbookCards(tokens) {
-  const values = String(tokens).trim().split(/\s+/);
-  if (!tokens || !values.length) throw new Error("Missing handbook cards");
-  const cards = values.map((token) => {
-    const match = /^(10|[2-9TJQKA])([shcd])$/.exec(token);
-    if (!match) throw new Error(`Invalid handbook card: ${token}`);
-    return { rank: match[1] === "T" ? "10" : match[1], suit: SUIT_IDS[match[2]] };
-  });
-  if (new Set(cards.map(({rank, suit}) => `${rank}:${suit}`)).size !== cards.length)
-    throw new Error("Duplicate handbook card");
-  return cards;
-}
+import { parseCardTokens } from "./card-notation.mjs";
+export { parseCardTokens as parseHandbookCards };
 
 export function handbookHandTokens(hand) {
   const match = /^(10|[2-9TJQKA])(10|[2-9TJQKA])([so])$/.exec(hand);
@@ -20,7 +8,7 @@ export function handbookHandTokens(hand) {
 }
 
 export function renderHandbookCards(tokens, renderCard, className = "") {
-  const cards = parseHandbookCards(tokens);
+  const cards = parseCardTokens(tokens);
   return `<span class="handbook-card-group ${className}">${cards.map((value, index) => renderCard(value, { fan: false, index, count: cards.length })).join("")}</span>`;
 }
 

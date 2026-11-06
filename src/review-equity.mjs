@@ -1,101 +1,10 @@
 /** Exact known-hand equity for a recorded Hold'em hand, including side pots. */
 import { ODDS_CATEGORIES, ODDS_DECK } from "./poker-odds.mjs";
+import { CATEGORY_UNIT, scoreCardIds } from "./poker-score.mjs";
 
 const RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 const SUITS = ["spades", "hearts", "clubs", "diamonds"];
-const UNIT = 15 ** 5;
 const SPLIT_UNITS = 2520; // Divisible by every possible split among 2–10 players.
-const STRAIGHT_HIGH = new Uint8Array(8192);
-for (let mask = 0; mask < STRAIGHT_HIGH.length; mask += 1) {
-  for (let high = 14; high >= 6; high -= 1) {
-    const straight = 31 << (high - 6);
-    if ((mask & straight) === straight) {
-      STRAIGHT_HIGH[mask] = high;
-      break;
-    }
-  }
-  if (!STRAIGHT_HIGH[mask] && (mask & 4111) === 4111) STRAIGHT_HIGH[mask] = 5;
-}
-
-const highest = (mask) => 33 - Math.clz32(mask);
-const rankBit = (rank) => 1 << (rank - 2);
-const score = (category, a = 0, b = 0, c = 0, d = 0, e = 0) =>
-  category * UNIT + a * 50625 + b * 3375 + c * 225 + d * 15 + e;
-
-function highCardScore(category, mask) {
-  let value = category * UNIT;
-  let place = 50625;
-  for (let index = 0; index < 5; index += 1) {
-    const rank = highest(mask);
-    value += rank * place;
-    place /= 15;
-    mask ^= rankBit(rank);
-  }
-  return value;
-}
-
-/** Rank masks avoid evaluating 21 separate five-card subsets per runout. */
-function scoreEncoded(cards) {
-  let once = 0;
-  let twice = 0;
-  let thrice = 0;
-  let four = 0;
-  let spades = 0;
-  let hearts = 0;
-  let clubs = 0;
-  let diamonds = 0;
-  let ns = 0;
-  let nh = 0;
-  let nc = 0;
-  let nd = 0;
-  for (let index = 0; index < cards.length; index += 1) {
-    const card = cards[index];
-    const bit = 1 << (card % 13);
-    four |= thrice & bit;
-    thrice |= twice & bit;
-    twice |= once & bit;
-    once |= bit;
-    const suit = Math.floor(card / 13);
-    if (suit === 0) { spades |= bit; ns += 1; }
-    else if (suit === 1) { hearts |= bit; nh += 1; }
-    else if (suit === 2) { clubs |= bit; nc += 1; }
-    else { diamonds |= bit; nd += 1; }
-  }
-  const flush = ns >= 5 ? spades : nh >= 5 ? hearts : nc >= 5 ? clubs : nd >= 5 ? diamonds : 0;
-  const straightFlush = STRAIGHT_HIGH[flush];
-  if (straightFlush) return score(straightFlush === 14 ? 9 : 8, straightFlush);
-  if (four) {
-    const rank = highest(four);
-    return score(7, rank, highest(once ^ rankBit(rank)));
-  }
-  if (thrice) {
-    const rank = highest(thrice);
-    const otherPairs = twice ^ rankBit(rank);
-    if (otherPairs) return score(6, rank, highest(otherPairs));
-  }
-  if (flush) return highCardScore(5, flush);
-  if (STRAIGHT_HIGH[once]) return score(4, STRAIGHT_HIGH[once]);
-  if (thrice) {
-    const rank = highest(thrice);
-    const rest = once ^ rankBit(rank);
-    const first = highest(rest);
-    return score(3, rank, first, highest(rest ^ rankBit(first)));
-  }
-  if (twice) {
-    const pair = highest(twice);
-    const otherPairs = twice ^ rankBit(pair);
-    if (otherPairs) {
-      const second = highest(otherPairs);
-      return score(2, pair, second, highest(once ^ rankBit(pair) ^ rankBit(second)));
-    }
-    let rest = once ^ rankBit(pair);
-    const first = highest(rest);
-    rest ^= rankBit(first);
-    const second = highest(rest);
-    return score(1, pair, first, second, highest(rest ^ rankBit(second)));
-  }
-  return highCardScore(0, once);
-}
 
 function encode(card) {
   if (!card || typeof card !== "object" || Array.isArray(card)) {
@@ -118,8 +27,8 @@ export function evaluateReviewHand(cards) {
   if (!Array.isArray(cards) || cards.length < 5 || cards.length > 7) {
     throw new RangeError("Hand evaluation requires five to seven cards.");
   }
-  const value = scoreEncoded(encodeDistinct(cards));
-  return { score: value, category: ODDS_CATEGORIES[Math.floor(value / UNIT)] };
+  const value = scoreCardIds(encodeDistinct(cards));
+  return { score: value, category: ODDS_CATEGORIES[Math.floor(value / CATEGORY_UNIT)] };
 }
 
 /**
@@ -181,7 +90,7 @@ export function calculateReviewEquity({ players, board, pots } = {}) {
     for (let index = 0; index < players.length; index += 1) {
       const cards = hands[index];
       for (let b = 0; b < 5; b += 1) cards[b + 2] = finalBoard[b];
-      scores[index] = scoreEncoded(cards);
+      scores[index] = scoreCardIds(cards);
     }
     for (const tally of tallies) {
       let best = -1;

@@ -103,7 +103,7 @@
     transform 0.16s;
   line-height: 1.35;
 }
-.odds-card-slot:hover {
+.odds-card-slot:enabled:hover {
   border-color: #7e9b66;
   background: #e8efdc;
   transform: translateY(-2px);
@@ -154,6 +154,7 @@
 }
 .odds-stage {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin-top: var(--space-3);
 }
@@ -186,6 +187,16 @@
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--space-2);
   max-width: 310px;
+}
+.odds-card-slot:disabled {
+  border-color: #c9cbc6;
+  background: #f1f2ee;
+  color: #686c65;
+  opacity: 1;
+  cursor: default;
+}
+.odds-card-slot:disabled .slot-plus {
+  color: inherit;
 }
 .board-slots .odds-slot-wrap {
   width: auto;
@@ -1061,19 +1072,6 @@ body.card-picker-open {
   .equity-line small {
     margin-top: 0;
   }
-  .en .header-nav {
-    gap: var(--space-4);
-  }
-  .en .header-nav .nav-link {
-    font-size: var(--font-caption);
-  }
-  .en .site-header {
-    gap: var(--space-3);
-  }
-  .en .language-picker {
-    margin-left: 0;
-    padding-left: var(--space-3);
-  }
 }
 /* Switch before thirteen cards would fall below a comfortable touch width. */
 @media (max-width: 780px) {
@@ -1082,24 +1080,6 @@ body.card-picker-open {
   }
 }
 @media (max-width: 600px) {
-  .en .site-header {
-    gap: 0;
-  }
-  .en .language-picker {
-    padding-left: 0;
-  }
-  .header-nav,
-  .en .header-nav {
-    gap: var(--space-6);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .header-nav::-webkit-scrollbar {
-    display: none;
-  }
-  .en .header-nav .nav-link {
-    font-size: var(--font-caption);
-  }
   .odds-view {
     padding-block: var(--space-6);
   }
@@ -1223,10 +1203,6 @@ body.card-picker-open {
   }
 }
 @media (max-width: 360px) {
-  .header-nav,
-  .en .header-nav {
-    gap: var(--space-4);
-  }
   .board-slots {
     --slot-height: 66px;
   }

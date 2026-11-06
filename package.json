@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "A personal Texas Hold’em achievement collection, in one self-contained HTML page.",
+  "description": "A personal Texas Hold’em achievement collection, with lightweight offline tools and reading guides.",
   "scripts": {
     "build": "node scripts/build.mjs",
     "build:pages": "npm run build && node scripts/package-pages.mjs",

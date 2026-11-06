@@ -1,0 +1,25 @@
+/* One native radio group per example. A street exposes its public information only. */
+.replay [data-at], .replay .replay-folded, .replay-slot .playing-card { display: none; }
+.replay:has(input[value="preflop"]:checked) [data-at="preflop"],
+.replay:has(input[value="flop"]:checked) [data-at="flop"],
+.replay:has(input[value="turn"]:checked) [data-at="turn"],
+.replay:has(input[value="river"]:checked) [data-at="river"] { display: revert; }
+
+.replay:has(input[value="flop"]:checked),
+.replay:has(input[value="turn"]:checked),
+.replay:has(input[value="river"]:checked) { --flop-face: inline-block; --flop-back: none; }
+.replay:has(input[value="turn"]:checked),
+.replay:has(input[value="river"]:checked) { --turn-face: inline-block; --turn-back: none; }
+.replay:has(input[value="river"]:checked) { --river-face: inline-block; --river-back: none; }
+.replay-slot[data-dealt="flop"] .playing-card { display: var(--flop-face, none); }
+.replay-slot[data-dealt="turn"] .playing-card { display: var(--turn-face, none); }
+.replay-slot[data-dealt="river"] .playing-card { display: var(--river-face, none); }
+.replay .replay-slot[data-dealt="flop"]:has(.playing-card) .replay-unknown { display: var(--flop-back, inline-grid); }
+.replay .replay-slot[data-dealt="turn"]:has(.playing-card) .replay-unknown { display: var(--turn-back, inline-grid); }
+.replay .replay-slot[data-dealt="river"]:has(.playing-card) .replay-unknown { display: var(--river-back, inline-grid); }
+
+.replay:has(input[value="preflop"]:checked) [data-folded~="preflop"],
+.replay:has(input[value="flop"]:checked) [data-folded~="flop"],
+.replay:has(input[value="turn"]:checked) [data-folded~="turn"],
+.replay:has(input[value="river"]:checked) [data-folded~="river"] { filter: grayscale(1); --folded-badge: inline; }
+.replay .replay-folded { display: var(--folded-badge, none); }

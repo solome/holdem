@@ -145,6 +145,34 @@ test("the best hand may use exactly one hole card", () => {
   );
 });
 
+test("two hole cards alone give an exact river distribution, without inventing an opponent or a current five-card hand", () => {
+  const result = calculateOdds({ hero: hand("As Ah"), board: [] });
+  assert.equal(result.totalOutcomes, 2118760); // C(50, 5)
+  assert.equal(sum(result.hero.counts), result.totalOutcomes);
+  assert.equal(result.hero.current, null);
+  assert.equal(result.villain, null);
+  assert.equal(result.showdown, null);
+  assert.equal(result.hero.counts["high-card"], 0);
+  // With either held ace, four specific board cards plus any of 46 others
+  // make a royal. In the other two suits the board must itself be a royal.
+  assert.equal(result.hero.counts["royal-flush"], 2 * 46 + 2);
+});
+
+test("preflop As Ah against Ks Kh matches independent best-of-21 enumeration over every board", () => {
+  const result = calculateOdds({ hero: hand("As Ah"), villain: hand("Ks Kh"), board: [] });
+  assert.equal(result.totalOutcomes, 1712304); // C(48, 5)
+  assert.equal(result.hero.current, null);
+  assert.equal(result.villain.current, null);
+  // Reference: enumerate every five-card board and compare the maximum over
+  // its 21 five-card subsets for each player, independent of the mask scorer.
+  const counts = [0, 606936, 680288, 208130, 20336, 27798, 153032, 15664, 118, 2];
+  assert.deepEqual(Object.values(result.hero.counts), counts);
+  assert.deepEqual(Object.values(result.villain.counts), counts);
+  assert.deepEqual(result.showdown, {
+    wins: 1410336, ties: 9308, losses: 292660, equity: (1410336 + 9308 / 2) / 1712304,
+  });
+});
+
 test("solo flop, turn, and river enumerate 1081, 46, and 1 equally weighted outcomes", () => {
   const hero = hand("As Ks");
   const board = hand("Qs Js 2d 3c 4h");
@@ -322,7 +350,7 @@ test("odds validation rejects malformed deal objects, unsupported streets, and p
     null,
     {},
     "Qs Js 2d",
-    [],
+    hand("Qs"),
     hand("Qs Js"),
     hand("Qs Js 2d 3d 4d 5d"),
     new Array(3),

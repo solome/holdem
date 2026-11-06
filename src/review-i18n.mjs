@@ -1,6 +1,5 @@
 export const REVIEW_TRANSLATIONS = {
   "zh-CN": {
-    rNav: "牌局复盘",
     rPageTitle: "Holdem — 牌局复盘",
     rFooter: "记住牌局，也记住一起玩牌的人。",
     rTitle: "牌局复盘",
@@ -148,7 +147,6 @@ export const REVIEW_TRANSLATIONS = {
     rSelectedStage: "牌局 {number} · {stage}",
   },
   "zh-TW": {
-    rNav: "牌局復盤",
     rPageTitle: "Holdem — 牌局復盤",
     rFooter: "記住牌局，也記住一起玩牌的人。",
     rTitle: "牌局復盤",
@@ -296,7 +294,6 @@ export const REVIEW_TRANSLATIONS = {
     rSelectedStage: "牌局 {number} · {stage}",
   },
   en: {
-    rNav: "Hand reviews",
     rPageTitle: "Holdem — Hand reviews",
     rFooter: "Remember the hands and the friends around the table.",
     rTitle: "Hand reviews",

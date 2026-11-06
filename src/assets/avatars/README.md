@@ -18,6 +18,6 @@
 | 旺旺 | [wangwang-cartoon.png](wangwang-cartoon.png) |
 | 尖尖 | [jianjian-cartoon.png](jianjian-cartoon.png) |
 
-完整提示词见 [prompts.json](prompts.json)。生成图保存在本目录，构建时转为内嵌 data URL，页面离线可用。小头像与放大预览使用同一份图片。
+完整提示词见 [prompts.json](prompts.json)。本目录保留原图；复盘页和现金桌牌例共用 `assets/avatars/<id>.webp` 中的 320 像素宽预览图。小头像与放大预览共用这份文件。更换原图后可用 `cwebp -resize 320 0 -q 83 原图 -o 预览图.webp` 同步发布版本。
 
 牌友玩法特点暂留空，待用户补充后在 `src/review-people.mjs` 的 `traits` 中维护。

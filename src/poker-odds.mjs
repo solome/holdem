@@ -1,5 +1,7 @@
+import { CATEGORY_UNIT, packScore, scoreCardIds } from "./poker-score.mjs";
+
 /**
- * Exact Texas Hold'em odds after the flop. Categories describe the best five
+ * Exact Texas Hold'em odds from preflop to river. Categories describe the best five
  * cards at the river, using any zero, one, or two hole cards. No simulations,
  * opponent-range assumptions, or independent-event approximations are used.
  */
@@ -39,17 +41,6 @@ export const ODDS_DECK = Object.freeze(
   SUITS.flatMap((suit) => RANKS.map((rank) => Object.freeze({ rank, suit }))),
 );
 
-// Five base-15 rank digits leave category and every kicker significant. Suits
-// never break ties. Scores are exact integers, comfortably below 2 ** 53.
-const CATEGORY_UNIT = 15 ** 5;
-const score = (category, a = 0, b = 0, c = 0, d = 0, e = 0) =>
-  category * CATEGORY_UNIT +
-  a * 15 ** 4 +
-  b * 15 ** 3 +
-  c * 15 ** 2 +
-  d * 15 +
-  e;
-
 function encodeCard(card) {
   if (
     card === null ||
@@ -87,7 +78,7 @@ function fiveScore(cards) {
           : 0
       : 0;
   if (flush && straightHigh)
-    return score(straightHigh === 14 ? 9 : 8, straightHigh);
+    return packScore(straightHigh === 14 ? 9 : 8, straightHigh);
 
   const groups = unique
     .map((rank) => ({
@@ -95,16 +86,16 @@ function fiveScore(cards) {
       count: ranks.filter((value) => value === rank).length,
     }))
     .sort((a, b) => b.count - a.count || b.rank - a.rank);
-  if (groups[0].count === 4) return score(7, groups[0].rank, groups[1].rank);
+  if (groups[0].count === 4) return packScore(7, groups[0].rank, groups[1].rank);
   if (groups[0].count === 3 && groups[1].count === 2)
-    return score(6, groups[0].rank, groups[1].rank);
-  if (flush) return score(5, ...ranks);
-  if (straightHigh) return score(4, straightHigh);
-  if (groups[0].count === 3) return score(3, ...groups.map(({ rank }) => rank));
+    return packScore(6, groups[0].rank, groups[1].rank);
+  if (flush) return packScore(5, ...ranks);
+  if (straightHigh) return packScore(4, straightHigh);
+  if (groups[0].count === 3) return packScore(3, ...groups.map(({ rank }) => rank));
   if (groups[0].count === 2 && groups[1].count === 2)
-    return score(2, ...groups.map(({ rank }) => rank));
-  if (groups[0].count === 2) return score(1, ...groups.map(({ rank }) => rank));
-  return score(0, ...ranks);
+    return packScore(2, ...groups.map(({ rank }) => rank));
+  if (groups[0].count === 2) return packScore(1, ...groups.map(({ rank }) => rank));
+  return packScore(0, ...ranks);
 }
 
 function evaluateEncoded(cards) {
@@ -153,8 +144,8 @@ export function evaluateBest(cards) {
   return evaluateEncoded(encodeDistinct([...cards]));
 }
 
-const emptyCounts = () =>
-  Object.fromEntries(ODDS_CATEGORIES.map((category) => [category, 0]));
+const countsByCategory = counts =>
+  Object.fromEntries(ODDS_CATEGORIES.map((category, index) => [category, counts[index]]));
 
 /**
  * Enumerate unordered runouts to a five-card board, excluding every known card
@@ -169,8 +160,8 @@ export function calculateOdds(input) {
   if (!Array.isArray(hero) || hero.length !== 2) {
     throw new RangeError("Your hand requires exactly two cards.");
   }
-  if (!Array.isArray(board) || ![3, 4, 5].includes(board.length)) {
-    throw new RangeError("The board requires three, four, or five cards.");
+  if (!Array.isArray(board) || ![0, 3, 4, 5].includes(board.length)) {
+    throw new RangeError("The board requires zero, three, four, or five cards.");
   }
   if (villain !== null && (!Array.isArray(villain) || villain.length !== 2)) {
     throw new RangeError("An opponent's hand requires exactly two cards.");
@@ -181,54 +172,49 @@ export function calculateOdds(input) {
   const boardCards = known.slice(2, 2 + board.length);
   const villainCards = villain === null ? null : known.slice(2 + board.length);
   const knownIds = new Set(known.map(({ id }) => id));
-  const remaining = ODDS_DECK.map(encodeCard).filter(
-    ({ id }) => !knownIds.has(id),
-  );
-  const result = {
-    totalOutcomes: 0,
-    hero: {
-      counts: emptyCounts(),
-      current: evaluateEncoded([...heroCards, ...boardCards]),
-    },
-    villain:
-      villainCards === null
-        ? null
-        : {
-            counts: emptyCounts(),
-            current: evaluateEncoded([...villainCards, ...boardCards]),
-          },
-    showdown:
-      villainCards === null ? null : { wins: 0, ties: 0, losses: 0, equity: 0 },
-  };
+  const remaining = Array.from(ODDS_DECK.keys()).filter(id => !knownIds.has(id));
+  const heroCounts = new Uint32Array(ODDS_CATEGORIES.length);
+  const villainCounts = villainCards && new Uint32Array(ODDS_CATEGORIES.length);
+  const showdown = villainCards && { wins: 0, ties: 0, losses: 0, equity: 0 };
+  let totalOutcomes = 0;
 
-  function visit(runout) {
-    const finalBoard = [...boardCards, ...runout];
-    const heroHand = evaluateEncoded([...heroCards, ...finalBoard]);
-    result.hero.counts[heroHand.category] += 1;
-    result.totalOutcomes += 1;
-    if (villainCards !== null) {
-      const villainHand = evaluateEncoded([...villainCards, ...finalBoard]);
-      result.villain.counts[villainHand.category] += 1;
-      if (heroHand.score > villainHand.score) result.showdown.wins += 1;
-      else if (heroHand.score < villainHand.score) result.showdown.losses += 1;
-      else result.showdown.ties += 1;
-    }
+  // Reuse the seven-card buffers for millions of boards. Only the current
+  // street needs concrete bestCards; terminal outcomes need just a numeric score.
+  function makeHand(hole) {
+    const cards = new Uint8Array(7);
+    cards.set([...hole, ...boardCards].map(card => card.id));
+    return cards;
   }
+  const heroHand = makeHand(heroCards);
+  const villainHand = villainCards && makeHand(villainCards);
 
-  const missing = 5 - board.length;
-  if (missing === 0) visit([]);
-  else if (missing === 1) {
-    for (const card of remaining) visit([card]);
-  } else {
-    for (let first = 0; first < remaining.length - 1; first += 1) {
-      for (let second = first + 1; second < remaining.length; second += 1) {
-        visit([remaining[first], remaining[second]]);
+  function enumerate(start, slot) {
+    if (slot === 7) {
+      const heroScore = scoreCardIds(heroHand);
+      heroCounts[Math.floor(heroScore / CATEGORY_UNIT)] += 1;
+      if (villainHand) {
+        const villainScore = scoreCardIds(villainHand);
+        villainCounts[Math.floor(villainScore / CATEGORY_UNIT)] += 1;
+        if (heroScore > villainScore) showdown.wins += 1;
+        else if (heroScore < villainScore) showdown.losses += 1;
+        else showdown.ties += 1;
       }
+      totalOutcomes += 1;
+      return;
+    }
+    for (let index = start; index <= remaining.length - (7 - slot); index += 1) {
+      heroHand[slot] = remaining[index];
+      if (villainHand) villainHand[slot] = remaining[index];
+      enumerate(index + 1, slot + 1);
     }
   }
-  if (result.showdown !== null) {
-    result.showdown.equity =
-      (result.showdown.wins + result.showdown.ties / 2) / result.totalOutcomes;
-  }
-  return result;
+  enumerate(0, 2 + board.length);
+  if (showdown) showdown.equity = (showdown.wins + showdown.ties / 2) / totalOutcomes;
+  const current = hole => board.length ? evaluateEncoded([...hole, ...boardCards]) : null;
+  return {
+    totalOutcomes,
+    hero: { counts: countsByCategory(heroCounts), current: current(heroCards) },
+    villain: villainCards && { counts: countsByCategory(villainCounts), current: current(villainCards) },
+    showdown,
+  };
 }

@@ -1,4 +1,5 @@
-import { ODDS_CATEGORIES, ODDS_DECK, calculateOdds } from "./poker-odds.mjs";
+import { ODDS_CATEGORIES, ODDS_DECK } from "./poker-odds.mjs";
+import { startOddsCalculation } from "./odds-worker-client.mjs";
 import { ODDS_CATEGORY_KEYS as CATEGORY_KEYS } from "./odds-i18n.mjs";
 import { CLOSE_ICON } from "./icons.mjs";
 import {
@@ -40,7 +41,7 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     hero: emptyCards(2),
     board: emptyCards(5),
     villain: emptyCards(2),
-    stage: 3,
+    stage: 0,
     useVillain: false,
     sort: "probability",
     player: "hero",
@@ -53,6 +54,8 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     pickerError: false,
     undo: null,
   };
+  let activeCalculation;
+  let refreshAfterPicker = false;
   const escape = (value) =>
     String(value).replace(
       /[&<>"']/g,
@@ -82,29 +85,34 @@ export function createOddsCalculator({ element, translate, renderCard }) {
 
   function invalidate() {
     state.version += 1;
+    activeCalculation?.cancel();
+    activeCalculation = undefined;
     state.result = null;
     state.busy = false;
     state.error = false;
   }
 
   function slots(group, count) {
-    return `<div class="odds-card-slots ${group === "board" ? "board-slots" : ""}">${state[
-      group
-    ]
-      .slice(0, count)
-      .map(
-        (card, index) =>
-          `<div class="odds-slot-wrap"><button type="button" class="odds-card-slot${card ? " is-filled" : ""}" data-slot-group="${group}" data-slot-index="${index}" aria-haspopup="dialog" aria-label="${escape(t(card ? "cReplaceCard" : "cSelectCard", { target: groupLabel(group), index: index + 1, card: card ? cardName(card) : "" }))}">${card ? renderCard(card, { fan: false }) : `<span class="slot-plus" aria-hidden="true">+</span><span>${t("cEmptyCard")}</span>`}</button></div>`,
-      )
-      .join("")}</div>`;
+    const board = group === "board";
+    const undealt = board && count === 0;
+    const cards = state[group].slice(0, undealt ? state.board.length : count);
+    const empty = `<span class="slot-plus" aria-hidden="true">+</span><span>${t("cEmptyCard")}</span>`;
+    const buttons = cards.map((card, index) => {
+      const attributes = undealt
+        ? "disabled"
+        : `data-slot-group="${group}" data-slot-index="${index}" aria-haspopup="dialog"`;
+      const label = t(card ? "cReplaceCard" : "cSelectCard", {
+        target: groupLabel(group), index: index + 1, card: card ? cardName(card) : "",
+      });
+      return `<div class="odds-slot-wrap"><button type="button" class="odds-card-slot${card ? " is-filled" : ""}" ${attributes} aria-label="${escape(label)}">${card ? renderCard(card, { fan: false }) : empty}</button></div>`;
+    });
+    return `<div class="odds-card-slots${board ? " board-slots" : ""}">${buttons.join("")}</div>`;
   }
 
   function readiness() {
-    if (
-      !state.hero.every(Boolean) ||
-      !state.board.slice(0, state.stage).every(Boolean)
-    )
-      return t("cRequired", { count: state.stage });
+    if (state.busy) return t(state.stage === 0 ? "cPreflopBusy" : "cCalculating");
+    if (!state.hero.every(Boolean) || !state.board.slice(0, state.stage).every(Boolean))
+      return state.stage === 0 ? t("cHeroRequired") : t("cRequired", { count: state.stage });
     if (state.useVillain && !state.villain.every(Boolean))
       return t("cVillainRequired");
     return t("cReady");
@@ -117,6 +125,15 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     return `<section class="odds-showdown" aria-labelledby="showdown-heading"><div class="odds-panel-heading"><h2 id="showdown-heading">${t("cShowdown")}</h2><span class="odds-chip">${t("cHeadsUp")}</span></div><div class="showdown-stats"><div><span>${t("cWin")}</span><strong class="win-value">${percentage(wins / total)}</strong></div><div><span>${t("cTie")}</span><strong>${percentage(ties / total)}</strong></div><div><span>${t("cLose")}</span><strong>${percentage(losses / total)}</strong></div></div><div class="showdown-bar" aria-hidden="true"><span class="bar-win" style="width:${(wins / total) * 100}%"></span><span class="bar-tie" style="width:${(ties / total) * 100}%"></span><span class="bar-loss" style="width:${(losses / total) * 100}%"></span></div><div class="equity-line"><span>${t("cEquity")} <strong>${percentage(equity)}</strong></span><small>${t("cEquityNote")}</small></div></section>`;
   }
 
+  function currentHand(playerResult) {
+    if (!playerResult) return "";
+    const made = playerResult.current;
+    const cards = made ? made.bestCards : state[state.player];
+    const heading = t(made ? "cCurrentHand" : "cStartingHand");
+    const label = t(made ? CATEGORY_KEYS[made.category] : "cNoFiveCardHand");
+    return `<div class="current-hand"><div><span>${heading}</span><strong>${label}</strong></div><div class="current-hand-cards">${cards.map((card) => renderCard(card, { fan: false })).join("")}</div></div>`;
+  }
+
   function distribution() {
     const result = state.result;
     const playerResult = result?.[state.player];
@@ -127,7 +144,7 @@ export function createOddsCalculator({ element, translate, renderCard }) {
           ODDS_CATEGORIES.indexOf(b) - ODDS_CATEGORIES.indexOf(a)
         : ODDS_CATEGORIES.indexOf(b) - ODDS_CATEGORIES.indexOf(a),
     );
-    return `<section class="odds-distribution" aria-labelledby="distribution-heading"><div class="odds-panel-heading"><h2 id="distribution-heading">${t("cResults")}</h2><div class="odds-sort" role="group" aria-label="${t("cSort")}"><button type="button" data-odds-sort="probability" aria-pressed="${state.sort === "probability"}">${t("cByProbability")}</button><button type="button" data-odds-sort="strength" aria-pressed="${state.sort === "strength"}">${t("cByStrength")}</button></div></div>${result?.villain ? `<div class="distribution-players" role="group" aria-label="${t("cCompare")}"><button type="button" data-distribution-player="hero" aria-pressed="${state.player === "hero"}">${t("cHeroDistribution")}</button><button type="button" data-distribution-player="villain" aria-pressed="${state.player === "villain"}">${t("cOpponentDistribution")}</button></div>` : ""}${result ? `<div class="odds-result-context"><span class="odds-exact-dot" aria-hidden="true"></span>${t("cExact")}<span>·</span>${t("cTotalOutcomes", { count: result.totalOutcomes.toLocaleString() })}</div>` : `<div class="odds-empty"><span aria-hidden="true">♠</span><div><strong>${t("cNoResults")}</strong><p>${readiness()}</p></div></div>`}<table class="odds-probability-table"><thead><tr><th scope="col">${t("cCategory")}</th><th scope="col">${t("cProbability")}</th><th scope="col">${t("cOutcomes")}</th></tr></thead><tbody>${categories
+    return `<section class="odds-distribution" aria-labelledby="distribution-heading"><div class="odds-panel-heading"><h2 id="distribution-heading">${t("cResults")}</h2><div class="odds-sort" role="group" aria-label="${t("cSort")}"><button type="button" data-odds-sort="probability" aria-pressed="${state.sort === "probability"}">${t("cByProbability")}</button><button type="button" data-odds-sort="strength" aria-pressed="${state.sort === "strength"}">${t("cByStrength")}</button></div></div>${result?.villain ? `<div class="distribution-players" role="group" aria-label="${t("cCompare")}"><button type="button" data-distribution-player="hero" aria-pressed="${state.player === "hero"}">${t("cHeroDistribution")}</button><button type="button" data-distribution-player="villain" aria-pressed="${state.player === "villain"}">${t("cOpponentDistribution")}</button></div>` : ""}${result ? `<div class="odds-result-context"><span class="odds-exact-dot" aria-hidden="true"></span>${t("cExact")}<span>·</span>${t("cTotalOutcomes", { count: result.totalOutcomes.toLocaleString() })}</div>` : `<div class="odds-empty"><span aria-hidden="true">♠</span><div><strong>${t(state.busy ? "cCalculating" : "cNoResults")}</strong><p>${state.error ? t("cError") : readiness()}</p></div></div>`}<table class="odds-probability-table"><thead><tr><th scope="col">${t("cCategory")}</th><th scope="col">${t("cProbability")}</th><th scope="col">${t("cOutcomes")}</th></tr></thead><tbody>${categories
       .map((category) => {
         const count = counts?.[category];
         const probability = result ? count / result.totalOutcomes : 0;
@@ -135,7 +152,7 @@ export function createOddsCalculator({ element, translate, renderCard }) {
       })
       .join(
         "",
-      )}</tbody>${result ? `<tfoot><tr><th scope="row">${t("cPercentageTotal")}</th><td>100.00%</td><td>${result.totalOutcomes.toLocaleString()}</td></tr></tfoot>` : ""}</table><div class="odds-distribution-note"><span>${t("cFinalHand")}</span><p>${t("cDistributionNote")} ${t("cRounding")}</p></div>${playerResult ? `<div class="current-hand"><div><span>${t("cCurrentHand")}</span><strong>${t(CATEGORY_KEYS[playerResult.current.category])}</strong></div><div class="current-hand-cards">${playerResult.current.bestCards.map((card) => renderCard(card, { fan: false })).join("")}</div></div>` : ""}</section>`;
+      )}</tbody>${result ? `<tfoot><tr><th scope="row">${t("cPercentageTotal")}</th><td>100.00%</td><td>${result.totalOutcomes.toLocaleString()}</td></tr></tfoot>` : ""}</table><div class="odds-distribution-note"><span>${t("cFinalHand")}</span><p>${t("cDistributionNote")} ${t("cRounding")}</p></div>${currentHand(playerResult)}</section>`;
   }
 
   const slotSelector = (group, index) =>
@@ -185,13 +202,21 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     state.pickerError = false;
     if (picker?.open) picker.close();
     document.body.classList.remove("card-picker-open");
-    if (restoreFocus && selection)
-      element.querySelector(slotSelector(selection.group, selection.originIndex))?.focus({ preventScroll: true });
+    const returnTo = selection && slotSelector(selection.group, selection.originIndex);
+    if (refreshAfterPicker) {
+      refreshAfterPicker = false;
+      if (restoreFocus) {
+        render(returnTo);
+        return;
+      }
+    }
+    if (restoreFocus && returnTo)
+      element.querySelector(returnTo)?.focus({ preventScroll: true });
   }
 
   function render(focusSelector) {
     closePicker({ restoreFocus: false });
-    element.innerHTML = `<header class="odds-page-header"><h1 id="odds-title">${t("cTitle")}</h1><span>${t("cFinalHand")}<i aria-hidden="true">·</i>${t("cExact")}</span></header><div class="odds-layout"><section class="odds-input-panel" aria-label="${t("cKnownCards")}"><div class="odds-panel-heading"><h2>${t("cHero")}</h2><button type="button" class="odds-text-button" data-odds-example>${t("cExample")}</button></div>${slots("hero", 2)}<div class="odds-board-heading"><h2>${t("cBoard")}</h2><div class="odds-stage" role="group" aria-label="${t("cStage")}">${[3, 4, 5].map((stage) => `<button type="button" data-odds-stage="${stage}" aria-pressed="${state.stage === stage}">${t({ 3: "cFlop", 4: "cTurn", 5: "cRiver" }[stage])}<span>${stage}</span></button>`).join("")}</div></div>${slots("board", state.stage)}<div class="odds-villain-heading"><h2>${t("cVillain")}</h2><label class="odds-villain-toggle"><input type="checkbox" id="odds-use-villain" ${state.useVillain ? "checked" : ""}><span class="odds-toggle-track" aria-hidden="true"></span><span>${t(state.useVillain ? "cHeadsUp" : "cAddVillain")}</span></label></div>${state.useVillain ? slots("villain", 2) : `<p class="odds-opponent-note">${t("cNoOpponent")}</p>`}<div class="odds-form-actions"><button type="button" class="odds-calculate" data-odds-calculate ${!complete() || state.busy ? "disabled" : ""}>${t(state.busy ? "cCalculating" : "cCalculate")}<span aria-hidden="true">${state.busy ? "…" : "↗"}</span></button><button type="button" class="odds-reset" data-odds-reset>${t("cReset")}</button>${state.undo ? `<button type="button" class="odds-undo" data-odds-undo aria-label="${t("cUndoLabel")}">${t("cUndo")}</button>` : ""}</div><p class="odds-input-status${state.error ? " is-error" : ""}" role="status">${state.error ? t("cError") : state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : readiness()}</p><div class="odds-deck-count"><span>${t("cKnownCards")} <strong>${knownCards().length}</strong></span><span>${t("cRemainingCards", { count: 52 - knownCards().length })}</span></div></section><div class="odds-output" aria-busy="${state.busy}">${showdown()}${distribution()}</div></div><details class="odds-method"><summary>${t("cMethod")}<span aria-hidden="true">+</span></summary><p>${t("cCardRule")}</p><p>${t("cMethodNote")}</p><a href="https://www.pokerstars.com/poker/learn/lesson/poker-hand-rankings/" target="_blank" rel="noopener noreferrer">${t("cRankReference")} ↗</a></details><p class="odds-live-region" aria-live="polite">${state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : ""}</p><dialog class="card-picker" aria-labelledby="card-picker-title"><div class="card-picker-content"></div></dialog>`;
+    element.innerHTML = `<header class="odds-page-header"><h1 id="odds-title">${t("cTitle")}</h1><span>${t("cFinalHand")}<i aria-hidden="true">·</i>${t("cExact")}</span></header><div class="odds-layout"><section class="odds-input-panel" aria-label="${t("cKnownCards")}"><div class="odds-panel-heading"><h2>${t("cHero")}</h2><button type="button" class="odds-text-button" data-odds-example>${t("cExample")}</button></div>${slots("hero", 2)}<div class="odds-board-heading"><h2>${t("cBoard")}</h2><div class="odds-stage" role="group" aria-label="${t("cStage")}">${[0, 3, 4, 5].map((stage) => `<button type="button" data-odds-stage="${stage}" aria-pressed="${state.stage === stage}">${t({ 0: "cPreflop", 3: "cFlop", 4: "cTurn", 5: "cRiver" }[stage])}<span>${stage}</span></button>`).join("")}</div></div>${slots("board", state.stage)}<div class="odds-villain-heading"><h2>${t("cVillain")}</h2><label class="odds-villain-toggle"><input type="checkbox" id="odds-use-villain" ${state.useVillain ? "checked" : ""}><span class="odds-toggle-track" aria-hidden="true"></span><span>${t(state.useVillain ? "cHeadsUp" : "cAddVillain")}</span></label></div>${state.useVillain ? slots("villain", 2) : `<p class="odds-opponent-note">${t("cNoOpponent")}</p>`}<div class="odds-form-actions"><button type="button" class="odds-calculate" ${state.busy ? "data-odds-stop" : "data-odds-calculate"} ${!complete() ? "disabled" : ""}>${t(state.busy ? "cStopCalculation" : "cCalculate")}<span aria-hidden="true">${state.busy ? "×" : "↗"}</span></button><button type="button" class="odds-reset" data-odds-reset>${t("cReset")}</button>${state.undo ? `<button type="button" class="odds-undo" data-odds-undo aria-label="${t("cUndoLabel")}">${t("cUndo")}</button>` : ""}</div><p class="odds-input-status${state.error ? " is-error" : ""}" role="status">${state.error ? t("cError") : state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : readiness()}</p><div class="odds-deck-count"><span>${t("cKnownCards")} <strong>${knownCards().length}</strong></span><span>${t("cRemainingCards", { count: 52 - knownCards().length })}</span></div></section><div class="odds-output" aria-busy="${state.busy}">${showdown()}${distribution()}</div></div><details class="odds-method"><summary>${t("cMethod")}<span aria-hidden="true">+</span></summary><p>${t("cCardRule")}</p><p>${t("cMethodNote")}</p><a href="https://www.pokerstars.com/poker/learn/lesson/poker-hand-rankings/" target="_blank" rel="noopener noreferrer">${t("cRankReference")} ↗</a></details><p class="odds-live-region" aria-live="polite">${state.result ? t("cResultStatus", { count: state.result.totalOutcomes.toLocaleString() }) : ""}</p><dialog class="card-picker" aria-labelledby="card-picker-title"><div class="card-picker-content"></div></dialog>`;
     const picker = element.querySelector(".card-picker");
     picker.addEventListener("cancel", (event) => {
       event.preventDefault();
@@ -312,19 +337,26 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     };
     state.busy = true;
     state.error = false;
-    render();
-    // Yield before the bounded postflop enumeration. At most 1,081 runouts are needed postflop.
-    await new Promise((resolve) => setTimeout(resolve, 0));
-    if (version !== state.version) return;
+    state.result = null;
+    render("[data-odds-stop]");
     try {
-      state.result = calculateOdds(input);
+      activeCalculation = startOddsCalculation(input);
+      const result = await activeCalculation.promise;
+      if (version !== state.version) return;
+      state.result = result;
     } catch {
-      state.result = null;
+      if (version !== state.version) return;
       state.error = true;
     }
-    if (version !== state.version) return;
+    activeCalculation = undefined;
     state.busy = false;
-    render("[data-odds-calculate]");
+    if (state.picker) {
+      // Finishing the previous deal must not close a draft the reader is editing.
+      refreshAfterPicker = true;
+    } else {
+      const focusCalculate = document.activeElement?.hasAttribute("data-odds-stop");
+      render(focusCalculate ? "[data-odds-calculate]" : undefined);
+    }
   }
 
   element.addEventListener("change", (event) => {
@@ -365,32 +397,39 @@ export function createOddsCalculator({ element, translate, renderCard }) {
     } else if (button.dataset.distributionPlayer) {
       state.player = button.dataset.distributionPlayer;
       render(`[data-distribution-player="${state.player}"]`);
+    } else if (button.hasAttribute("data-odds-stop")) {
+      invalidate();
+      render("[data-odds-calculate]");
     } else if (button.hasAttribute("data-odds-calculate")) calculate();
     else if (button.hasAttribute("data-odds-reset")) {
       changeDeal(() => {
         state.hero = emptyCards(2);
         state.board = emptyCards(5);
         state.villain = emptyCards(2);
-        state.stage = 3;
+        state.stage = 0;
         state.useVillain = false;
         state.player = "hero";
       }, "[data-odds-reset]");
     } else if (button.hasAttribute("data-odds-example")) {
+      const preflop = state.stage === 0;
       changeDeal(() => {
         state.hero = [
           { rank: "A", suit: "spades" },
           { rank: "K", suit: "spades" },
         ];
-        state.board = [
+        state.board = preflop ? emptyCards(5) : [
           { rank: "Q", suit: "spades" },
           { rank: "J", suit: "spades" },
           { rank: "2", suit: "diamonds" },
           null,
           null,
         ];
-        state.villain = emptyCards(2);
-        state.stage = 3;
-        state.useVillain = false;
+        state.villain = preflop ? [
+          { rank: "Q", suit: "hearts" },
+          { rank: "Q", suit: "diamonds" },
+        ] : emptyCards(2);
+        state.stage = preflop ? 0 : 3;
+        state.useVillain = preflop;
         state.player = "hero";
       });
       calculate();

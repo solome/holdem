@@ -1,18 +1,6 @@
-import tengteng from "./assets/avatars/tengteng-cartoon.png";
-import kelin from "./assets/avatars/kelin-cartoon.png";
-import xingxing from "./assets/avatars/xingxing-cartoon.png";
-import juyipeng from "./assets/avatars/juyipeng-github.jpg";
-import minmin from "./assets/avatars/minmin-cartoon.png";
-import wangwang from "./assets/avatars/wangwang-cartoon.png";
-import jianjian from "./assets/avatars/jianjian-cartoon.png";
+import { REVIEW_PEOPLE } from "./review-people.mjs";
 
-// esbuild's dataurl loaders keep the distributed HTML fully self-contained.
-export const AVATAR_URLS = Object.freeze({
-  tengteng,
-  kelin,
-  xingxing,
-  juyipeng,
-  minmin,
-  wangwang,
-  jianjian,
-});
+// Relative to the document, including when the site is opened from disk.
+export const AVATAR_URLS = Object.freeze(Object.fromEntries(
+  Object.keys(REVIEW_PEOPLE).map((id) => [id, `assets/avatars/${id}.webp`]),
+));

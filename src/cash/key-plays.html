@@ -1,0 +1,76 @@
+<section id="stack-depth">
+  <h2>筹码深度与起手牌选择</h2>
+  <p>选起手牌时，要想清楚这手牌靠什么赚钱。筹码浅，能较快形成强一对的高张和大对子更有价值。筹码深，一对往往只能从弱牌身上赢小池，却可能输大池；能做成隐蔽强牌的起手牌，才有机会用偶尔的大回报补偿频繁的小损失。能否便宜入场、中牌后谁肯付钱，决定这笔交换是否划算。</p>
+  <p>比如前位加到 3 个大盲注（BB），你在按钮位拿到 <cash-hand>55</cash-hand>。如果只想跟进等暗三条，先看双方最多能争多少筹码。即使你有 200 BB，对手只有 20 BB，单挑时每人最多也只能投入 20 BB。这个上限叫<strong>有效筹码</strong>。</p>
+  <p>先假定两盲都弃牌，无前注、无抽水。你从非盲位跟足 3 BB，翻牌底池就是 7.5 BB。下表的两个比值回答不同的问题：后手除以跟注成本，看中牌以后最多还能赢回几份入场费；后手除以翻牌底池，叫<strong>筹码底池比（SPR）</strong>，看还有多少空间留给后面的下注。<cite data-source="spr"></cite></p>
+  <table>
+    <caption>同样跟注 3 BB、翻牌底池同为 7.5 BB</caption>
+    <thead><tr><th scope="col">起手有效筹码</th><th scope="col">跟注后剩余筹码</th><th scope="col">后手 ÷ 入场费</th><th scope="col">翻牌 SPR</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">20 BB</th><td>17 BB</td><td>5.7 倍</td><td>2.3</td></tr>
+      <tr><th scope="row">100 BB</th><td>97 BB</td><td>32.3 倍</td><td>12.9</td></tr>
+      <tr><th scope="row">200 BB</th><td>197 BB</td><td>65.7 倍</td><td>26.3</td></tr>
+    </tbody>
+  </table>
+  <p><strong><cash-hand>55</cash-hand> 值得花这 3 BB 吗？</strong>假设你只在翻牌出现至少一张 5 时继续，没中就放弃，而且中牌必胜。三张翻牌碰到余下两张 5 中至少一张的概率约为 11.76%。每中一次，平均有约 7.5 次没中，光是这些跟注就花掉约 22.5 BB。眼前能赢的只有对手的 3 BB 和两盲的 1.5 BB，因此每次中牌平均还得从对手后手收约 <strong>18 BB</strong>。20 BB 那一行连理论上限都不够；到了 100 BB，钱够了，但对手错过翻牌就弃，仍然收不到。<cite data-source="set-mining"></cite>若这个小对子没中三条也常能摊牌取胜，这笔账就要重算。</p>
+  <p>实战里，两盲还没行动。小盲若把 3 BB 再加到 15 BB，你已经付出的 3 BB 并没有买到翻牌。反过来，如果看到了翻牌，按钮最后行动，别人过牌时可以免费再看一张，也可以在领先时下注。假定直接发完五张牌所占的底池份额叫<strong>权益</strong>；未来被迫弃牌会损失其中一部分，让弱牌多付一轮则可能赚得更多。这就是为什么<strong>权益兑现</strong>还取决于位置、后续行动和双方范围。<cite data-source="realization"></cite></p>
+  <p>把位置与价格分开看更容易记住。下面是六人桌、无前注、100 BB 时的开池范围：当大家都弃到你时，对照 <cash-hand>76s</cash-hand> 在枪口位和按钮位的选择。再把前面的行动换成有人加注。率先加注有机会直接赢盲注；跟别人的加注，得靠翻牌后的牌力、位置和行动盈利。</p>
+  <cash-range></cash-range>
+  <dl class="cash-principles">
+    <div><dt>大对子 · <cash-hand>AA</cash-hand>、<cash-hand>KK</cash-hand></dt><dd>20 BB 时，一次再加注就能让翻牌底池相对后手很大，超对更容易向较弱的一对收完筹码。100 BB 时，先看这是单次加注底池还是已经再加注的底池。200 BB 时，这两手大对子依然值得在翻牌前取值；若只形成一对，却在连张牌面连续遭到加注，继续打光的理由要重新找。</dd></div>
+    <div><dt>两张高牌</dt><dd>在 20 BB 的低 SPR 底池，<cash-hand>AK</cash-hand> 击中顶对、好踢脚就有机会打大。若你拿 <cash-hand>KQ</cash-hand>，面对同一张 K 高翻牌，对手的 <cash-hand>AK</cash-hand> 仍凭更好的踢脚领先。100 BB 时要问哪种较弱顶对肯跟几轮；200 BB 时，这个问题会更贵。非同花高张主要靠一对赢，带 A 的同花高张还保留做成最大同花的机会。</dd></div>
+    <div><dt>小对子 · <cash-hand>55</cash-hand></dt><dd>20 BB 时，优先判断能否靠现有对子赢或率先加注拿下盲注。100 BB 时，便宜、位置好、身后少有人再加注，才更适合为暗三条付费。到了 200 BB，若对手入池范围很宽，他有大牌愿意付钱的次数仍然有限；即使对手肯打光，低暗三条偶尔也会撞上更高的暗三条。</dd></div>
+    <div><dt>同花连张 · <cash-hand>87s</cash-hand></dt><dd>20 BB 时，跟注后很快遇到全下，常要为一张尚未到来的牌一次付清。100 BB 时，小额入场并能最后行动，才有机会在听牌时选择半诈唬或免费看牌。200 BB 时，更要分清自己听的是最大牌还是小同花、低端顺子。补中后反而继续付给更大成牌的筹码，就是<strong>反向隐含赔率</strong>的代价。</dd></div>
+  </dl>
+  <p>深筹码给能做成隐蔽强牌的起手牌更高的回报，也放大被压制时的损失。身后有人常再加注、对手开的尺寸很大，或你翻牌后总要先行动，都可能使边缘跟注变差。要赢一个特别大的底池，除了自己击中，还得有一手稍差的强牌愿意付钱；反过来，也要算自己拿到次强牌时可能付出多少。<cite data-source="facing-3bets"></cite></p>
+  <p>固定双方手牌和花色，让 <cash-hand cards="Ah Kd">AKo</cash-hand> 与 <cash-hand cards="8c 7c">87s</cash-hand> 在翻牌前直接全下。枚举全部五张公共牌并把平局各算一半，前者的权益约为 58.1%，后者为 41.9%。把双方从 20 BB 换成 200 BB，这两个比例不变。回看 <cash-ref name="ak-small"></cash-ref>：你用 <cash-hand cards="Ah Kh">AKs</cash-hand> 在翻牌击中顶对，下注 60，哪些更差的牌可能付钱？再看 <cash-ref name="ak-deep"></cash-ref>：你持 <cash-hand cards="Ad Kd">AKs</cash-hand>，对方先跟翻牌、在转牌加到 600，你还打得赢他这样玩的哪些牌？两手都是前位开池后击中顶对，第一手净赢 45，第二手弃牌时已投入 305。要记住的是哪一次行动改变了你对对手范围的判断。</p>
+  <cash-example name="ak-small"></cash-example>
+  <cash-example name="ak-deep"></cash-example>
+</section>
+<section id="pot-planning">
+  <h2>下注大小与套入底池</h2>
+  <p>决定翻牌下多少，可以从河牌往前算。比如翻牌底池 12 BB，只剩一个对手，每轮都按当时底池的固定比例下注，对手只跟。下半池，底池就翻倍；下满池，底池会变成原来的三倍。同样计划连下三轮，你对手里的这手牌作出了完全不同的承诺。</p>
+  <table>
+    <caption>从 12 BB 的翻牌底池开始，假设后手足够，无加注和抽水</caption>
+    <thead><tr><th scope="col">每轮下注</th><th scope="col">转牌底池</th><th scope="col">河牌底池</th><th scope="col">自己三轮投入</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1/2 底池</th><td>24 BB</td><td>48 BB</td><td>42 BB</td></tr>
+      <tr><th scope="row">2/3 底池</th><td>28 BB</td><td>65.3 BB</td><td>70.2 BB</td></tr>
+      <tr><th scope="row">3/4 底池</th><td>30 BB</td><td>75 BB</td><td>87.8 BB</td></tr>
+      <tr><th scope="row">满池</th><td>36 BB</td><td>108 BB</td><td>156 BB</td></tr>
+    </tbody>
+  </table>
+  <p>你持暗三条，对手能用超对连续跟注，翻牌就值得开始做大底池。若等到河牌才下注，对手也许肯付一注，却很难一次付清三轮的钱。拿顶对时，先想下一种局面：如果转牌再下注又被跟，河牌对手推入全部有效筹码，你还能用什么牌力和价格跟他？</p>
+  <p><cash-ref name="top-pair"></cash-ref> 中，你拿 <cash-hand cards="Ac Kd">AKo</cash-hand>，带着顶对走到河牌，只用再付 300 就能争取已经在池里的 1,350。此时跟注的保本胜率是 300 ÷ 1,650，约 18.2%。<strong>套入底池</strong>指底池已经大到，相对于剩余筹码和自己的胜率，投入余下筹码也划算。若对手几乎只用能击败你的牌加注，先前已经投了多少都不能把跟注变好。若你不希望用一对面对这道题，回到转牌比较下注和过牌，那时还来得及改变河牌的价格。</p>
+  <cash-example name="top-pair"></cash-example>
+</section>
+<section id="hand-reading">
+  <h2>读牌</h2>
+  <p>先写下对手从这个位置愿意入局的牌，再逐轮问：哪几种牌会跟这一次下注？哪几种更可能加注？翻牌前开到 3 BB，范围可能还很宽；在转牌投入 30 BB，肯冒这个风险的牌通常少了许多。要把新信息看得更重，也要给观察到的诈唬和慢打留位置。大注本身不能证明对手有大牌。</p>
+  <p><cash-ref name="thin-value"></cash-ref> 中，你持 <cash-hand cards="Qh Qd">QQ</cash-hand>，公共牌上出现 A、K 两张高牌，对手连续三轮过牌。河牌最后行动，过牌可以免费摊牌。决定下<strong>薄价值注</strong>的理由是，对手也许愿意用 <cash-hand>JJ</cash-hand> 或 <cash-hand>TT</cash-hand> 跟一次抓诈唬。若他习惯拿 A 过牌到底，拿较小的对子面对下注就弃，你的这手牌就更适合随后过牌。比较的应是<strong>会跟这笔下注的牌</strong>，而不只是你能击败的所有牌。<cite data-source="thin-value"></cite></p>
+  <cash-example name="thin-value"></cash-example>
+  <details><summary>展开顶两对面对河牌小注的牌局</summary>
+    <p>在 A–2–2 的翻牌上，对手下注，又在不利位置跟了你的加注。河牌 K 让你的 <cash-hand cards="Ac Kc">AKs</cash-hand> 成为顶两对，能击败 <cash-hand>AJ</cash-hand>，却仍输给手里有一张 2 的对手。复盘时把对手假设成弱 A，再把整手牌走一次：他愿不愿意跟翻牌加注？河牌又愿不愿意接你的第二次加注？只要有一处难以解释，就要降低这类牌的权重。</p>
+    <cash-example name="reassess-range"></cash-example>
+  </details>
+</section>
+<section id="large-errors">
+  <h2>避免大错误</h2>
+  <p>拿坚果牌时，你在挑哪个尺寸能多收钱；拿明显没希望的牌时，往往可以干脆弃。最容易付出整副筹码的，反而是顶对这类半强不弱的成牌。它有机会一直领先，却很难在对手反复加注时确认自己还领先。假如对手翻牌早已遥遥领先，你却一路跟下 8、24、72 BB，三次误判的成本是 104 BB。复盘应先找<strong>最早还能改变大底池走向的一次行动</strong>。</p>
+  <p>比较<cash-ref name="pressure-river"></cash-ref> 和 <cash-ref name="one-street-value"></cash-ref> 的转牌。前一手你持 <cash-hand cards="Kd Qh">KQo</cash-hand>。要防听牌，就先列出哪些听牌实际跟过翻牌，再问它们被免费发一张牌反超的可能性。过牌有成本，继续下注被更强成牌跟住也有成本。后一手你持 <cash-hand cards="Ah Qs">AQo</cash-hand>，则可以少打一轮，让较弱对子在河牌知道付一次钱就能摊牌。同是控池，前者控制的是可能的损失，后者还保留了收取最后一注的机会。</p>
+  <details><summary>展开两手顶对的转牌对照</summary>
+    <cash-example name="pressure-river"></cash-example>
+    <cash-example name="one-street-value"></cash-example>
+  </details>
+</section>
+<section id="opponent-adjustments">
+  <h2>亚策略</h2>
+  <p>如果翻牌前加注后，你拿 <cash-hand>AK</cash-hand> 在 K 高牌面每次都下、在 Q 高牌面没中就过，细心的对手会发现：你一过牌，他下一注就常能拿走底池。让部分顶对也过牌，下一轮再取值；在合适的牌面，也让部分没中的牌下注。两条路线都能含有强牌和弱牌，对手就不能只靠你的一次动作读准牌力。翻牌前也一样：若你的加注永远是大对子或高张，对手拿小对子跟进时，很容易预期击中暗三条就有钱可赢。范围里也有能在没中时轻松放弃的牌，他中牌后能收多少就没那么确定。</p>
+  <p>这种变化可以是为了眼前一手，例如过牌引诱诈唬。<strong>亚策略</strong>还要多算一笔账：同一批对手看见这次亮牌后，以后会不会改打法？<cash-ref name="table-image"></cash-ref> 的小盲用 <cash-hand cards="Ks Kh">KK</cash-hand> 平跟，给了多人便宜入场的机会，却也让激进对手继续下注。假如牌局马上散场，或对手根本没留意亮牌，未来这份收益就很小。底池已经很大时，更不宜为了展示形象而勉强付钱。</p>
+  <cash-example name="table-image"></cash-example>
+</section>
+<section id="short-stacks">
+  <h2>短筹码</h2>
+  <p>只有 20 BB 时，翻牌前加到 3 BB，翻牌再下 8 BB，就只剩 9 BB。准备这样打的人，翻牌前就得想清楚：两张高牌错过翻牌怎么办，顶对在哪些牌面愿意继续，听牌主动推入余下筹码时能否让更好的牌弃掉？同一手听牌，主动全下还有弃牌收益，跟对手全下只能靠摊牌。到了 40–60 BB，如果翻牌前已有再加注，翻牌的强听牌仍可能有空间半诈唬全下；先看底池够不够大、对手会弃掉哪些牌，再决定是否值得冒这个风险。</p>
+  <p>看见对手只有 20 BB，也要看他如何入局。有人主动短买，等大对子和强高牌，用少数几手牌迅速全下；有人刚输掉大底池，仍在按钮位频繁开池。用看到过的<strong>位置、尺寸和亮牌</strong>来判断全下范围。多人底池还得分别计账：一人 20 BB 全下、两个 200 BB 玩家跟注，每位深筹都只能从短筹那里赢 20 BB，但两人之间尚可各投入 180 BB 争夺边池。后一段风险不能用短筹码的尺度衡量。</p>
+</section>

@@ -258,3 +258,19 @@ test("invalid actions are ignored and corrupted drafts cannot be committed", () 
     /Invalid card/,
   );
 });
+
+test("preflop has no board slots, and only the other active hole cards block a pick", () => {
+  const original = deal({
+    stage: 0,
+    hero: hand("As Kh"),
+    villain: hand("Qs Qh"),
+    useVillain: true,
+  });
+  assert.throws(() => createCardSelection(original, "board", 0), /slot/);
+  const draft = createCardSelection(original, "villain", 1);
+  assert.deepEqual(draft.blockedKeys, new Set(["A:spades", "K:hearts"]));
+  assert.equal(pickSelectionCard(draft, card("As")), draft);
+  const next = commitCardSelection(original, pickSelectionCard(draft, card("Ah")));
+  assert.deepEqual(next.villain, hand("Qs Ah"));
+  assert.deepEqual(next.hero, hand("As Kh"));
+});

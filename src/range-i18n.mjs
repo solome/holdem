@@ -1,6 +1,5 @@
 export const RANGE_TRANSLATIONS = {
   "zh-CN": {
-    mNav: "起手牌矩阵",
     mFooter: "选好起手牌，从容入局。",
     mPageTitle: "Holdem — 起手牌矩阵",
     mTitle: "好牌，从选择开始。",
@@ -118,7 +117,6 @@ export const RANGE_TRANSLATIONS = {
     mSourceLimp: "面对平跟",
   },
   "zh-TW": {
-    mNav: "起手牌矩陣",
     mFooter: "選好起手牌，從容入局。",
     mPageTitle: "Holdem — 起手牌矩陣",
     mTitle: "好牌，從選擇開始。",
@@ -236,7 +234,6 @@ export const RANGE_TRANSLATIONS = {
     mSourceLimp: "面對平跟",
   },
   en: {
-    mNav: "Starting hands",
     mFooter: "Start with a range. Play with a plan.",
     mPageTitle: "Holdem — Starting hands",
     mTitle: "Great hands start with a choice.",

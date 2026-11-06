@@ -1,16 +1,12 @@
 import { evaluateBest } from "./poker-odds.mjs";
 
+import { SUITS } from "./suits.mjs";
+export { SUITS };
+
 /**
  * The complete achievement catalog. Ranks are canonical strings so the same
  * data can be rendered without a locale-dependent conversion.
  */
-export const SUITS = Object.freeze([
-  Object.freeze({ id: "spades", symbol: "♠" }),
-  Object.freeze({ id: "hearts", symbol: "♥" }),
-  Object.freeze({ id: "clubs", symbol: "♣" }),
-  Object.freeze({ id: "diamonds", symbol: "♦" }),
-]);
-
 const SUIT_IDS = new Set(SUITS.map(({ id }) => id));
 const FACE_RANKS = { 11: "J", 12: "Q", 13: "K", 14: "A" };
 

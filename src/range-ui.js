@@ -1,3 +1,4 @@
+import { readRangeLocation, replaceRangeLocation } from "./range-location.mjs";
 import {
   RANGE_RANKS,
   RANGE_STYLES,
@@ -17,14 +18,8 @@ import {
 
 /** Owns scenario, opponent and hand selection independently of achievements. */
 export function createRangeExplorer({ element, translate, renderCard }) {
-  const state = {
-    style: "tag",
-    position: "BTN",
-    scenario: "raised",
-    opponent: "CO",
-    hand: "AKs",
-    positionAdjusted: false,
-  };
+  const win = element.ownerDocument.defaultView;
+  const state = { ...readRangeLocation(new URL(win.location.href)), positionAdjusted: false };
   const t = translate;
   const handById = new Map(HANDS_169.map((hand) => [hand.id, hand]));
   const styleKeys = { tag: "mTag", balanced: "mBalanced", lag: "mLag" };
@@ -216,9 +211,20 @@ export function createRangeExplorer({ element, translate, renderCard }) {
     if (focusSelector) focusSelectControl(element.querySelector(focusSelector));
   }
 
+  function renderSelection(focusSelector) {
+    replaceRangeLocation(win, state);
+    render(focusSelector);
+  }
+
+  win.addEventListener("popstate", () => {
+    Object.assign(state, readRangeLocation(new URL(win.location.href)), { positionAdjusted: false });
+    render();
+  });
+
   function selectHand(id, focus = false) {
     if (!handById.has(id)) return;
     state.hand = id;
+    replaceRangeLocation(win, state);
     for (const cell of element.querySelectorAll("[data-hand-id]")) {
       const selected = cell.dataset.handId === id;
       cell.setAttribute("aria-selected", String(selected));
@@ -232,7 +238,7 @@ export function createRangeExplorer({ element, translate, renderCard }) {
     if (event.target.id !== "entry-opponent") return;
     state.opponent = event.target.value;
     state.positionAdjusted = false;
-    render("#entry-opponent");
+    renderSelection("#entry-opponent");
   });
   element.addEventListener("click", async (event) => {
     const button = event.target.closest("button");
@@ -240,17 +246,17 @@ export function createRangeExplorer({ element, translate, renderCard }) {
     if (button.dataset.style || button.dataset.compare) {
       state.style = button.dataset.style ?? button.dataset.compare;
       state.positionAdjusted = false;
-      render(
+      renderSelection(
         `[${button.dataset.style ? "data-style" : "data-compare"}="${state.style}"]`,
       );
     } else if (button.dataset.scenario) {
       state.scenario = button.dataset.scenario;
       normalizeContext();
-      render(`[data-scenario="${state.scenario}"]`);
+      renderSelection(`[data-scenario="${state.scenario}"]`);
     } else if (button.dataset.position || button.dataset.seat) {
       state.position = button.dataset.position ?? button.dataset.seat;
       normalizeContext();
-      render(
+      renderSelection(
         `[${button.dataset.position ? "data-position" : "data-seat"}="${state.position}"]`,
       );
     } else if (button.dataset.handId) {

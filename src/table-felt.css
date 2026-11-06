@@ -1,0 +1,23 @@
+.table-felt {
+  position: relative;
+  isolation: isolate;
+  border: 11px solid #1d3e2e;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 50% 40%, #3b684d 0%, #30583f 58%, #284a36 100%);
+  color: #f8f7e9;
+  box-shadow:
+    inset 0 0 0 1px #7b947353,
+    inset 0 4px 14px #112b2426,
+    0 3px 0 #173425,
+    0 10px 22px #1e392c1f;
+}
+.table-felt::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid #a3ad7e69;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}

@@ -33,7 +33,7 @@ jobs:
       - name: Verify and build
         run: npm run check
 
-      - name: Package the generated HTML
+      - name: Package and verify the static site
         run: node scripts/package-pages.mjs
 
       - name: Upload Pages artifact

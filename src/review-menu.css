@@ -13,9 +13,12 @@
   border: 1px solid transparent;
   border-radius: var(--radius-control);
   white-space: nowrap;
+  cursor: pointer;
+  list-style: none;
 }
+.review-nav-trigger::-webkit-details-marker { display: none; }
 .review-nav-trigger:hover,
-.review-nav-trigger[aria-expanded="true"] {
+.review-nav-menu[open] > .review-nav-trigger {
   background: var(--menu-hover);
   border-color: #e0e6d5;
   color: var(--ink);
@@ -26,12 +29,12 @@
   color: #4f6b43;
   transition: transform 0.15s;
 }
-.review-nav-trigger [data-review-current-label] {
+.review-nav-trigger [data-i18n] {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.review-nav-trigger[aria-expanded="true"] svg {
+.review-nav-menu[open] > .review-nav-trigger svg {
   transform: rotate(180deg);
 }
 .review-nav-links {
@@ -49,6 +52,16 @@
   scrollbar-width: thin;
   scrollbar-color: #c8d3bd transparent;
 }
+/* Keep the native disclosure usable even before enhancement (or with JS off). */
+.review-nav-links:not([data-side]) {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  max-width: calc(100vw - 20px);
+  max-height: min(310px, 50dvh);
+}
+#study-nav-menu .review-nav-links:not([data-side]) { left: 0; right: auto; }
+.review-nav-trigger:focus-visible { outline: 3px solid #b28c42; outline-offset: 2px; }
 .review-nav-links a {
   display: flex;
   align-items: center;
@@ -130,6 +143,16 @@
   }
 }
 @media (max-width: 600px) {
+  /* A wrapped summary can land in either column; keep the unenhanced list on screen. */
+  .review-nav-menu .review-nav-links:not([data-side]),
+  #study-nav-menu .review-nav-links:not([data-side]) {
+    position: fixed;
+    top: auto;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .en .site-header > .header-nav {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

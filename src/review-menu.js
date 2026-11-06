@@ -1,68 +1,42 @@
 import { positionFloatingMenu } from "./select-menu.js";
 
-// A disclosure containing ordinary navigation links keeps native Tab behaviour.
-export function createReviewMenu({ element, translate }) {
-  const trigger = element.querySelector("button");
-  const currentLabel = trigger.querySelector("[data-review-current-label]");
+// Ordinary links inside native disclosures also work before JS or without it.
+export function enhanceNavMenu(element) {
+  const trigger = element.querySelector("summary");
   const panel = element.querySelector(".review-nav-links");
   const links = [...panel.querySelectorAll("a")];
-  const ownerDocument = element.ownerDocument;
-  const view = ownerDocument.defaultView;
-  const isOpen = () => trigger.getAttribute("aria-expanded") === "true";
-
-  function close({ restoreFocus = false } = {}) {
-    panel.hidden = true;
-    trigger.setAttribute("aria-expanded", "false");
-    if (restoreFocus) trigger.focus({ preventScroll: true });
-  }
-
-  function open() {
-    panel.hidden = false;
-    trigger.setAttribute("aria-expanded", "true");
-    position();
-  }
+  const doc = element.ownerDocument;
+  const win = doc.defaultView;
 
   function position() {
-    if (isOpen() && !positionFloatingMenu(trigger, panel, "end")) close();
+    if (element.open && !positionFloatingMenu(trigger, panel, "end")) element.open = false;
   }
-
-  view.addEventListener("resize", position);
-  view.visualViewport?.addEventListener("resize", position);
-  view.visualViewport?.addEventListener("scroll", position);
-  ownerDocument.addEventListener("scroll", (event) => {
+  element.addEventListener("toggle", position);
+  win.addEventListener("resize", position);
+  win.visualViewport?.addEventListener("resize", position);
+  win.visualViewport?.addEventListener("scroll", position);
+  doc.addEventListener("scroll", (event) => {
     if (!panel.contains(event.target)) position();
   }, true);
-
-  trigger.addEventListener("click", () => isOpen() ? close() : open());
   trigger.addEventListener("keydown", (event) => {
     if (!["ArrowDown", "ArrowUp"].includes(event.key)) return;
     event.preventDefault();
-    open();
+    element.open = true;
+    position();
     links[event.key === "ArrowDown" ? 0 : links.length - 1].focus();
   });
   element.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !isOpen()) return;
+    if (event.key !== "Escape" || !element.open) return;
     event.preventDefault();
     event.stopPropagation();
-    close({ restoreFocus: true });
+    element.open = false;
+    trigger.focus({ preventScroll: true });
   });
   element.addEventListener("focusout", (event) => {
-    if (!element.contains(event.relatedTarget)) close();
+    if (!element.contains(event.relatedTarget)) element.open = false;
   });
-  ownerDocument.addEventListener("pointerdown", (event) => {
-    if (!element.contains(event.target)) close();
+  doc.addEventListener("pointerdown", (event) => {
+    if (!element.contains(event.target)) element.open = false;
   });
-  // This also closes the menu when its already selected link is activated.
-  links.forEach((link) => link.addEventListener("click", () => close()));
-
-  return {
-    close,
-    sync(view) {
-      const key = { review: "rNav", handbook: "hNav", tilt: "tNav", reading: "oNav" }[view] ?? "rNav";
-      currentLabel.dataset.i18n = key;
-      currentLabel.textContent = translate(key);
-      trigger.classList.toggle("active", ["review", "handbook", "tilt", "reading"].includes(view));
-      close();
-    },
-  };
+  for (const link of links) link.addEventListener("click", () => { element.open = false; });
 }

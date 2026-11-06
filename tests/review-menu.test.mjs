@@ -1,7 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createReviewMenu } from "../src/review-menu.js";
+import { enhanceNavMenu } from "../src/review-menu.js";
 import { floatingMenuLayout } from "../src/select-menu.js";
+import { pages, navigation } from "../scripts/site-pages.mjs";
+import { SITE_TRANSLATIONS } from "../src/site-i18n.mjs";
 
 // A small browser-event fixture exercises the real disclosure module without a
 // second DOM library. Full routing and layout are checked in the browser.
@@ -10,17 +12,11 @@ class Element extends EventTarget {
     super();
     this.ownerDocument = ownerDocument;
     this.children = [];
-    this.attributes = new Map();
     this.dataset = {};
-    this.hidden = false;
     this.style = {};
     this.scrollHeight = 154;
     this.rect = { left: 600, right: 704, top: 32, bottom: 76, width: 104, height: 44 };
-    this.classes = new Set();
-    this.classList = { toggle: (name, enabled) => enabled ? this.classes.add(name) : this.classes.delete(name) };
   }
-  getAttribute(name) { return this.attributes.get(name) ?? null; }
-  setAttribute(name, value) { this.attributes.set(name, value); }
   focus() { this.ownerDocument.activeElement = this; }
   contains(target) { return this === target || this.children.some((child) => child.contains(target)); }
   querySelector(selector) { return this.selectors[selector]; }
@@ -39,25 +35,15 @@ function fixture() {
   document.defaultView.getComputedStyle = () => ({ getPropertyValue: () => "0px" });
   const element = new Element(document);
   const trigger = new Element(document);
-  const label = new Element(document);
   const panel = new Element(document);
   const links = [new Element(document), new Element(document), new Element(document), new Element(document)];
-  trigger.selectors = { "[data-review-current-label]": label };
-  trigger.children = [label];
   panel.selectorLists = { a: links };
   panel.children = links;
-  element.selectors = { button: trigger, ".review-nav-links": panel };
+  element.selectors = { summary: trigger, ".review-nav-links": panel };
   element.children = [trigger, panel];
-  trigger.setAttribute("aria-expanded", "false");
-  panel.hidden = true;
-  let language = "zh-CN";
-  const strings = {
-    "zh-CN": { hNav: "松凶手册", rNav: "牌局复盘", tNav: "情绪管理", oNav: "读人识牌" },
-    "zh-TW": { hNav: "鬆兇手冊", rNav: "牌局復盤", tNav: "情緒管理", oNav: "讀人識牌" },
-    en: { hNav: "LAG handbook", rNav: "Hand reviews", tNav: "Tilt control", oNav: "Hand reading" },
-  };
-  const menu = createReviewMenu({ element, translate: (key) => strings[language][key] });
-  return { document, element, trigger, label, panel, links, menu, setLanguage: (value) => language = value };
+  element.open = false;
+  enhanceNavMenu(element);
+  return { document, element, trigger, panel, links };
 }
 
 function dispatch(element, type, properties = {}) {
@@ -67,77 +53,56 @@ function dispatch(element, type, properties = {}) {
   return event;
 }
 
-test("selected page and language determine the current menu label through repeated navigation", () => {
-  const { menu, label, trigger, setLanguage } = fixture();
-  for (const [view, expected, active] of [
-    ["handbook", "松凶手册", true],
-    ["review", "牌局复盘", true],
-    ["tilt", "情绪管理", true],
-    ["reading", "读人识牌", true],
-    ["ranges", "牌局复盘", false],
-    ["handbook", "松凶手册", true],
-  ]) {
-    menu.sync(view);
-    assert.equal(label.textContent, expected);
-    assert.equal(trigger.classes.has("active"), active);
-    assert.equal(label.dataset.i18n, { handbook: "hNav", tilt: "tNav", reading: "oNav" }[view] ?? "rNav");
+test("every page puts the collection homepage first and odds last, with the current menu label", () => {
+  for (const page of pages) {
+    const nav = navigation(page);
+    assert.match(nav, /^<a href="index.html"/);
+    assert.deepEqual([...nav.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]), [
+      "index.html", "ranges.html", "cash.html", "review.html", "handbook.html", "tilt.html", "reading.html", "odds.html",
+    ]);
+    const key = page.chapter ? "cashNav" : page.label;
+    assert.match(nav, new RegExp('data-i18n="' + key + '" aria-current='));
+    if (!["achievements", "odds"].includes(page.id))
+      assert.match(nav, new RegExp('review-nav-trigger active"><span data-i18n="' + key + '"'));
+    for (const strings of Object.values(SITE_TRANSLATIONS)) assert.ok(strings[key]);
   }
-  setLanguage("en");
-  menu.sync("handbook");
-  assert.equal(label.textContent, "LAG handbook");
-  menu.sync("review");
-  assert.equal(label.textContent, "Hand reviews");
-  menu.sync("tilt");
-  assert.equal(label.textContent, "Tilt control");
-  menu.sync("reading");
-  assert.equal(label.textContent, "Hand reading");
-  setLanguage("zh-TW");
-  menu.sync("handbook");
-  assert.equal(label.textContent, "鬆兇手冊");
-  menu.sync("tilt");
-  assert.equal(label.textContent, "情緒管理");
-  menu.sync("reading");
-  assert.equal(label.textContent, "讀人識牌");
 });
 
 test("keyboard opening exposes links and Escape restores focus to the current-page trigger", () => {
-  const { menu, trigger, panel, links, document, element } = fixture();
-  menu.sync("handbook");
+  const { trigger, links, document, element } = fixture();
   assert.equal(dispatch(trigger, "keydown", { key: "ArrowDown" }).defaultPrevented, true);
-  assert.equal(panel.hidden, false);
-  assert.equal(trigger.getAttribute("aria-expanded"), "true");
+  assert.equal(element.open, true);
   assert.equal(document.activeElement, links[0]);
   assert.equal(dispatch(element, "keydown", { key: "Escape" }).defaultPrevented, true);
-  assert.equal(panel.hidden, true);
-  assert.equal(trigger.getAttribute("aria-expanded"), "false");
+  assert.equal(element.open, false);
   assert.equal(document.activeElement, trigger);
   dispatch(trigger, "keydown", { key: "ArrowUp" });
   assert.equal(document.activeElement, links[3]);
 });
 
 test("selecting the current link closes the disclosure without requiring a hashchange", () => {
-  const { menu, trigger, label, links, panel } = fixture();
-  menu.sync("reading");
-  dispatch(trigger, "click");
-  assert.equal(panel.hidden, false);
+  const { element, links } = fixture();
+  element.open = true;
+  dispatch(element, "toggle");
+  assert.equal(element.open, true);
   dispatch(links[3], "click");
-  assert.equal(panel.hidden, true);
-  assert.equal(trigger.getAttribute("aria-expanded"), "false");
-  assert.equal(label.textContent, "读人识牌");
+  assert.equal(element.open, false);
 });
 
 test("focus inside retains the disclosure while outside focus or pointer closes it", () => {
-  const { trigger, element, links, document, panel } = fixture();
-  dispatch(trigger, "click");
+  const { element, links, document } = fixture();
+  element.open = true;
+  dispatch(element, "toggle");
   dispatch(element, "focusout", { relatedTarget: links[0] });
-  assert.equal(panel.hidden, false);
+  assert.equal(element.open, true);
   dispatch(element, "focusout", { relatedTarget: null });
-  assert.equal(panel.hidden, true);
-  dispatch(trigger, "click");
+  assert.equal(element.open, false);
+  element.open = true;
+  dispatch(element, "toggle");
   dispatch(document, "pointerdown", { target: links[1] });
-  assert.equal(panel.hidden, false);
+  assert.equal(element.open, true);
   dispatch(document, "pointerdown", { target: new Element(document) });
-  assert.equal(panel.hidden, true);
+  assert.equal(element.open, false);
 });
 
 test("floating menus fit narrow, short and inset viewports with a scrollable height", () => {
@@ -163,14 +128,15 @@ test("floating menus fit narrow, short and inset viewports with a scrollable hei
 });
 
 test("an open navigation menu repositions when a fold or visible viewport resize changes its bounds", () => {
-  const { trigger, panel, document } = fixture();
+  const { element, trigger, panel, document } = fixture();
   const view = document.defaultView;
   const viewport = view.visualViewport;
   viewport.width = 280;
   viewport.height = 320;
   trigger.rect = { left: 140, right: 244, top: 70, bottom: 114, width: 104 };
-  dispatch(trigger, "click");
-  assert.equal(panel.hidden, false);
+  element.open = true;
+  dispatch(element, "toggle");
+  assert.equal(element.open, true);
   const narrowLeft = parseFloat(panel.style.left);
   assert.ok(narrowLeft >= 10 && narrowLeft + parseFloat(panel.style.width) <= 270);
 

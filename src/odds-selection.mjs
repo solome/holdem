@@ -14,8 +14,8 @@ const validIndex = (cards, index) =>
   Number.isInteger(index) && index >= 0 && index < cards.length;
 
 function groupSize(deal, group) {
-  if (![3, 4, 5].includes(deal.stage))
-    throw new RangeError("Card selection requires a flop, turn, or river.");
+  if (![0, 3, 4, 5].includes(deal.stage))
+    throw new RangeError("Card selection requires preflop, flop, turn, or river.");
   if (!["hero", "board", "villain"].includes(group))
     throw new RangeError("Unknown card group.");
   if (group === "villain" && !deal.useVillain)

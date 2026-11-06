@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7f6f0">
+    <meta name="description" content="识别牌桌上的情绪信号，练习暂停与调整。">
+    <title>Holdem — 情绪管理</title>
+
+    <link rel="stylesheet" href="assets/build/styles.css">
+    <link rel="stylesheet" href="assets/build/select-menu.css">
+    <link rel="stylesheet" href="assets/build/review-menu.css">
+    <link rel="stylesheet" href="assets/build/lag-handbook.css">
+    <link rel="stylesheet" href="assets/build/tilt-guide.css">
+    <script defer src="assets/build/article.js"></script>
+  </head>
+  <body data-view="tilt" data-title="tNav">
+    <a class="skip-link" href="#main-content" data-i18n="skip">跳至主要内容</a>
+    <header class="site-header wrap">
+      <a class="brand" href="index.html" aria-label="Holdem"><span class="brand-mark" aria-hidden="true">♠</span><span>Holdem<span class="brand-period">.</span></span></a>
+      <nav class="header-nav" aria-label="导航" data-i18n-aria="navigation">
+        <a href="index.html" class="nav-link " data-i18n="collection">成就图鉴</a>
+<details class="review-nav-menu" id="study-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger"><span data-i18n="mNav">起手牌矩阵</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="ranges.html" class="" data-i18n="mNav">起手牌矩阵</a><a href="cash.html" class="" data-i18n="cashNav">无限注现金桌</a></div></details>
+<details class="review-nav-menu" id="review-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger active"><span data-i18n="tNav">情绪管理</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="review.html" class="" data-i18n="rNav">牌局复盘</a><a href="handbook.html" class="" data-i18n="hNav">松凶手册</a><a href="tilt.html" class="active" data-i18n="tNav" aria-current="page">情绪管理</a><a href="reading.html" class="" data-i18n="oNav">读人识牌</a></div></details>
+<a href="odds.html" class="nav-link " data-i18n="cNav">牌力计算</a>
+      </nav>
+      <div class="language-picker">
+        <span class="language-icon" aria-hidden="true">文<span>A</span></span>
+        <select id="language" aria-label="选择语言" data-i18n-aria="language" data-menu-align="end">
+          <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option>
+        </select>
+      </div>
+    </header>
+    <main class="wrap" id="main-content" tabindex="-1">
+      <section id="tilt-view" class="handbook-view tilt-view" aria-labelledby="tilt-title">
+    <div class="handbook-page" lang="zh-CN">
+      <header class="handbook-hero tilt-hero">
+        <div class="handbook-hero-copy"><h1 id="tilt-title" data-i18n="tNav">情绪管理</h1>
+          <p class="handbook-intro">看清上一手留下的情绪，记下自己的预警信号，练习在下一次行动前调整、暂停或结束。</p>
+          <div class="handbook-hero-actions"><a href="#tilt-understand">开始阅读 <span aria-hidden="true">↗</span></a><a href="#tilt-quick-check">打开桌边速查 <span aria-hidden="true">→</span></a></div>
+          <p class="tilt-source">阅读起点：<a href="https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/">Understanding Poker Tilt</a> · Jared Tendler</p>
+          <p class="handbook-language-note" lang="en">This guide is written in Simplified Chinese.</p>
+          <p class="handbook-language-note" lang="zh-TW">手冊正文為簡體中文。</p>
+        </div><figure class="tilt-hero-map"><div><span>看见</span><strong>我的信号是什么？</strong></div>
+      <div><span>暂停</span><strong>把注意力带回本手</strong></div>
+      <div><span>选择</span><strong>继续判断，或及时结束</strong></div></figure>
+      </header>
+      <div class="handbook-reading-layout">
+        <aside class="handbook-sidebar"><nav class="handbook-toc" aria-label="情绪管理章节">
+          <span class="handbook-eyebrow">阅读目录</span><ol><li><a href="#tilt-understand"><span>01</span>理解失控</a></li><li><a href="#tilt-triggers"><span>02</span>找到触发点</a></li><li><a href="#tilt-signals"><span>03</span>识别信号</a></li><li><a href="#tilt-profile"><span>04</span>个人档案</a></li><li><a href="#tilt-table"><span>05</span>桌边处理</a></li><li><a href="#tilt-scenarios"><span>06</span>四个场景</a></li><li><a href="#tilt-review"><span>07</span>赛后复盘</a></li><li><a href="#tilt-practice"><span>08</span>持续练习</a></li><li><a href="#tilt-quick-check"><span>09</span>桌边速查</a></li></ol><a class="handbook-review-link" href="handbook.html#handbook-psychology">回看松凶手册的心理博弈 <span aria-hidden="true">↗</span></a></nav></aside>
+        <article class="handbook-article" aria-labelledby="tilt-title">
+          <section id="tilt-understand" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-understand-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">01</span>
+        <div><h2 id="tilt-understand-title">理解失控：上一手怎样牵动下一手</h2><p>沿着情绪留下的痕迹，找到下一次行动从哪里偏离了计划。</p></div></header>
+      <div class="handbook-prose">
+      <p>一手牌结束，筹码已经结算，情绪却可能还留在桌上。你还在回想那张河牌，新一手已经发下；为了追回上一手的损失，你接受了平时会拒绝的跟注价格。管理 Tilt，就从这点余波入手：看清它在何时、怎样改变了你的行动。</p>
+      <p>Jared Tendler 在 <a href="https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/">《Understanding Poker Tilt》</a>中，用“愤怒 + 打法变差”概括 Tilt。他建议建立个人情绪档案，记录诱因、具体表现、早期征兆与失控阈值，并在开打前后反复补充。</p>
+      <div class="handbook-principle"><strong>把“我上头了”写成一个具体动作。</strong><p>例如：“输掉大底池后，我连续两次没看后位玩家就跟注，还把下注理由换成了‘这次总该轮到我’。”记住这些细节，下次熟悉的冲动冒头时，才有机会在筹码推出去之前认出它。</p></div>
+      <h3>顺着一条事件链回看</h3>
+      <figure class="handbook-figure tilt-chain"><ol><li><span>发生的事</span><strong>河牌被反超</strong></li><li><span>脑中的解释</span><strong>“他不配赢”</strong></li><li><span>注意力偏移</span><strong>只盯住这个人</strong></li><li><span>操作开始变化</span><strong>边缘牌硬跟</strong></li></ol><figcaption>练习：从最后一个错误往前找，哪一步已经能提醒你停一下？</figcaption></figure>
+      <p>复盘时，沿着这条线往回找：如果当时换一种解释、补看一次位置，或先停一下，后面的行动会有什么不同？找到能改变的那一步，写下下次怎样做。反复责备自己“心态差”，往往只会把这一步淹没。</p>
+      <h3>也检查那些安静的变化</h3>
+      <p>有的人用大注宣泄，有的人不敢取价值，还有的人只是机械跟注，懒得再更新范围。安静也可能是一种走神。检查状态时，回看自己平时的思考步骤：是否仍看位置、数人数、算价格，是否还愿意认真比较弃牌与过牌。</p>
+    </div></section><section id="tilt-triggers" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-triggers-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">02</span>
+        <div><h2 id="tilt-triggers-title">找到触发点：哪一刻让你乱了节奏</h2><p>把笼统的“运气差”拆开，找到最容易牵动自己的情境。</p></div></header>
+      <div class="handbook-prose">
+      <p>PokerStars 的<a href="https://www.pokerstars.com/poker/learn/lesson/poker-tilt-is-prohibited/">失控成因与应对文章</a>提到，追损、报复、疲劳与连胜后的过度自信，都可能损害决策。你可以从下面的情境入手，挑出最像自己的两项。</p>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-1"><table><caption id="tilt-table-1">触发情境与桌边练习</caption><thead><tr><th scope="col">情境</th><th scope="col">留意脑中这句话</th><th scope="col">给下一手一个具体任务</th></tr></thead><tbody>
+      <tr><th scope="row">领先时被反超</th><td>“凭什么这种牌也能赢？”</td><td>重新看自己的位置，先说出本手入池的理由。</td></tr>
+      <tr><th scope="row">刚发现自己打错</th><td>“刚才真蠢，赶紧打一手好的。”</td><td>标记上一手；把技术问题留到离桌后分析。</td></tr>
+      <tr><th scope="row">被同一人反复加注</th><td>“这次我绝对不能再弃。”</td><td>遮住对手姓名，按位置、尺寸和继续范围重新选牌。</td></tr>
+      <tr><th scope="row">久等好牌、开始无聊</th><td>“随便玩一把，进去看看。”</td><td>检查有没有删掉原本的入池条件；注意力散了就休息。</td></tr>
+      <tr><th scope="row">连续赢钱、越打越兴奋</th><td>“今天怎么打都能中。”</td><td>每次扩张都写清策略理由，维持开打前定好的级别与预算。</td></tr>
+      <tr><th scope="row">打得太久、急着结束</th><td>“懒得想了，就这样吧。”</td><td>结束当前行动后离桌，给未分析的牌做个简短标记。</td></tr>
+      </tbody></table></div>
+      <h3>听清那句让你难受的话</h3>
+      <p>同样是输牌，难受的缘由却各不相同：领先却没赢，觉得不公平；被朋友诈唬，面子挂不住；发现自己犯错，迟迟不肯放过自己；或者只是在担心今天的亏损。写下脑中那句原话，才能听清自己究竟在和什么较劲。</p>
+      <p>再给这句话配一个能做到的回答。“我一定要赢回来”，可以接一句“下一手按它自己的价格决定”；“他又在欺负我”，可以接一句“先列出我能继续的组合”。提醒要短，也要让自己听得进去，开打前先读一遍。</p>
+    </div></section><section id="tilt-signals" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-signals-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">03</span>
+        <div><h2 id="tilt-signals-title">识别信号：在动作走样之前察觉</h2><p>从身体、语言、注意力和操作里，辨认最早的变化。</p></div></header>
+      <div class="handbook-prose">
+      <p>回想最近一次打得不舒服的牌局，把“已经失控”和“刚有点不对”分开记。尽量往前多找一步：也许你还没有发脾气，计算底池的那点耐心却已经不见了。</p>
+      <div class="tilt-signal-grid">
+        <div><span>身体</span><h3>节奏突然变了</h3><p>握筹码更用力、坐姿前倾、呼吸变急。记下自己反复出现的变化。</p></div>
+        <div><span>语言</span><h3>开始出现绝对句</h3><p>“必须”“不可能”“这次一定”。听见这些词时，补问具体的牌局理由。</p></div>
+        <div><span>注意力</span><h3>上一手挤占了这一手</h3><p>记得谁赢了你，却没注意本手谁开池、后面还有几个人。</p></div>
+        <div><span>操作</span><h3>常规步骤被省略</h3><p>没算需补多少就跟、没看有效筹码就加、忘了计划下一街。</p></div>
+      </div>
+      <h3>用自己的行动划出三个状态</h3>
+      <div class="tilt-state-list"><div><span class="tilt-state-mark">平稳</span><p>能说清行动理由，愿意比较不同选择，也能按计划结束。</p></div><div><span class="tilt-state-mark">预警</span><p>已经出现个人信号，但提醒后还能补全判断。先暂停操作，检查下一次行动。</p></div><div><span class="tilt-state-mark">停止</span><p>反复跳过判断，开始追损、报复，或者明知应该结束仍强迫自己继续。结束牌局。</p></div></div>
+      <p>给自己写下一条能当场判断的停止条件，例如：“提醒自己后，我还是连续不看位置就入池，今天便到这里。”平静时写下的约定，情绪涌上来时照着执行，别临时换成“再赢一把就走”。</p>
+    </div></section><section id="tilt-profile" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-profile-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">04</span>
+        <div><h2 id="tilt-profile-title">个人档案：记下这一次，提醒下一次</h2><p>记下事情怎样发生、自己怎样回应，让反复出现的模式渐渐清晰。</p></div></header>
+      <div class="handbook-prose">
+      <p>准备一张便签，或打开手机备忘录，从一段具体经历写起：发生了什么，心里怎样想，手上又怎样做。把最早出现的信号提炼出来。桌上看短卡，离桌后再补齐细节。</p>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-2"><table><caption id="tilt-table-2">个人情绪档案填写模板</caption><thead><tr><th scope="col">记录项</th><th scope="col">填写提示</th></tr></thead><tbody>
+      <tr><th scope="row">时间与场景</th><td>打了多久？现金局还是比赛？当时在哪一街？</td></tr>
+      <tr><th scope="row">触发事件</th><td>写当时发生的动作和结果，例如“河牌跟注后，看到对手更大的两对”。</td></tr>
+      <tr><th scope="row">脑中原话</th><td>保留自己当时的措辞，例如“这点筹码今天必须拿回来”。</td></tr>
+      <tr><th scope="row">最早的变化</th><td>身体、注意力或操作中，最先出现了什么？</td></tr>
+      <tr><th scope="row">偏离的动作</th><td>指出位置、牌型、尺寸与省略的判断步骤。</td></tr>
+      <tr><th scope="row">当时怎样处理</th><td>有没有暂停、离桌、标记牌局？做到哪一步？</td></tr>
+      <tr><th scope="row">下次的提醒</th><td>写一句话，再配一个能立即执行的动作。</td></tr>
+      </tbody></table></div>
+      <div class="handbook-example"><h3>填写示例 · 输牌后开始急着入池</h3><p><strong>情境：</strong>练习牌局中，BTN 一手领先的牌在河牌被反超。下一手换到 CO，我拿到 J8o，前面已有加注，却没看尺寸就想跟。</p><p><strong>脑中原话：</strong>“再看个翻牌，中一次就补回来了。”</p><p><strong>最早变化：</strong>上一手还没收完，我已经拿起下一手要用的筹码。</p><p><strong>行动记录：</strong>我先放下筹码，看清前位开池和后面三人的位置，然后弃牌，离桌休息。</p><p><strong>桌边提醒：</strong>“急着拿筹码时，先把手放开，再读位置与价格。”</p></div>
+      <h3>把完整档案压成一张短卡</h3>
+      <div class="tilt-pocket-card"><span>我的桌边提醒</span><p>我最常在 <b>＿＿＿＿</b> 后偏离打法。</p><p>最早会出现 <b>＿＿＿＿</b>。</p><p>看见它，我先做 <b>＿＿＿＿</b>。</p><p>如果仍然 <b>＿＿＿＿</b>，就结束。</p></div>
+      <p>Tendler 建议在两周内把档案写三次，让遗漏的细节逐步浮现。可以把第一次用于回忆，第二次补实际记录，第三次删去笼统描述，留下最有辨识度的信号。</p>
+    </div></section><section id="tilt-table" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-table-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">05</span>
+        <div><h2 id="tilt-table-title">桌边处理：慢下来，把判断补齐</h2><p>出现信号时，先放慢动作，再把遗漏的信息一项项找回来。</p></div></header>
+      <div class="handbook-prose">
+      <div class="tilt-action-road"><div><span>01</span><strong>暂停</strong><p>放下筹码或移开鼠标，给当前行动留出思考时间。</p></div><div><span>02</span><strong>检查</strong><p>重读位置、人数、筹码与价格，解释本手的行动目的。</p></div><div><span>03</span><strong>决定</strong><p>能完成判断再继续；反复做不到，就结束牌局。</p></div></div>
+      <h3>把注意力带回眼前这一手</h3>
+      <p>轮到自己时，重新说清四件事：对手可能用什么范围这样行动；我需投入多少；下注希望谁跟、希望谁弃；被加注或进入下一街后，准备怎样应对。哪一项刚才被情绪挤开了，就从那一项补起。</p>
+      <p>如果正在一手牌里，使用规则允许的思考时间完成当前决策。现金局可在本手结束后暂离；锦标赛按赛制安排休息，并把当前盲注、筹码深度和奖金阶段重新放回判断中。</p>
+      <h3>离桌后，把注意力从牌局移开</h3>
+      <p>起身走一走、喝点水，缓慢呼吸几次，让视线离开牌谱和输赢数字。先记下一个触发词，等心绪平复，再分析复杂的牌局。若休息时仍一心想着回去翻本，今天就到这里。</p>
+      <h3>回桌前做一个决策练习</h3>
+      <p>找一手与刚才无关的旧牌，停在当前行动街，重新解释位置、可选行动、价格和后续计划。也听听自己能否平静地接受“这里应该弃牌”，或“今天可以结束”。</p>
+      <div class="handbook-principle"><strong>恢复的目标：重新做完整的判断。</strong><p>按预设继续范围行动；有价值目标就正常取价值，应该弃牌就弃。已经达到自己写下的停止条件时，执行离桌安排。</p></div>
+    </div></section><section id="tilt-scenarios" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-scenarios-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">06</span>
+        <div><h2 id="tilt-scenarios-title">四个场景：情绪起伏时，怎样处理眼前一手</h2><p>沿着一手牌的思路，辨认情绪从哪里接过了决定权。</p></div></header>
+      <div class="handbook-prose">
+      <div class="handbook-example"><h3>场景一 · AA 被反超，下一手拿到边缘牌</h3><p><strong>当时：</strong>上一手输掉大底池。新一手你在早位拿到 A8o，第一反应是“总不能一直弃”。</p><p><strong>检查：</strong>暂时放下上一手的损失，自己还会在这个位置用这手牌入池吗？有没有看清后面的人数与有效筹码？</p><p><strong>执行：</strong>重新按早位入池计划决定，给上一手做标记。若注意力始终停在那张河牌，本手结束后离桌。</p><p class="tilt-reminder">桌边一句话：这一手只按这一手的条件决定。</p></div>
+      <div class="handbook-example"><h3>场景二 · 同一对手第三次 3-bet</h3><p><strong>当时：</strong>你在 CO 开池，BTN 再加注。你想用“这次不能怂”作为 4-bet 的理由。</p><p><strong>检查：</strong>先把对手姓名遮住，列出自己在这个位置和尺寸下准备继续的牌，再看近期行动是否支持调整。</p><p><strong>执行：</strong>把本手放回继续范围，随后单独记录这次机会。需要学习反制时，离桌后比较开池范围、3-bet 尺寸与后位行动。</p><p class="tilt-reminder">桌边一句话：先选继续的牌，再处理竞争的情绪。</p></div>
+      <div class="handbook-example"><h3>场景三 · 连赢后，开始用任意牌“秀操作”</h3><p><strong>当时：</strong>你已连续赢了几个底池，拿到不熟悉的弱牌也想大额诈唬，觉得今天的对手都能被赶走。</p><p><strong>检查：</strong>具体希望哪一类更好牌弃掉？自己的下注线能代表哪些价值牌？被跟以后，下一街还有什么计划？</p><p><strong>执行：</strong>答不清，就先收回临时起意的动作，保持原有范围与尺度。想尝试的打法记下来，留给离桌后的练习。</p><p class="tilt-reminder">桌边一句话：赚到的筹码，也按同样的标准使用。</p></div>
+      <div class="handbook-example"><h3>场景四 · 害怕再输，强牌也不敢取价值</h3><p><strong>当时：</strong>连续几手输牌后，你在河牌有较强成牌，却只想过牌，因为“不想再出问题”。</p><p><strong>检查：</strong>列出会支付下注的更差牌，比较过牌与下注的回报；同时列出对手会用哪些更强牌加注。</p><p><strong>执行：</strong>能完成比较，就按牌局条件选行动；若每个选择都被害怕拦住，本手结束后就离桌休息。复盘时，找一手平稳状态下的类似牌局并排看，留意自己从哪一步开始犹豫。</p><p class="tilt-reminder">桌边一句话：把注意力放回可以跟注的牌与合适的尺寸。</p></div>
+    </div></section><section id="tilt-review" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-review-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">07</span>
+        <div><h2 id="tilt-review-title">赛后复盘：先回到当时，再看输赢</h2><p>分清尚未学会的判断，与当时没能做到的动作。</p></div></header>
+      <div class="handbook-prose">
+      <p><a href="https://www.pokerstars.com/poker/learn/strategies/poker-mindset-how-to-think-about-the-game/">PokerStars 的牌桌心态文章</a>强调：短期里，打得好仍可能输，打得差也可能赢。复盘时先遮住后续公共牌和最终赢家，只用当时已经知道的信息还原决定。</p>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-3"><table><caption id="tilt-table-3">把判断过程与最终结果放在不同的轴上</caption><thead><tr><th scope="col">本手情况</th><th scope="col">复盘要做的事</th></tr></thead><tbody>
+      <tr><th scope="row">过程合理，赢了</th><td>记住可重复的判断步骤，补看有没有漏掉的分支。</td></tr>
+      <tr><th scope="row">过程合理，输了</th><td>检查范围与价格；解释成立时，保留原有行动理由。</td></tr>
+      <tr><th scope="row">过程草率，赢了</th><td>找出被省略的一步，写下下次如何补回来。</td></tr>
+      <tr><th scope="row">过程草率，输了</th><td>选最早能改变的一步，给它配一个具体提醒。</td></tr>
+      </tbody></table></div>
+      <h3>分别回答“会不会”和“有没有做到”</h3>
+      <p><strong>知识问题：</strong>平静时重看这手，你仍不知道应该怎样比较跟注与弃牌。接下来需要学习底池赔率、范围或后续街计划。</p>
+      <p><strong>执行问题：</strong>平静时你知道怎样判断，当时却因为报复、追损或走神跳过了步骤。把跳过前的信号加入个人档案，并练习当场提醒。</p>
+      <p>这两件事也可能缠在一起：既没算清跟注价格，又因为一心想抓某个人，漏看了他的下注线。复盘时把它们拆开，各留一项练习，下次就知道该从哪里补起。</p>
+      <h3>用项目里的牌局练一遍</h3>
+      <p>打开<a href="review.html">牌局复盘</a>，在翻牌或转牌停下，先写选择和理由，再看下一街。需要核对已知手牌的成牌情况时，使用<a href="odds.html">牌力计算</a>；翻前偏离较多时，回到<a href="ranges.html">起手牌矩阵</a>对照位置与前序行动。</p>
+    </div></section><section id="tilt-practice" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-practice-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">08</span>
+        <div><h2 id="tilt-practice-title">持续练习：让提醒赶在错误前面</h2><p>每次只练一个动作，留意自己能否更早停下来。</p></div></header>
+      <div class="handbook-prose">
+      <h3>开打前：只带一个观察任务</h3>
+      <p>读一遍桌边短卡，确认今天的时间安排和停止条件。从档案里挑一个最常见信号，例如“输牌后动作变快”。本次就检查它有没有出现、出现时有没有完成对应动作。</p>
+      <h3>过程中：留一个简短标记</h3>
+      <p>在不影响当前行动时，简短记下“哪一手、什么触发、做了什么”。现场留个标记就好，结束后再补原话和遗漏的步骤，让那些不够惊险、却能提醒自己的小变化也留下来。</p>
+      <h3>结束后：检查四件可观察的变化</h3>
+      <ul><li><strong>发现时机：</strong>这次在行动前、行动后，还是离桌后才认出信号？</li><li><strong>执行动作：</strong>有没有真的放下筹码、重读位置或离桌？</li><li><strong>重复错误：</strong>提醒以后，同样省略的步骤有没有再次出现？</li><li><strong>记录质量：</strong>能不能说清具体牌局和动作，下一次还认得出来吗？</li></ul>
+      <p>把相近场景的记录并排放，看提醒能否往前挪一点：最初是输钱后才想起复盘，后来在第二次无理由跟注时离桌，再后来，手刚碰到筹码便停住了。记下这些细小的提前，进展就有了可以回看的样子。</p>
+      <div class="handbook-note"><strong>下一次练习，只改一件事。</strong><p>将“我要稳定心态”改成“下次一想到‘必须赢回来’，就先放下筹码，读完位置和价格”。动作越明确，越方便检查是否执行。</p></div>
+    </div></section><section id="tilt-quick-check" class="handbook-chapter" tabindex="-1" aria-labelledby="tilt-quick-check-title">
+      <header class="handbook-chapter-heading"><span class="handbook-chapter-number">09</span>
+        <div><h2 id="tilt-quick-check-title">桌边速查：行动前，再问自己一遍</h2><p>开打前读一遍，出现信号时再读一遍。</p></div></header>
+      <div class="handbook-prose">
+      <div class="tilt-quick-check"><h3>准备行动前，快速检查</h3><ol><li>我现在知道自己的位置、人数与有效筹码吗？</li><li>我看清了本次下注，以及需要补的金额吗？</li><li>我能说出这个行动希望得到什么回报吗？</li><li>如果上一手没有发生，我还会这样打吗？</li><li>我能接受本手弃牌，以及今天在这里结束吗？</li></ol></div>
+      <div class="tilt-closing-card"><p>发现个人信号</p><strong>暂停 → 补全判断 → 决定是否继续</strong><p>已经反复跳过判断，就执行写好的停止条件。</p></div>
+      <h3>继续阅读</h3>
+      <ul class="tilt-reading-list"><li><a href="https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/">Understanding Poker Tilt</a><span>Jared Tendler · 个人情绪档案</span></li><li><a href="https://www.pokerstars.com/poker/learn/lesson/poker-tilt-is-prohibited/">Tilt in Poker: Causes and Control</a><span>PokerStars Learn · 触发情境与常见表现</span></li><li><a href="https://www.pokerstars.com/poker/learn/strategies/poker-mindset-how-to-think-about-the-game/">Poker Mindset: How to Think About the Game</a><span>PokerStars Learn · 决策过程与短期结果</span></li></ul>
+    </div></section>
+          <a href="#tilt-title" class="handbook-back-top">回到专题开头 ↑</a>
+        </article>
+      </div>
+    </div></section>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand footer-brand" href="index.html">Holdem<span class="brand-period">.</span></a>
+
+      <span class="footer-suits" aria-hidden="true"><span class="suit-spades">♠</span> <span class="suit-hearts">♥</span> <span class="suit-clubs">♣</span> <span class="suit-diamonds">♦</span></span>
+    </footer>
+  </body>
+</html>

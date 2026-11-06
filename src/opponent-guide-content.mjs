@@ -12,7 +12,7 @@ export const OPPONENT_SECTIONS = [
     summary: "记住他怎样入池、在哪一街继续，以及摊牌时亮出了什么。",
     body: `
       <p>河牌大注推到面前，先问：这个人会拿哪些牌这样下注，其中有多少是自己能赢的？读人的线索，藏在他一次次作出的选择里。翻前入池很宽的人，河牌可能只拿强牌下注；平时寡言的人，也可能常用错过听牌诈唬。把这些习惯逐项记清，眼前这次下注才有了来路。</p>
-      <div class="handbook-table-scroll"><table><caption>先观察四类习惯</caption><thead><tr><th scope="col">观察什么</th><th scope="col">怎样记得具体</th><th scope="col">怎样用于下一手</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="reading-table-1"><table><caption id="reading-table-1">先观察四类习惯</caption><thead><tr><th scope="col">观察什么</th><th scope="col">怎样记得具体</th><th scope="col">怎样用于下一手</th></tr></thead><tbody>
       <tr><th scope="row">入池选择</th><td>早位开池与按钮偷盲分别看；记录平跟、3-bet 与面对加注的继续牌。</td><td>建立本手翻前起点，分清他在哪些位置会有弱牌。</td></tr>
       <tr><th scope="row">连续开火</th><td>分别记翻牌下注、转牌继续、河牌第三枪；看错过听牌最后怎样处理。</td><td>判断他的进攻会在哪一街收紧，哪些牌能够走到河牌。</td></tr>
       <tr><th scope="row">下注尺寸</th><td>小注、大注、超池与加注分别记录，附上牌面和当时人数。</td><td>比较同一个人用不同尺寸时展示过什么牌。</td></tr>
@@ -62,7 +62,7 @@ export const OPPONENT_SECTIONS = [
     summary: "列好候选范围后，再看它能否支持眼前的跟注价格。",
     body: `
       <p>单挑河牌，你最后行动，面对下注并准备跟注时，先算：<strong>所需权益 = 需补金额 ÷ 跟注后可争夺的底池</strong>。无抽水时，原底池为 P、对手下注 B，门槛就是 B ÷（P + 2B）。</p>
-      <div class="handbook-table-scroll"><table class="reading-compact-table"><caption>河牌单挑面对首次下注的价格</caption><thead><tr><th scope="col">对手下注 / 原底池</th><th scope="col">跟注所需权益</th></tr></thead><tbody><tr><th scope="row">1/3 底池</th><td>20%</td></tr><tr><th scope="row">1/2 底池</th><td>25%</td></tr><tr><th scope="row">3/4 底池</th><td>30%</td></tr><tr><th scope="row">1 倍底池</th><td>33.3%</td></tr><tr><th scope="row">2 倍底池</th><td>40%</td></tr></tbody></table></div>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="reading-table-2"><table class="reading-compact-table"><caption id="reading-table-2">河牌单挑面对首次下注的价格</caption><thead><tr><th scope="col">对手下注 / 原底池</th><th scope="col">跟注所需权益</th></tr></thead><tbody><tr><th scope="row">1/3 底池</th><td>20%</td></tr><tr><th scope="row">1/2 底池</th><td>25%</td></tr><tr><th scope="row">3/4 底池</th><td>30%</td></tr><tr><th scope="row">1 倍底池</th><td>33.3%</td></tr><tr><th scope="row">2 倍底池</th><td>40%</td></tr></tbody></table></div>
       <h3>诈唬占多少，才值得跟</h3>
       <p>如果你赢全部诈唬、输全部价值牌，并且没有平局，那么对手下注范围中的诈唬占比，就是你的获胜概率。例如，底池 100，对手下注 50，跟注门槛为 50 ÷ 200 = 25%。</p>
       <div class="handbook-example"><h3>组合练习 · 同样的牌，面对不同的人</h3><p>先给对手保留 12 个价值组合，并让候选组合按相同频率下注。</p><ul><li><strong>2 个诈唬组合：</strong>你赢 2 ÷ 14 ≈ 14.3%，低于 25%，弃牌。</li><li><strong>4 个诈唬组合：</strong>你赢 4 ÷ 16 = 25%，跟注与弃牌的增量期望收益相同。</li><li><strong>6 个诈唬组合：</strong>你赢 6 ÷ 18 ≈ 33.3%，高于 25%，跟注。</li></ul><p>如果其中一手听牌只偶尔诈唬，就相应降低它的分量；若他会用你能赢的较弱成牌取价值，再把这些获胜情况加入计算。</p></div>
@@ -89,7 +89,7 @@ export const OPPONENT_SECTIONS = [
     summary: "先熟悉一个人平时的样子，再把变化与下注、摊牌连起来看。",
     body: `
       <p><a href="${OPPONENT_SOURCES.tells}">PokerStars 的行为线索文章</a>强调，先了解一个人平时怎样表现，再看偏离。自己弃牌后，正好留一点注意力给桌上的人：他平时出手快慢如何，强牌下注后怎样坐着，愿意说多少话，面对跟注与加注时又有什么变化。</p>
-      <div class="handbook-table-scroll"><table><caption>把一个动作记成可继续观察的问题</caption><thead><tr><th scope="col">看到的变化</th><th scope="col">接着观察什么</th><th scope="col">怎样放进判断</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="reading-table-3"><table><caption id="reading-table-3">把一个动作记成可继续观察的问题</caption><thead><tr><th scope="col">看到的变化</th><th scope="col">接着观察什么</th><th scope="col">怎样放进判断</th></tr></thead><tbody>
       <tr><th scope="row">突然秒跟、秒下</th><td>他是否一贯很快？是否提前想好？发生在什么牌面与尺寸下？</td><td>回看哪些牌选择简单，哪些会考虑加注，保留符合其习惯的候选。</td></tr>
       <tr><th scope="row">想很久后加注</th><td>他在计算总额、比较尺度，还是每次大动作前都这样？此前摊出了什么？</td><td>先列本街改善的强牌，再找能走到这里的诈唬。</td></tr>
       <tr><th scope="row">突然沉默、变健谈</th><td>与他平时相比变化多大？是在下注前还是下注后？</td><td>记录原话和时点，摊牌后与同类情境一起看。</td></tr>
@@ -123,7 +123,7 @@ export const OPPONENT_SECTIONS = [
       <h3>留一条下次用得上的笔记</h3>
       <div class="reading-note-template"><p><b>位置与人数：</b>＿＿＿＿</p><p><b>牌面与完整下注线：</b>＿＿＿＿</p><p><b>下注尺寸、动作与原话：</b>＿＿＿＿</p><p><b>摊牌看到的手牌：</b>＿＿＿＿</p><p><b>下次相似场景优先检查：</b>＿＿＿＿</p></div>
       <p>自己的牌弃掉了，这手牌仍值得看完。有人没被跟注便主动亮出诈唬，就记下“主动亮牌”；有人被跟到摊牌，就记下实际组合。分开留下这些记录，再用后来的相似牌局补齐细节。</p>
-      <p>练习时打开<a href="#review">牌局复盘</a>，先遮住对手底牌，用每街行动列价值与诈唬，再翻开核对。察觉自己只想证明“他肯定在骗我”时，回到<a href="#tilt">情绪管理</a>的暂停与检查流程。</p>
+      <p>练习时打开<a href="review.html">牌局复盘</a>，先遮住对手底牌，用每街行动列价值与诈唬，再翻开核对。察觉自己只想证明“他肯定在骗我”时，回到<a href="tilt.html">情绪管理</a>的暂停与检查流程。</p>
       <h3>继续阅读</h3><ul class="reading-source-list"><li><a href="${OPPONENT_SOURCES.ranges}">PokerStars Learn · How to think about hand ranges</a><span>位置、范围与逐街读牌</span></li><li><a href="${OPPONENT_SOURCES.catching}">GTO Wizard · The Art of Bluff Catching</a><span>抓诈唬选牌、阻断与对手倾向</span></li><li><a href="${OPPONENT_SOURCES.tells}">PokerStars Learn · How to Spot Giveaway Tells</a><span>个人习惯与行为变化</span></li></ul>
     `,
   },

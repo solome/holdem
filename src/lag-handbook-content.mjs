@@ -24,7 +24,7 @@ export const HANDBOOK_SECTIONS = [
     body: `
       <p>位置的价值，藏在行动的先后里：后行动者能先看到别人怎样处理牌面，也更容易选择过牌控制底池。扩张最好从 BTN 和有条件的 CO 开始。前位后面人数多，CO 后面仍有按钮；小盲虽然只剩大盲，却通常要在翻后先行动。</p>
       <div data-handbook-visual="position"></div>
-      <div class="handbook-table-scroll"><table><caption>无人入池时的位置选择</caption><thead><tr><th scope="col">位置</th><th scope="col">入池基线</th><th scope="col">扩张条件</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-1"><table><caption id="handbook-table-1">无人入池时的位置选择</caption><thead><tr><th scope="col">位置</th><th scope="col">入池基线</th><th scope="col">扩张条件</th></tr></thead><tbody>
       <tr><th scope="row">前位</th><td>以强高张、较强同花牌和合适口袋对子为核心。</td><td>后面人数多，弱非同花高张易被支配。95、J8、86 不作为日常扩张起点；9 人 UTG 通常应比 6 人最早位更谨慎。</td></tr>
       <tr><th scope="row">中位 / HJ</th><td>逐步增加可玩的同花牌和部分相连牌。</td><td>后面偏紧、少 3-bet 时再放宽；后面强手多则收紧。</td></tr>
       <tr><th scope="row">CO</th><td>增加偷盲与有位置入池机会。</td><td>先观察 BTN 是否爱跟注或 3-bet，别默认自己翻后一定有位置。</td></tr>
@@ -35,7 +35,7 @@ export const HANDBOOK_SECTIONS = [
       <h3>三组边缘牌：同花不等于值得入池</h3>
       <p>同花提高可玩性，却不会消除被高同花支配的风险。弱非同花牌更常形成踢脚差的一对，也更难在压力下实现权益。不要把“有机会做顺子”当作任何价格都能跟的理由。</p>
       <div data-handbook-visual="edgeHands"></div>
-      <div class="handbook-table-scroll"><table><caption>三组边缘牌的入池选择</caption><thead><tr><th scope="col">牌型</th><th scope="col">可考虑的情境</th><th scope="col">优先避免</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-2"><table><caption id="handbook-table-2">三组边缘牌的入池选择</caption><thead><tr><th scope="col">牌型</th><th scope="col">可考虑的情境</th><th scope="col">优先避免</th></tr></thead><tbody>
       <tr><th scope="row"><span data-handbook-hand="95s">95s</span> / <span data-handbook-hand="95o">95o</span></th><td>95s 在 BTN 无人入池、两盲明显过紧时，可作为边缘扩张候选。</td><td>95o 通常弃牌；95s 也不因同花就跟前位大加注或硬扛 3-bet。</td></tr>
       <tr><th scope="row"><span data-handbook-hand="J8s">J8s</span> / <span data-handbook-hand="J8o">J8o</span></th><td>后位无人入池时优先考虑 J8s；BB 面对后位小开池可评估防守。</td><td>J8o 的 J 容易被更好踢脚支配；面对前位强范围、3-bet 与多人压力不轻易继续。</td></tr>
       <tr><th scope="row"><span data-handbook-hand="86s">86s</span> / <span data-handbook-hand="86o">86o</span></th><td>86s 在 BTN 可评估开池；有位置、价格合适且对手范围宽时，可评估跟注。</td><td>86o 通常不值得追逐；86s 面对大加注、短码或强范围，隐含回报常不足。</td></tr>
@@ -57,7 +57,7 @@ export const HANDBOOK_SECTIONS = [
       <p>跛入是只跟一个大盲。隔离加注希望让较弱牌付费，并减少翻后人数；可以用加至 4–5 BB、每多一名跛入者再加约 1 BB 作为测试起点。无位置、多人仍愿意跟或抽水高时，需要更谨慎。若加注后经常四人看翻牌，就减少纯偷池和弱同花牌，重新评价隔离是否有效。</p>
       <h3>前面开池：从对手范围重新开始</h3>
       <p>先看开池位置、尺寸、后面未行动玩家和对手倾向。对强范围少用易被支配的牌跟注；对宽范围，可以增加价值 3-bet。对经常跟 3-bet 的人，以较强牌组成线性加注范围；对过度弃牌的人，可以加入少量 A5s 这类有阻断和可玩性的诈唬组合。</p>
-      <div class="handbook-table-scroll"><table><caption>约 100 BB 的尺寸训练起点，均为加注后的总额</caption><thead><tr><th scope="col">情境</th><th scope="col">起点</th><th scope="col">要补充的判断</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-3"><table><caption id="handbook-table-3">约 100 BB 的尺寸训练起点，均为加注后的总额</caption><thead><tr><th scope="col">情境</th><th scope="col">起点</th><th scope="col">要补充的判断</th></tr></thead><tbody>
       <tr><th scope="row">有位置 3-bet</th><td>约开池总额的 3–3.5 倍；对手加至 3 BB，可测试加至 9–10.5 BB。</td><td>根据跟注者、开池范围和对手继续倾向调整。</td></tr>
       <tr><th scope="row">无位置 3-bet</th><td>约开池总额的 4–4.5 倍；对手加至 3 BB，可测试加至 12–13.5 BB。</td><td>后面有跟注者时需另作调整；大尺寸不能补救不合适的牌。</td></tr>
       <tr><th scope="row">面对 3-bet</th><td>比较弃牌、跟注和 4-bet。</td><td>根据新的价格、位置与剩余筹码重新选择。</td></tr>
@@ -120,7 +120,7 @@ export const HANDBOOK_SECTIONS = [
     summary: "根据跟注、弃牌与加注习惯，调整价值下注和诈唬。",
     body: `
       <p>记录对手时，顺着行动留下的线索，按位置、人数、牌面和尺寸分开看。有人翻前很松，河牌却很少诈唬；有人愿意跟小注，面对大注就容易弃牌。找到这些具体习惯，才能确定在哪条街、用什么尺寸调整。</p>
-      <div class="handbook-table-scroll"><table><caption>常见对手倾向与应对</caption><thead><tr><th scope="col">重复观察</th><th scope="col">可执行调整</th><th scope="col">后续怎么调整</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-4"><table><caption id="handbook-table-4">常见对手倾向与应对</caption><thead><tr><th scope="col">重复观察</th><th scope="col">可执行调整</th><th scope="col">后续怎么调整</th></tr></thead><tbody>
       <tr><th scope="row">较弱一对也经常跟到摊牌</th><td>扩大合理价值下注，减少纯诈唬；用强牌测试其是否仍接受较大尺寸。</td><td>分别观察其对小注与大注的接受程度，选出强牌能得到支付的尺寸。</td></tr>
       <tr><th scope="row">相似后位偷盲或小持续下注机会中弃牌偏多</th><td>后位增加候选开池与有计划的小注，保留面对反击的弃牌路线。</td><td>对手开始增加 3-bet 或跟注后，删去新增的最弱组合。</td></tr>
       <tr><th scope="row">针对你频繁 3-bet</th><td>先删去最弱开池，以有位置、可玩的牌继续；价值反击优先。</td><td>检查其摊牌和后续 3-bet 频率，优先用强牌反击。</td></tr>
@@ -155,7 +155,7 @@ export const HANDBOOK_SECTIONS = [
       <h3>场景四：3-bet 战变成了面子之争</h3>
       <p>当你开始只盯着同一对手，反复想到“又是他”“这次不能再弃”，先暂停一下。回到位置、价格、范围和预设继续牌；如果仍在想着报复，就离桌休息。对频繁反击的对手，用更强的继续范围和合适的价值 4-bet 处理。</p>
       <p>复盘时遮住结果，回到那次加注之前，重新解释其收益与可选动作，再检查当时的情绪怎样影响了选择。</p>
-      <div class="handbook-note"><strong>给自己建立情绪档案。</strong><p>写下触发事件、身体和语言信号、常见错误及停止条件。Jared Tendler 在 <a href="https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/">Understanding Poker Tilt</a> 中介绍了这项练习。到 <a href="#tilt">情绪管理专题</a>，继续整理自己的预警信号与应对计划。</p></div>
+      <div class="handbook-note"><strong>给自己建立情绪档案。</strong><p>写下触发事件、身体和语言信号、常见错误及停止条件。Jared Tendler 在 <a href="https://www.pokerstars.com/poker/learn/lesson/understanding-poker-tilt/">Understanding Poker Tilt</a> 中介绍了这项练习。到 <a href="tilt.html">情绪管理专题</a>，继续整理自己的预警信号与应对计划。</p></div>
     `,
   },
   {
@@ -169,7 +169,7 @@ export const HANDBOOK_SECTIONS = [
       <h3>跟注需要补多少，最后争夺多少</h3>
       <p>简单跟注门槛为 <strong>需补金额 C ÷ 跟注后可争夺的底池</strong>。例如底池原有 100，对手下注 50，轮到你时当前底池是 150；跟 50 后为 200，门槛是 25%。河牌或全下、无后续费用时可用摊牌权益比较；前两街还需估计后续下注、位置、隐含及反向隐含回报。</p>
       <div data-handbook-visual="odds"></div>
-      <div class="handbook-table-scroll"><table><caption>单挑首次下注，无抽水、无后续行动的简化门槛</caption><thead><tr><th scope="col">下注 / 下注前底池</th><th scope="col">简单跟注门槛</th><th scope="col">同尺寸零权益诈唬的盈亏平衡弃牌率</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-5"><table><caption id="handbook-table-5">单挑首次下注，无抽水、无后续行动的简化门槛</caption><thead><tr><th scope="col">下注 / 下注前底池</th><th scope="col">简单跟注门槛</th><th scope="col">同尺寸零权益诈唬的盈亏平衡弃牌率</th></tr></thead><tbody>
       <tr><th scope="row">1/3</th><td>20%</td><td>25%</td></tr>
       <tr><th scope="row">1/2</th><td>25%</td><td>33.3%</td></tr>
       <tr><th scope="row">3/4</th><td>30%</td><td>42.9%</td></tr>
@@ -188,7 +188,7 @@ export const HANDBOOK_SECTIONS = [
     title: "桌边速查与四次训练",
     summary: "每场只改一个主要动作，先判断决策，再看输赢。",
     body: `
-      <div class="handbook-table-scroll"><table><caption>每手牌的短流程</caption><thead><tr><th scope="col">节点</th><th scope="col">先问什么</th><th scope="col">刹车条件</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="handbook-table-6"><table><caption id="handbook-table-6">每手牌的短流程</caption><thead><tr><th scope="col">节点</th><th scope="col">先问什么</th><th scope="col">刹车条件</th></tr></thead><tbody>
       <tr><th scope="row">翻前</th><td>人数 → 位置 → 有效筹码 → 前序行动 → 对手 → 范围 → 尺寸与反击计划。</td><td>边缘牌没有位置、价格或可利用弱点支撑。</td></tr>
       <tr><th scope="row">翻牌</th><td>双方范围 → 人数 → 牌面 → 价值 / 弃牌目标 → 比较过牌。</td><td>只因自己是开池者就必须下注。</td></tr>
       <tr><th scope="row">转牌</th><td>被跟后的范围 → 新牌帮助谁 → 是否仍有价值或弃牌目标。</td><td>空白牌、对手不弃、自己权益不足，却惯性继续。</td></tr>

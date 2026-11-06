@@ -1,5 +1,5 @@
 // Stable identities shared across every hand and the friends list.
-// Source paths stay readable here; review-avatar-urls.js embeds the images at build time.
+// Source paths stay readable here; review-avatar-urls.js maps the same IDs to published WebP portraits.
 // Playing traits are intentionally empty until the friends' descriptions are recorded.
 export const REVIEW_PEOPLE = Object.freeze({
   tengteng: Object.freeze({

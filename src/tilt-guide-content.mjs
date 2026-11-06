@@ -24,7 +24,7 @@ export const TILT_SECTIONS = [
     summary: "把笼统的“运气差”拆开，找到最容易牵动自己的情境。",
     body: `
       <p>PokerStars 的<a href="https://www.pokerstars.com/poker/learn/lesson/poker-tilt-is-prohibited/">失控成因与应对文章</a>提到，追损、报复、疲劳与连胜后的过度自信，都可能损害决策。你可以从下面的情境入手，挑出最像自己的两项。</p>
-      <div class="handbook-table-scroll"><table><caption>触发情境与桌边练习</caption><thead><tr><th scope="col">情境</th><th scope="col">留意脑中这句话</th><th scope="col">给下一手一个具体任务</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-1"><table><caption id="tilt-table-1">触发情境与桌边练习</caption><thead><tr><th scope="col">情境</th><th scope="col">留意脑中这句话</th><th scope="col">给下一手一个具体任务</th></tr></thead><tbody>
       <tr><th scope="row">领先时被反超</th><td>“凭什么这种牌也能赢？”</td><td>重新看自己的位置，先说出本手入池的理由。</td></tr>
       <tr><th scope="row">刚发现自己打错</th><td>“刚才真蠢，赶紧打一手好的。”</td><td>标记上一手；把技术问题留到离桌后分析。</td></tr>
       <tr><th scope="row">被同一人反复加注</th><td>“这次我绝对不能再弃。”</td><td>遮住对手姓名，按位置、尺寸和继续范围重新选牌。</td></tr>
@@ -62,7 +62,7 @@ export const TILT_SECTIONS = [
     summary: "记下事情怎样发生、自己怎样回应，让反复出现的模式渐渐清晰。",
     body: `
       <p>准备一张便签，或打开手机备忘录，从一段具体经历写起：发生了什么，心里怎样想，手上又怎样做。把最早出现的信号提炼出来。桌上看短卡，离桌后再补齐细节。</p>
-      <div class="handbook-table-scroll"><table><caption>个人情绪档案填写模板</caption><thead><tr><th scope="col">记录项</th><th scope="col">填写提示</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-2"><table><caption id="tilt-table-2">个人情绪档案填写模板</caption><thead><tr><th scope="col">记录项</th><th scope="col">填写提示</th></tr></thead><tbody>
       <tr><th scope="row">时间与场景</th><td>打了多久？现金局还是比赛？当时在哪一街？</td></tr>
       <tr><th scope="row">触发事件</th><td>写当时发生的动作和结果，例如“河牌跟注后，看到对手更大的两对”。</td></tr>
       <tr><th scope="row">脑中原话</th><td>保留自己当时的措辞，例如“这点筹码今天必须拿回来”。</td></tr>
@@ -113,7 +113,7 @@ export const TILT_SECTIONS = [
     summary: "分清尚未学会的判断，与当时没能做到的动作。",
     body: `
       <p><a href="https://www.pokerstars.com/poker/learn/strategies/poker-mindset-how-to-think-about-the-game/">PokerStars 的牌桌心态文章</a>强调：短期里，打得好仍可能输，打得差也可能赢。复盘时先遮住后续公共牌和最终赢家，只用当时已经知道的信息还原决定。</p>
-      <div class="handbook-table-scroll"><table><caption>把判断过程与最终结果放在不同的轴上</caption><thead><tr><th scope="col">本手情况</th><th scope="col">复盘要做的事</th></tr></thead><tbody>
+      <div class="handbook-table-scroll" tabindex="0" role="region" aria-labelledby="tilt-table-3"><table><caption id="tilt-table-3">把判断过程与最终结果放在不同的轴上</caption><thead><tr><th scope="col">本手情况</th><th scope="col">复盘要做的事</th></tr></thead><tbody>
       <tr><th scope="row">过程合理，赢了</th><td>记住可重复的判断步骤，补看有没有漏掉的分支。</td></tr>
       <tr><th scope="row">过程合理，输了</th><td>检查范围与价格；解释成立时，保留原有行动理由。</td></tr>
       <tr><th scope="row">过程草率，赢了</th><td>找出被省略的一步，写下下次如何补回来。</td></tr>
@@ -124,7 +124,7 @@ export const TILT_SECTIONS = [
       <p><strong>执行问题：</strong>平静时你知道怎样判断，当时却因为报复、追损或走神跳过了步骤。把跳过前的信号加入个人档案，并练习当场提醒。</p>
       <p>这两件事也可能缠在一起：既没算清跟注价格，又因为一心想抓某个人，漏看了他的下注线。复盘时把它们拆开，各留一项练习，下次就知道该从哪里补起。</p>
       <h3>用项目里的牌局练一遍</h3>
-      <p>打开<a href="#review">牌局复盘</a>，在翻牌或转牌停下，先写选择和理由，再看下一街。需要核对已知手牌的成牌情况时，使用<a href="#odds">牌力计算</a>；翻前偏离较多时，回到<a href="#ranges">起手牌矩阵</a>对照位置与前序行动。</p>
+      <p>打开<a href="review.html">牌局复盘</a>，在翻牌或转牌停下，先写选择和理由，再看下一街。需要核对已知手牌的成牌情况时，使用<a href="odds.html">牌力计算</a>；翻前偏离较多时，回到<a href="ranges.html">起手牌矩阵</a>对照位置与前序行动。</p>
     `,
   },
   {

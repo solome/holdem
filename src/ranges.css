@@ -1,24 +1,3 @@
-/* Shared navigation stays available at every screen size. */
-[hidden] {
-  display: none !important;
-}
-.site-header {
-  position: relative;
-  z-index: 2;
-}
-.header-nav .nav-link {
-  position: relative;
-  white-space: nowrap;
-}
-.header-nav .nav-link.active::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  bottom: 3px;
-  left: 0;
-  right: 0;
-  background: var(--green);
-}
 .ranges-view {
   padding: var(--space-8) 0 var(--space-10);
 }
@@ -963,40 +942,6 @@
   }
 }
 @media (max-width: 600px) {
-  .site-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    height: auto;
-    gap: 0;
-    padding-top: var(--space-5);
-  }
-  .site-header > .brand {
-    grid-column: 1;
-    grid-row: 1;
-    width: max-content;
-  }
-  .site-header > .language-picker {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .header-nav {
-    display: flex;
-    min-width: 0;
-    max-width: 100%;
-    grid-column: 1/-1;
-    grid-row: 2;
-    margin-left: 0;
-    gap: var(--space-6);
-    padding-top: var(--space-4);
-  }
-  .header-nav .nav-link {
-    font-size: var(--font-label);
-    padding: var(--space-3) 1px var(--space-4);
-  }
-  .header-nav .nav-link.active:after {
-    bottom: -1px;
-    height: 2px;
-  }
   .ranges-view {
     padding-top: var(--space-6);
     padding-bottom: var(--space-8);

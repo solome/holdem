@@ -1,0 +1,136 @@
+<section id="entry-decisions">
+  <h2>紧凶的入局条件</h2>
+  <p>你在按钮拿到 <cash-hand example="Ks Qh">KQo</cash-hand>。o 表示两张牌不同花，图中是其中一种组合。如果前面都弃牌，你加注有机会直接赢下两盲；如果前位已经加注，同样的 <cash-hand example="Ks Qh">KQ</cash-hand> 却可能刚好撞上 <cash-hand example="Ac Kd">AK</cash-hand> 或 <cash-hand example="Ad Qc">AQ</cash-hand>。手牌和座位都没变，变的是谁已经表明愿意投入筹码，以及谁还能先把底池赢走。</p>
+  <p><strong>紧凶打法（TAG）</strong>选择性地入局，找到优势时主动下注或加注。“紧”体现在能放过被压制、难以打到摊牌的边缘牌。“凶”体现在有好牌时能向弱牌收费，或用有根据的加注拿下盲注。前面有三家溜入时，在按钮便宜跟进一手有成牌潜力的同花连张，同样可以是紧凶玩家的选择。</p>
+  <p>轮到你时，先还原行动：有几人在场，前面是全弃、溜入，还是已经加注及跟注？再数谁还没说话，谁会在翻牌后占位置。随后比较入场价和有效筹码。最后才看手里的两张牌：你靠现在就领先、让对手弃牌，还是靠以后击中愿意付钱的强牌获利？如果最常出现的翻牌会让你只能被动猜牌，这手牌就需要更好的入场条件。</p>
+  <p>先用两手投机牌检验这个顺序。一手的开池者只剩 32，另一手的对手有上千筹码。后者深得多，但身后还有六个人未行动：哪一笔跟注真的能让你看见翻牌？</p>
+  <cash-example name="tag-short-pair"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-02"></cash-label></summary>
+    <cash-example name="tag-original-02"></cash-example>
+  </details>
+</section>
+<section id="open-raise">
+  <h2>位置与开池尺寸</h2>
+  <p>前面全弃时，第一个加注入局称为<strong>开池</strong>。同是枪口位（UTG），九人桌身后有八人，六人桌只有五人。越多人尚未行动，越容易有人拿到能跟注或再加注的牌。到了按钮位（BTN），不仅只剩两个盲位，翻牌后还总能最后行动，这两点共同支持更宽的开池范围。<cite data-source="tag-opening"></cite></p>
+  <p>选择尺寸时先想对手的反应。无前注、无抽水时，非盲位玩家开到 2.5 BB，争取的是 1.5 BB 盲注。如果只靠所有人立即弃牌获利，一遇抵抗就放弃，这笔偷盲要约 62.5% 的成功率才能打平。开到 4 BB，要约 72.7%。你的牌被跟后通常还有价值，但多下的 1.5 BB 总有成本。盲位爱用差牌跟大注时，强牌可以多收费；身后多位玩家爱再加注时，扩大尺寸也会放大被迫弃牌的代价。<cite data-source="tag-sizing"></cite></p>
+  <p>读牌的人也在看你的尺寸。相似位置、相似桌况，先采用容易执行的一种尺寸；如果每次拿 <cash-hand>AA</cash-hand> 开到 5 BB、拿边缘牌却只开 2 BB，等于提前替对手分类。<cash-ref name="tag-open-qq"></cash-ref> 中，前位 <cash-hand cards="Qh Qs">QQ</cash-hand> 遇上一桌爱看翻牌的玩家。先比较直接加注和率先只投 1 BB 两条路线，再看六人一起看翻牌后，这手超对的处境怎样变化。</p>
+  <cash-example name="tag-open-qq"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-14"></cash-label></summary>
+    <cash-example name="tag-original-14"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-13"></cash-label></summary>
+    <cash-example name="tag-original-13"></cash-example>
+  </details>
+</section>
+<section id="hand-families">
+  <h2>牌型与互补策略</h2>
+  <p>可以先按牌型决定入局目的，再决定遇到反击怎么办。同一类牌内部也有差别：<cash-hand>JJ</cash-hand> 有时能在低牌面持续取值，<cash-hand>33</cash-hand> 却很少有这个余地。</p>
+  <dl class="cash-principles">
+    <div><dt>大对子与最高的两张单牌</dt><dd><cash-hand>AA</cash-hand>、<cash-hand>KK</cash-hand> 常愿意把底池做大，让较弱对子和高张付钱。<cash-hand>QQ</cash-hand>、<cash-hand>AK</cash-hand> 遇到紧手开池、另一名紧手再加注，要重新估对手继续投入的范围。后者遇到 <cash-hand>AQ</cash-hand>、<cash-hand>AJ</cash-hand> 时踢脚占优，撞上前面那两种大对子却常常落后。</dd></div>
+    <div><dt>中小对子</dt><dd>中对可以靠现有牌力取胜，也能加注让两张高牌放弃翻牌机会。小对子若主要靠翻出暗三条赚钱，跟注额、双方后手、身后是否有人会挤压，缺一项都可能让这笔账失效。对手即使有钱，也得拿着一手愿意继续付钱的牌。</dd></div>
+    <div><dt>麻烦高张与同花 A</dt><dd><cash-hand>KJo</cash-hand>、<cash-hand>QTo</cash-hand> 容易在翻牌击中顶对时输给更好的踢脚。它们在后位率先加注能赢盲注，面对前位强范围冷跟却少了这条出路。同花小 A 还能组成最大的同花，但在 A 高翻牌只有弱踢脚时，仍应按一对计价。</dd></div>
+    <div><dt>同花连张与隔张牌</dt><dd>同是 9 高，<cash-hand>98s</cash-hand> 的两张牌同花且相连，<cash-hand>97s</cash-hand> 中间缺 8，<cash-hand>96s</cash-hand> 中间缺 7 和 8。隔张越多，两张手牌一起参与做顺子的牌面越少。这些辅助牌有机会在低牌面组成隐蔽强牌，便宜入场、有位置、双方较深时更值得考虑。底端顺子和小同花也可能是次强牌。若身后常有人再加注，你可能连翻牌都见不到。</dd></div>
+  </dl>
+  <p>哈林顿说的<strong>互补策略</strong>，是让同一个动作可以代表几种有理由这样打的牌。前位开池偶尔含一手同花连张，对手就不能一见低牌面便断定你没中。但要算组合数：<cash-hand>JJ</cash-hand> 到 <cash-hand>AA</cash-hand> 共 24 种，<cash-hand>AK</cash-hand> 共 16 种，合计 40 种；从 <cash-hand>32s</cash-hand> 到 <cash-hand>KQs</cash-hand> 的 11 组连续同花牌已有 44 种。每一种都开，原本用来补充强牌的小部分就比强牌还多。隔张或不同花的连牌还得再打折：同花连张同时有顺和花两种改善路径，非同花小连张少了一条。在多人底池追成小同花也可能输给更大同花，单看同花二字不足以决定跟注。原章用个人混合频率说明这个问题，本站的六人桌紧凶预设则提供固定起点；要改变频率，先说清哪种桌况让另一条路线也有利润。</p>
+  <p>用 <cash-ref name="tag-suited-connector"></cash-ref> 的九人桌枪口位 <cash-hand cards="5d 4d">54s</cash-hand> 检查这条边界。身后哪些人肯平跟、哪些人喜欢再加注？这一次翻牌击中两对，是辅助牌偶尔能赢一个大底池的理由。它究竟值得加注几次，还要计入其余许多没中的翻牌，以及你在不利位置能否处理那些牌面。</p>
+  <cash-example name="tag-suited-connector"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-05"></cash-label></summary>
+    <cash-example name="tag-original-05"></cash-example>
+  </details>
+</section>
+<section id="isolation">
+  <h2>溜入与隔离</h2>
+  <p>前面无人加注，只投 1 BB 进池叫<strong>溜入</strong>。第一个溜入会丢掉直接拿下盲注的机会，也给身后玩家便宜价格。在后面跟着已有的溜入者只付 1 BB，却是在争夺一个已经更大的底池。面对多家溜入，如果自己有位置、拿着小对子或能做成强听牌的同花牌，而且身后少有人反加，随后平跟就有实际依据。</p>
+  <p>原章还讨论了<strong>九人深筹桌偶尔率先溜入</strong>的条件。有些桌子多人惯于平跟，自己对翻牌后的对手和下注习惯也足够熟悉；有时身后有人专爱加注惩罚溜入者，前位以 <cash-hand>AA</cash-hand> 溜入，才有机会再加注取值。若大家都只跟，你允许了好几手本会弃牌的牌便宜看翻牌，自己还要先行动。这样的代价以及对手是否已经留意你的形象，决定了第二条路线是否值得保留。</p>
+  <p><strong>隔离加注</strong>希望留下一个起手范围较弱的对手，最好还能在翻牌后最后行动。先看溜入者会不会弃、会用哪些更弱的牌跟，再看加注能不能挡住身后的人。只有一位爱用弱牌跟到底的对手时，可以用能压制他的高张取值；已有三四家都不肯弃时，拿边缘牌尝试“赶走所有人”会很昂贵，应把加注范围偏向在多人底池仍有优势的牌。增加尺寸是一种手段，隔离成功与否要看实际跟了几家。<cite data-source="tag-limpers"></cite></p>
+  <p><cash-ref name="tag-isolate-at"></cash-ref> 把位置换到小盲：你有 <cash-hand cards="Ah Td">ATo</cash-hand>，前面只有一名后位溜入者。补半个盲注很便宜，却会让大盲免费看牌，翻牌后自己还要先说话。想想加注到 5 BB 被较弱的 A 或 T 跟注，与补齐后进入三人底池，两条路线分别在赚谁的钱。</p>
+  <cash-example name="tag-isolate-at"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-04"></cash-label></summary>
+    <cash-example name="tag-original-04"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-10"></cash-label></summary>
+    <cash-example name="tag-original-10"></cash-example>
+  </details>
+</section>
+<section id="cold-call">
+  <h2>冷跟与缺口</h2>
+  <p>面对别人的开池，此前没有主动投入筹码便直接跟注，称为<strong>冷跟</strong>。许多能在按钮开池的牌，并不适合在按钮跟前位开池。自己开池能立即赢盲注，对手也可能用更差的牌防守；冷跟紧手的开池，却要主动付钱对抗他已经选过的范围。这个差别就是<strong>缺口</strong>。尤其要防看似不错的单对牌：在对手几乎只用强 A 和大对子入局时，<cash-hand>A9o</cash-hand> 在 A 高翻牌可能最容易多付钱。</p>
+  <p>深筹时，缺口还要结合赢多少、输多少来判断。<cash-hand>97s</cash-hand> 的摊牌牌力通常不如大牌容易直接领先，却可能在有位置、跟注便宜、对手拿超对愿意付钱时，赢下一笔隐蔽顺子的回报。若价格涨了、对手后手很短，或身后有喜欢挤压的人，这笔潜在回报就应打折。小对子也是如此。原章把有效后手达到跟注额的约 20–25 倍，当作单挑时主要靠暗三条取值的一道经验筛选；倍数只代表对手付得起，不能代替对他是否肯付的判断。暗三条的成本可回看<a href="cash-key-plays.html#stack-depth">第二章的 <cash-hand>55</cash-hand> 算例</a>。</p>
+  <cash-entry-drill></cash-entry-drill>
+  <p><cash-hand cards="Kd Qs">KQo</cash-hand> 面对偏紧的前位开池，主要担心顶对被压制，以及身后的人再加注。和前面 <cash-ref name="tag-short-pair"></cash-ref> 的 <cash-hand cards="3h 3s">33</cash-hand> 对照，两手都可能应当放弃，原因却不同：小对子更担心的是，真中了大牌，对手也没足够的钱可付。</p>
+  <cash-example name="tag-gap-kq"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-12"></cash-label></summary>
+    <cash-example name="tag-original-12"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-16"></cash-label></summary>
+    <cash-example name="tag-original-16"></cash-example>
+  </details>
+</section>
+<section id="reraises">
+  <h2>再加注与挤压</h2>
+  <p>翻前把大盲看作第一注、开池看作第二注，第一次再加注就是 <strong>3-bet</strong>。哪怕同是 <cash-hand>AQ</cash-hand>，对按钮宽开池再加注，可能有较弱的 Ax 愿意跟；对很紧的枪口开池再加注，却可能赶走原本领先的牌，只留下更强的对手。遇到很少弃给再加注的人，优先把能领先其跟注范围的牌拿来加注。对手经常开得宽、面对再加注又弃得多时，才有理由在强牌以外加入少量能阻挡强牌、被跟后还有出路的牌。例如 <cash-hand>A5s</cash-hand> 拿走一张 A，对手可能的 <cash-hand example="Ad Ac">AA</cash-hand> 从 6 种组合减到 3 种，<cash-hand example="Ah Kd">AK</cash-hand> 从 16 种减到 12 种（假设尚无其他明牌）。这让它有时适合做再加注诈唬，但如果对手宽跟、很少弃，手里有一张 A 也买不来弃牌收益。<cite data-source="tag-three-bet"></cite></p>
+  <p>如果开池和再加注中间还夹着一个或多个跟注者，这个 3-bet 叫<strong>挤压</strong>（squeeze）。池里的筹码多了，原加注者身后还有人，一些跟注者原本只想便宜看牌。三个条件一起制造压力。可原加注者依然可能是 <cash-hand>AA</cash-hand>，跟注者也可能慢打；单凭“有人跟过”就频繁诈唬，很容易在更大的底池里撞上强牌。<cite data-source="tag-squeeze"></cite></p>
+  <p><cash-ref name="tag-squeeze-ak"></cash-ref> 让你拿大盲位 <cash-hand cards="Ah Kc">AK</cash-hand> 面对后位开池和小盲跟注。先设想三人看翻牌时你相对两人的位置，再比较大额加注能收下已有筹码的机会，以及被更强范围跟住的成本。</p>
+  <cash-example name="tag-squeeze-ak"></cash-example>
+  <p>换到<strong>自己开池后遭遇再加注</strong>的一边。比如六人桌按钮开到 2.5 BB，小盲加到 10 BB，大盲弃牌，无前注、无抽水，此前双方各有 100 BB。你还要补 7.5 BB，补完底池是 21 BB、双方各剩 90 BB，翻牌 SPR 约 4.3。你有位置，又能结束翻前行动；若是在前位遇到按钮再加注，或后面还有冷跟者待行动，同一副牌的处境就不同。能对抗对方范围、又希望保留他较弱的牌时可以跟；面对 3-bet 再加注称为 4-bet。选择它之前，先说明哪些差牌会跟、哪些强牌可能弃，以及面对全下准备怎么办。<cite data-source="facing-3bets"></cite></p>
+  <p><cash-ref name="tag-nines-squeezed"></cash-ref> 中你是持 <cash-hand cards="9d 9c">99</cash-hand> 的原开池者，身后却有第三个人还没行动。分别算自己弃、跟、再加注的结果：谁能借你的跟注便宜留在池里？短筹码小盲愿意推入余下筹码的范围，除了较高的对子还有哪些牌？只用“我已经投了 18”解释不了下一步。</p>
+  <details>
+    <summary><cash-label name="tag-original-06"></cash-label></summary>
+    <cash-example name="tag-original-06"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-11"></cash-label></summary>
+    <cash-example name="tag-original-11"></cash-example>
+  </details>
+</section>
+<section id="blind-defense">
+  <h2>盲位防守</h2>
+  <p><strong>小盲和大盲的折扣不同。</strong>弃到小盲时，继续补 0.5 BB 虽便宜，大盲却仍可加注，翻牌后也是你先行动。反过来，大盲面对按钮开到 2.5 BB、小盲弃牌，要补 1.5 BB；补完底池 5.5 BB，眼前的保本份额约 27.3%。你这次能结束行动，却仍要在翻牌后先表态。若换成只有小盲加注，大盲翻牌后有位置，同样价格往往更容易把权益兑现出来。</p>
+  <p>遇到多人，底池越大、入场越便宜，并不等于任意两张都能防守。<cash-ref name="tag-cheap-ace"></cash-ref> 的 <cash-hand cards="Ad 4c">A4o</cash-hand> 只用补 8 就能争取眼前的 54，表面只需 8 ÷ 62 ≈ 12.9%。但还有四个对手和三轮下注，中了一张 A 也常受更好踢脚压制。把“全员都过牌到摊牌”的胜率直接与 12.9% 比，会高估实际能拿回的份额。<cite data-source="tag-bb"></cite></p>
+  <cash-example name="tag-cheap-ace"></cash-example>
+  <p>现金桌还要看抽水。若牌室按底池抽成且没见翻牌就不抽，边缘跟注看到翻牌要负担这笔成本，翻牌前直接拿下底池则可避开。抽水比例、上限、是否有前注不同，防守范围都会变化。快捷矩阵采用明确的桌型与深度，可用来比较动作；用到另外一桌，先把这些条件换成眼前的数字。<cite data-source="tag-rake"></cite></p>
+  <p>把刚看的弱 A 换成大盲的 <cash-hand cards="5c 5d">55</cash-hand>、小盲的 <cash-hand cards="9h 9s">99</cash-hand>，再问一次：折扣相同吗，跟注能结束行动吗？如果前面全弃只剩两盲，小盲还可以主动决定要不要把底池做大。</p>
+  <details>
+    <summary><cash-label name="tag-original-09"></cash-label></summary>
+    <cash-example name="tag-original-09"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-03"></cash-label></summary>
+    <cash-example name="tag-original-03"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-original-19"></cash-label></summary>
+    <cash-example name="tag-original-19"></cash-example>
+  </details>
+</section>
+<section id="preflop-review">
+  <h2>翻前复盘</h2>
+  <p>先遮住翻牌和摊牌，只记三行。第一行写有效筹码、位置和行动顺序，逐笔列出底池中已有多少、自己还要补多少。第二行分别写原开池者和身后玩家至少两类合理的牌，指出自己被跟后靠什么赢。第三行只改一个条件重做决定，例如把原开池者从枪口换到按钮，或把短筹码换成 100 BB。说清楚哪一项变化足以让你从弃牌改为跟注或再加注。</p>
+  <p>拿 <cash-hand cards="9d 9c">99</cash-hand> 被挤压的一手练习：你投 18、后位跟 18、小盲加到总额 54，弃牌的大盲留下 6，轮到你时底池是 96。补 36 后是 132，可身后玩家还没说话。假如他弃牌，你和小盲单挑；假如他也补 36，底池涨到 168。现在把小盲换成只拿高对才这样打的人，重新写下愿意投入多少。把两次决定放在一起，比记住原局后来发了什么牌更能指导下一手。</p>
+  <p>再独立复盘一手 <cash-hand cards="6c 6h">66</cash-hand>。把第一次跟 20 时的对手、有效筹码和价格写在左边，把后位再加到 60 后的三项写在右边。开池者弃牌了，原本指望从他那里赢的筹码还在吗？</p>
+  <cash-example name="tag-original-24"></cash-example>
+</section>
+<section id="casebook">
+  <h2>牌例：问题与分析</h2>
+  <p>这三手把翻前选择和后面的难题连起来。先选行动，把自己担心的对手范围和愿意付的价格写下来，再按街推进。到了下一次加注，检查刚才的判断还有哪些成立。</p>
+  <p>先从前位 <cash-hand cards="4c 4d">44</cash-hand> 开始。以挖暗三条为目的进池，真的在翻牌击中，转牌却遇到加注：此时若还想打光，指望哪几种更弱的牌来跟？</p>
+  <cash-example name="tag-original-08"></cash-example>
+  <details>
+    <summary><cash-label name="tag-original-15"></cash-label></summary>
+    <p>要分开看两位对手：是哪一位打开了底池，又是哪一位一路跟到转牌才加注？再算你的剩余筹码，区分按钮推出的总额和自己能赢到的部分。</p>
+    <cash-example name="tag-original-15"></cash-example>
+  </details>
+  <details>
+    <summary><cash-label name="tag-nines-squeezed"></cash-label></summary>
+    <p>用翻前复盘中列出的 96 作为起点。比较跟注与再加注，哪条路线给后位留下较好的价格？若能隔离小盲，愿意用哪些牌和他的全下范围对抗？</p>
+    <cash-example name="tag-nines-squeezed"></cash-example>
+  </details>
+</section>

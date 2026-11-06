@@ -1,0 +1,146 @@
+      <div id="achievements-view">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <h1 id="hero-title" data-i18n="heroTitle">
+              好牌，值得<br /><span>被记住。</span>
+            </h1>
+            <p data-i18n="heroDescription">
+              有些牌，千载难逢。<br />把牌桌上的高光时刻，收藏在这里。
+            </p>
+            <a class="primary-button" href="#collection"
+              ><span data-i18n="explore">探索我的成就</span
+              ><span aria-hidden="true">↗</span></a
+            >
+          </div>
+          <button
+            class="hero-table"
+            id="hero-achievement"
+            type="button"
+            aria-label="查看方片皇家同花顺"
+            data-i18n-aria="heroAria"
+          >
+            <span class="table-inner" aria-hidden="true"></span>
+            <span class="table-corner corner-top" aria-hidden="true"
+              >A<br />♦</span
+            ><span class="table-corner corner-bottom" aria-hidden="true"
+              >A<br />♦</span
+            >
+            <span class="table-eyebrow"
+              ><span aria-hidden="true">✦</span>
+              <span data-i18n="personalBest">个人最高成就</span>
+              <span aria-hidden="true">✦</span></span
+            >
+            <span class="hero-fan" id="hero-fan" aria-hidden="true"></span>
+            <span class="table-caption"
+              ><span class="hero-achievement-name" id="hero-name"
+                >方片皇家同花顺</span
+              ><span class="table-subtitle" id="hero-date"></span
+              ></span
+            >
+            <span class="hero-open" aria-hidden="true">↗</span>
+          </button>
+        </section>
+
+        <section
+          class="stats"
+          aria-label="成就统计"
+          data-i18n-aria="statistics"
+        >
+          <div class="stat stat-total">
+            <div class="progress-ring" id="progress-ring">
+              <span>12<small>%</small></span>
+            </div>
+            <div>
+              <div class="stat-label" data-i18n="totalProgress">收藏进度</div>
+              <div class="stat-value">
+                <span id="total-count">04</span
+                ><span class="stat-denominator"> / 33</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol" aria-hidden="true">♛</span>
+            <div>
+              <div class="stat-label" data-i18n="royal">皇家同花顺</div>
+              <div class="stat-value" id="royal-count">
+                01<span class="stat-denominator"> / 04</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol flush-symbol" aria-hidden="true">♠</span>
+            <div>
+              <div class="stat-label" data-i18n="straightFlush">同花顺</div>
+              <div class="stat-value" id="flush-count">
+                01<span class="stat-denominator"> / 16</span>
+              </div>
+            </div>
+          </div>
+          <div class="stat">
+            <span class="stat-symbol quads-symbol" aria-hidden="true"
+              >4<span>♣</span></span
+            >
+            <div>
+              <div class="stat-label" data-i18n="quads">四条金刚</div>
+              <div class="stat-value" id="quads-count">
+                02<span class="stat-denominator"> / 13</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="collection"
+          id="collection"
+          aria-labelledby="collection-title"
+        >
+          <div class="collection-heading">
+            <div>
+              <h2 id="collection-title" data-i18n="collectionTitle">
+                把传奇，一手手集齐。
+              </h2>
+            </div>
+            <label class="unlocked-toggle"
+              ><input type="checkbox" id="unlocked-only" /><span
+                class="switch"
+                aria-hidden="true"
+              ></span
+              ><span data-i18n="onlyUnlocked">只看已达成</span></label
+            >
+          </div>
+          <div class="collection-toolbar">
+            <div
+              class="category-tabs"
+              role="group"
+              aria-label="牌型筛选"
+              data-i18n-aria="categoryFilter"
+              id="category-tabs"
+            ></div>
+            <span
+              class="results-count"
+              id="results-count"
+              role="status"
+              aria-live="polite"
+            ></span>
+          </div>
+          <div id="achievement-groups"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <span aria-hidden="true">♧</span>
+            <h3 data-i18n="emptyTitle">暂无已达成成就</h3>
+            <button
+              id="reset-filters"
+              class="secondary-button"
+              type="button"
+              data-i18n="showAll"
+            >
+              查看全部
+            </button>
+          </div>
+        </section>
+      </div>
+    <dialog
+      id="achievement-dialog"
+      aria-labelledby="detail-title"
+    >
+      <div id="dialog-content"></div>
+    </dialog>
