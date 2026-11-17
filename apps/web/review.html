@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7f6f0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Holdem">
+    <meta name="description" content="逐街回看朋友局的行动、牌面、底池与权益。">
+    <title>Holdem — 牌局复盘</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/brand/favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" href="assets/brand/logo.svg" type="image/svg+xml" sizes="any">
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="assets/build/styles.css">
+    <link rel="stylesheet" href="assets/build/select-menu.css">
+    <link rel="stylesheet" href="assets/build/review-menu.css">
+    <link rel="stylesheet" href="assets/build/table-felt.css">
+    <link rel="stylesheet" href="assets/build/review.css">
+    <script defer src="assets/build/review.js"></script>
+  </head>
+  <body data-view="review" data-title="rPageTitle">
+    <a class="skip-link" href="#main-content" data-i18n="skip">跳至主要内容</a>
+    <header class="site-header wrap">
+      <a class="brand" href="index.html" aria-label="Holdem"><img class="brand-mark" src="assets/brand/logo.svg" width="32" height="32" alt=""><span>Holdem<span class="brand-period">.</span></span></a>
+      <nav class="header-nav" aria-label="导航" data-i18n-aria="navigation">
+        <a href="index.html" class="nav-link " data-i18n="collection">成就图鉴</a>
+<details class="review-nav-menu" id="study-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger"><span data-i18n="studyMenu">学习</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="ranges.html" class="" data-i18n="mNav">起手牌矩阵</a><a href="cash.html" class="" data-i18n="cashNav">无限注现金桌</a></div></details>
+<details class="review-nav-menu" id="review-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger active"><span data-i18n="reviewMenu">复盘</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="review.html" class="active" data-i18n="rNav" aria-current="page">牌局复盘</a><a href="handbook.html" class="" data-i18n="hNav">松凶手册</a><a href="tilt.html" class="" data-i18n="tNav">情绪管理</a><a href="reading.html" class="" data-i18n="oNav">读人识牌</a></div></details>
+<a href="odds.html" class="nav-link " data-i18n="cNav">牌力计算</a>
+      </nav>
+      <div class="language-picker">
+        <span class="language-icon" aria-hidden="true">文<span>A</span></span>
+        <select id="language" aria-label="选择语言" data-i18n-aria="language" data-menu-align="end">
+          <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option>
+        </select>
+      </div>
+    </header>
+    <main class="wrap" id="main-content" tabindex="-1">
+      <section id="review-view" class="review-view" aria-labelledby="review-title"><h1 id="review-title">牌局复盘</h1></section><noscript><p>请开启 JavaScript 以使用此工具。</p></noscript>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand footer-brand" href="index.html">Holdem<span class="brand-period">.</span></a>
+      <p id="footer-copy" data-i18n="rFooter"></p>
+      <span class="footer-suits" aria-hidden="true"><span class="suit-spades">♠</span> <span class="suit-hearts">♥</span> <span class="suit-clubs">♣</span> <span class="suit-diamonds">♦</span></span>
+    </footer>
+  </body>
+</html>

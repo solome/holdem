@@ -1,0 +1,57 @@
+{
+  "tengteng": {
+    "id": "tengteng",
+    "name": "腾腾",
+    "gender": "male",
+    "avatar": "src/assets/avatars/tengteng-cartoon.png",
+    "traits": []
+  },
+  "kelin": {
+    "id": "kelin",
+    "name": "克林",
+    "gender": "male",
+    "avatar": "src/assets/avatars/kelin-cartoon.png",
+    "traits": []
+  },
+  "xingxing": {
+    "id": "xingxing",
+    "name": "星星",
+    "gender": "male",
+    "avatar": "src/assets/avatars/xingxing-cartoon.png",
+    "traits": []
+  },
+  "juyipeng": {
+    "id": "juyipeng",
+    "name": "掬一捧",
+    "gender": "male",
+    "avatar": "src/assets/avatars/juyipeng-github.jpg",
+    "traits": [],
+    "avatarSource": {
+      "type": "github",
+      "profileUrl": "https://github.com/solome",
+      "imageUrl": "https://avatars.githubusercontent.com/u/2769724?v=4&s=512",
+      "sha256": "6dfe5bcba850a58a29a3611a51370ab4ff35ff69416b752f0feff1c203c1827f"
+    }
+  },
+  "minmin": {
+    "id": "minmin",
+    "name": "敏敏",
+    "gender": "female",
+    "avatar": "src/assets/avatars/minmin-cartoon.png",
+    "traits": []
+  },
+  "wangwang": {
+    "id": "wangwang",
+    "name": "旺旺",
+    "gender": "male",
+    "avatar": "src/assets/avatars/wangwang-cartoon.png",
+    "traits": []
+  },
+  "jianjian": {
+    "id": "jianjian",
+    "name": "尖尖",
+    "gender": "male",
+    "avatar": "src/assets/avatars/jianjian-cartoon.png",
+    "traits": []
+  }
+}

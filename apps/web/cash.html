@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7f6f0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Holdem">
+    <meta name="description" content="无限注现金桌学习目录与分章牌例索引。">
+    <title>Holdem — 无限注现金桌</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/brand/favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" href="assets/brand/logo.svg" type="image/svg+xml" sizes="any">
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="assets/build/styles.css">
+    <link rel="stylesheet" href="assets/build/select-menu.css">
+    <link rel="stylesheet" href="assets/build/review-menu.css">
+    <link rel="stylesheet" href="assets/build/cash.css">
+    <script defer src="assets/build/article.js"></script>
+  </head>
+  <body data-view="cash" data-title="cashNav">
+    <a class="skip-link" href="#main-content" data-i18n="skip">跳至主要内容</a>
+    <header class="site-header wrap">
+      <a class="brand" href="index.html" aria-label="Holdem"><img class="brand-mark" src="assets/brand/logo.svg" width="32" height="32" alt=""><span>Holdem<span class="brand-period">.</span></span></a>
+      <nav class="header-nav" aria-label="导航" data-i18n-aria="navigation">
+        <a href="index.html" class="nav-link " data-i18n="collection">成就图鉴</a>
+<details class="review-nav-menu" id="study-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger active"><span data-i18n="studyMenu">学习</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="ranges.html" class="" data-i18n="mNav">起手牌矩阵</a><a href="cash.html" class="active" data-i18n="cashNav" aria-current="page">无限注现金桌</a></div></details>
+<details class="review-nav-menu" id="review-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger"><span data-i18n="reviewMenu">复盘</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="review.html" class="" data-i18n="rNav">牌局复盘</a><a href="handbook.html" class="" data-i18n="hNav">松凶手册</a><a href="tilt.html" class="" data-i18n="tNav">情绪管理</a><a href="reading.html" class="" data-i18n="oNav">读人识牌</a></div></details>
+<a href="odds.html" class="nav-link " data-i18n="cNav">牌力计算</a>
+      </nav>
+      <div class="language-picker">
+        <span class="language-icon" aria-hidden="true">文<span>A</span></span>
+        <select id="language" aria-label="选择语言" data-i18n-aria="language" data-menu-align="end">
+          <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option>
+        </select>
+      </div>
+    </header>
+    <main class="wrap" id="main-content" tabindex="-1">
+      <section class="cash-page" lang="zh-CN"><header class="cash-hero">
+    <h1 data-i18n="cashNav">无限注现金桌</h1><p class="cash-language-note" data-i18n="guideLanguageNote"></p></header>
+    <ol class="cash-chapters"><li><a href="cash-basics.html">
+    <span class="cash-number" aria-hidden="true">01</span><div><h2>基本概念</h2><p>以期望值比较行动，把范围、位置、价格、筹码和对手回应带入每一个决定。</p>
+    </div><span class="cash-arrow" aria-hidden="true">→</span></a></li><li><a href="cash-key-plays.html">
+    <span class="cash-number" aria-hidden="true">02</span><div><h2>玩法要点</h2><p>用有效筹码规划底池，沿对手的行动读牌，并判断什么时候该为自己的牌桌形象付出代价。</p>
+    </div><span class="cash-arrow" aria-hidden="true">→</span></a></li><li><a href="cash-preflop-tag.html">
+    <span class="cash-number" aria-hidden="true">03</span><div><h2>翻前的紧凶打法</h2><p>从无人入池到平跟、加注和再加注，根据对手的范围、位置与价格决定这手牌怎样入池。</p>
+    </div><span class="cash-arrow" aria-hidden="true">→</span></a></li></ol>
+    <nav id="cases" class="cash-case-index" aria-labelledby="cases-title"><h2 id="cases-title">牌例索引</h2>
+      <details class="cash-compare" id="compare"><summary>对照练习</summary>
+        <p><a href="cash-basics.html#example-draw-price">牌例 1-1</a> 和 <a href="cash-basics.html#example-implied-price">牌例 1-4</a> 都有九张同花补牌。哪一手跟完就全下？另一手成花时，平均还要从对手那里赢多少才能打平？</p>
+        <p><a href="cash-key-plays.html#example-ak-small">牌例 2-1</a> 和 <a href="cash-key-plays.html#example-ak-deep">牌例 2-2</a> 都在前位用 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 击中顶对。第一手有哪些较差的牌肯跟翻牌下注？第二手对手跟过翻牌、又加注转牌后，哪些牌还可能这么打？</p>
+      </details>
+      <div class="cash-case-lists"><div id="cases-basics"><h3>基本概念</h3><ol><li><a href="cash-basics.html#example-draw-price"><span>1-1</span>听花跟注的期望值</a></li><li><a href="cash-basics.html#example-side-pot-outs"><span>1-2</span>短筹码争主池</a></li><li><a href="cash-basics.html#example-straight-outs"><span>1-3</span>Q♠ 10♠ 的补牌</a></li><li><a href="cash-basics.html#example-implied-price"><span>1-4</span>成花后的额外收益</a></li><li><a href="cash-basics.html#example-semi-bluff"><span>1-5</span>同花听牌半诈唬</a></li><li><a href="cash-basics.html#example-price-the-draw"><span>1-6</span>9♠ 7♠ 的跟注价格</a></li><li><a href="cash-basics.html#example-framework-river-value"><span>1-7</span>河牌 QQ 的价值下注</a></li><li><a href="cash-basics.html#example-framework-deep-overpair"><span>1-8</span>深筹码 AA 的过牌</a></li><li><a href="cash-basics.html#example-framework-equity-denial"><span>1-9</span>转牌 88 的权益剥夺</a></li></ol>
+
+        </div><div id="cases-key-plays"><h3>玩法要点</h3><ol><li><a href="cash-key-plays.html#example-ak-small"><span>2-1</span>AK 单挑按钮位</a></li><li><a href="cash-key-plays.html#example-ak-deep"><span>2-2</span>AK 面对两家跟注</a></li><li><a href="cash-key-plays.html#example-top-pair"><span>2-3</span>AK 的底池规划</a></li><li><a href="cash-key-plays.html#example-thin-value"><span>2-4</span>口袋 Q 的薄价值注</a></li><li><a href="cash-key-plays.html#example-reassess-range"><span>2-5</span>AK 面对前位加注</a></li><li><a href="cash-key-plays.html#example-pressure-river"><span>2-6</span>KQ 的底池控制</a></li><li><a href="cash-key-plays.html#example-one-street-value"><span>2-7</span>AQ 的价值下注</a></li><li><a href="cash-key-plays.html#example-table-image"><span>2-8</span>小盲位慢打 KK</a></li></ol>
+
+        </div><div id="cases-preflop-tag"><h3>翻前的紧凶打法</h3><ol><li><a href="cash-preflop-tag.html#example-tag-short-pair"><span>3-1</span>口袋 3 面对短筹码开池</a></li><li><a href="cash-preflop-tag.html#example-tag-original-02"><span>3-2</span>前位的 64 同花</a></li><li><a href="cash-preflop-tag.html#example-tag-original-03"><span>3-3</span>小盲用 99 回应偷盲</a></li><li><a href="cash-preflop-tag.html#example-tag-original-04"><span>3-4</span>T9 同花溜入后遇小加注</a></li><li><a href="cash-preflop-tag.html#example-tag-original-05"><span>3-5</span>98 同花面对枪口位开池</a></li><li><a href="cash-preflop-tag.html#example-tag-original-06"><span>3-6</span>TT 跟进三人再加注底池</a></li><li><a href="cash-preflop-tag.html#example-tag-open-qq"><span>3-7</span>枪口位的口袋 Q</a></li><li><a href="cash-preflop-tag.html#example-tag-original-08"><span>3-8</span>前位的口袋 4</a></li><li><a href="cash-preflop-tag.html#example-tag-original-09"><span>3-9</span>大盲位 55 能否便宜看翻牌</a></li><li><a href="cash-preflop-tag.html#example-tag-original-10"><span>3-10</span>枪口位 AK 同花溜入再加</a></li><li><a href="cash-preflop-tag.html#example-tag-original-11"><span>3-11</span>AK 面对溜入再加</a></li><li><a href="cash-preflop-tag.html#example-tag-original-12"><span>3-12</span>大盲位 AJo 面对开池和冷跟</a></li><li><a href="cash-preflop-tag.html#example-tag-original-13"><span>3-13</span>A7 同花偷盲遇小盲大额再加注</a></li><li><a href="cash-preflop-tag.html#example-tag-original-14"><span>3-14</span>中位首入的 QJo</a></li><li><a href="cash-preflop-tag.html#example-tag-original-15"><span>3-15</span>KJo 面对前位开池</a></li><li><a href="cash-preflop-tag.html#example-tag-original-16"><span>3-16</span>四人底池的 Q♣10♣</a></li><li><a href="cash-preflop-tag.html#example-tag-gap-kq"><span>3-17</span>K♦Q♠ 冷跟后遇到再加注</a></li><li><a href="cash-preflop-tag.html#example-tag-suited-connector"><span>3-18</span>前位的 5♦4♦</a></li><li><a href="cash-preflop-tag.html#example-tag-original-19"><span>3-19</span>小盲位的 A9o</a></li><li><a href="cash-preflop-tag.html#example-tag-cheap-ace"><span>3-20</span>大盲的 A♦4♣ 与四名对手</a></li><li><a href="cash-preflop-tag.html#example-tag-isolate-at"><span>3-21</span>小盲的 A♥10♦ 与一名平跟者</a></li><li><a href="cash-preflop-tag.html#example-tag-squeeze-ak"><span>3-22</span>大盲的 A♥K♣ 面对一加一跟</a></li><li><a href="cash-preflop-tag.html#example-tag-nines-squeezed"><span>3-23</span>口袋 9 开池后面对小盲挤压</a></li><li><a href="cash-preflop-tag.html#example-tag-original-24"><span>3-24</span>口袋 6 第二次面对加注</a></li></ol>
+          <a class="case-ordered" href="cash-preflop-tag-cases-1.html">按原编号连续练习 →</a>
+        </div></div>
+    </nav></section>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand footer-brand" href="index.html">Holdem<span class="brand-period">.</span></a>
+
+      <span class="footer-suits" aria-hidden="true"><span class="suit-spades">♠</span> <span class="suit-hearts">♥</span> <span class="suit-clubs">♣</span> <span class="suit-diamonds">♦</span></span>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "Holdem · 德州好牌图鉴",
+  "short_name": "Holdem",
+  "description": "德州扑克成就图鉴、起手牌矩阵、牌局复盘与牌力计算。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#f7f6f0",
+  "background_color": "#f7f6f0",
+  "icons": [
+    { "src": "assets/brand/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/brand/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "起手牌矩阵", "url": "ranges.html" },
+    { "name": "牌局复盘", "url": "review.html" },
+    { "name": "牌力计算", "url": "odds.html" }
+  ]
+}

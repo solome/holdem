@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7f6f0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Holdem">
+    <meta name="description" content="从无人入池到平跟、加注和再加注，根据对手的范围、位置与价格决定这手牌怎样入池。">
+    <title>Holdem — 翻前的紧凶打法</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/brand/favicon.ico" sizes="16x16 32x32 48x48">
+    <link rel="icon" href="assets/brand/logo.svg" type="image/svg+xml" sizes="any">
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="assets/build/styles.css">
+    <link rel="stylesheet" href="assets/build/select-menu.css">
+    <link rel="stylesheet" href="assets/build/review-menu.css">
+    <link rel="stylesheet" href="assets/build/cash.css">
+    <link rel="stylesheet" href="assets/build/table-felt.css">
+    <link rel="stylesheet" href="assets/build/hand-example.css">
+    <script defer src="assets/build/article.js"></script>
+  </head>
+  <body data-view="cash-preflop-tag" data-title="cashPreflopTag">
+    <a class="skip-link" href="#main-content" data-i18n="skip">跳至主要内容</a>
+    <header class="site-header wrap">
+      <a class="brand" href="index.html" aria-label="Holdem"><img class="brand-mark" src="assets/brand/logo.svg" width="32" height="32" alt=""><span>Holdem<span class="brand-period">.</span></span></a>
+      <nav class="header-nav" aria-label="导航" data-i18n-aria="navigation">
+        <a href="index.html" class="nav-link " data-i18n="collection">成就图鉴</a>
+<details class="review-nav-menu" id="study-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger active"><span data-i18n="studyMenu">学习</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="ranges.html" class="" data-i18n="mNav">起手牌矩阵</a><a href="cash.html" class="active" data-i18n="cashNav" aria-current="location">无限注现金桌</a></div></details>
+<details class="review-nav-menu" id="review-nav-menu" name="site-navigation">
+      <summary class="nav-link review-nav-trigger"><span data-i18n="reviewMenu">复盘</span><svg viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <div class="review-nav-links"><a href="review.html" class="" data-i18n="rNav">牌局复盘</a><a href="handbook.html" class="" data-i18n="hNav">松凶手册</a><a href="tilt.html" class="" data-i18n="tNav">情绪管理</a><a href="reading.html" class="" data-i18n="oNav">读人识牌</a></div></details>
+<a href="odds.html" class="nav-link " data-i18n="cNav">牌力计算</a>
+      </nav>
+      <div class="language-picker">
+        <span class="language-icon" aria-hidden="true">文<span>A</span></span>
+        <select id="language" aria-label="选择语言" data-i18n-aria="language" data-menu-align="end">
+          <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option>
+        </select>
+      </div>
+    </header>
+    <main class="wrap" id="main-content" tabindex="-1">
+      <article class="cash-page" lang="zh-CN">
+    <nav class="cash-trail" aria-label="学习导航"><a href="cash.html">← 无限注现金桌</a></nav>
+    <header class="cash-hero"><h1 data-i18n="cashPreflopTag">翻前的紧凶打法</h1><p class="cash-viewpoint">牌例由牌友重演，你坐在掬一捧的位置。</p><p class="cash-language-note" data-i18n="guideLanguageNote"></p></header>
+    <div class="cash-layout"><details class="reading-toc-mobile" data-reading-toc>
+    <summary id="reading-contents"><span>本章目录</span><span class="reading-toc-current" data-reading-current aria-hidden="true"></span>
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+    <nav class="reading-toc-links" aria-label="本章目录"><ol><li><a href="#entry-decisions">紧凶的入局条件</a></li><li><a href="#open-raise">位置与开池尺寸</a></li><li><a href="#hand-families">牌型与互补策略</a></li><li><a href="#isolation">溜入与隔离</a></li><li><a href="#cold-call">冷跟与缺口</a></li><li><a href="#reraises">再加注与挤压</a></li><li><a href="#blind-defense">盲位防守</a></li><li><a href="#preflop-review">翻前复盘</a></li><li><a href="#casebook">牌例：问题与分析</a></li></ol></nav>
+  </details>
+    <nav class="cash-toc handbook-toc" aria-label="本章目录"><ol><li><a href="#entry-decisions">紧凶的入局条件</a></li><li><a href="#open-raise">位置与开池尺寸</a></li><li><a href="#hand-families">牌型与互补策略</a></li><li><a href="#isolation">溜入与隔离</a></li><li><a href="#cold-call">冷跟与缺口</a></li><li><a href="#reraises">再加注与挤压</a></li><li><a href="#blind-defense">盲位防守</a></li><li><a href="#preflop-review">翻前复盘</a></li><li><a href="#casebook">牌例：问题与分析</a></li></ol></nav>
+    <div class="cash-prose"><section id="entry-decisions" tabindex="-1"><h2>紧凶的入局条件</h2>
+  <p>你在按钮拿到 <span class="cash-inline-hand" role="img" aria-label="KQo，示意 K♠ Q♥"><b>KQo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span>。o 表示两张牌不同花，图中是其中一种组合。如果前面都弃牌，你加注有机会直接赢下两盲；如果前位已经加注，同样的 <span class="cash-inline-hand" role="img" aria-label="KQ，示意 K♠ Q♥"><b>KQ</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span> 却可能刚好撞上 <span class="cash-inline-hand" role="img" aria-label="AK，示意 A♣ K♦"><b>AK</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="A:clubs">A<em>♣</em></i><i class="playing-card suit-diamonds" data-card="K:diamonds">K<em>♦</em></i></span></span> 或 <span class="cash-inline-hand" role="img" aria-label="AQ，示意 A♦ Q♣"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="A:diamonds">A<em>♦</em></i><i class="playing-card suit-clubs" data-card="Q:clubs">Q<em>♣</em></i></span></span>。手牌和座位都没变，变的是谁已经表明愿意投入筹码，以及谁还能先把底池赢走。</p>
+  <p><strong>紧凶打法（TAG）</strong>选择性地入局，找到优势时主动下注或加注。“紧”体现在能放过被压制、难以打到摊牌的边缘牌。“凶”体现在有好牌时能向弱牌收费，或用有根据的加注拿下盲注。前面有三家溜入时，在按钮便宜跟进一手有成牌潜力的同花连张，同样可以是紧凶玩家的选择。</p>
+  <p>轮到你时，先还原行动：有几人在场，前面是全弃、溜入，还是已经加注及跟注？再数谁还没说话，谁会在翻牌后占位置。随后比较入场价和有效筹码。最后才看手里的两张牌：你靠现在就领先、让对手弃牌，还是靠以后击中愿意付钱的强牌获利？如果最常出现的翻牌会让你只能被动猜牌，这手牌就需要更好的入场条件。</p>
+  <p>先用两手投机牌检验这个顺序。一手的开池者只剩 32，另一手的对手有上千筹码。后者深得多，但身后还有六个人未行动：哪一笔跟注真的能让你看见翻牌？</p>
+  <figure class="hand-example" id="example-tag-short-pair"><figcaption id="example-tag-short-pair-question"><a class="example-permalink" href="#example-tag-short-pair" aria-label="牌例 3-1，口袋 3 面对短筹码开池"><span>牌例 3-1</span>口袋 3 面对短筹码开池</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-short-pair-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">第四位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-short-pair-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">九人桌，盲注 1/2。腾腾起手 40，此前约二十手都没入池，这次加到 8。你起手 200，还没有投入；按钮和两盲在你身后。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>11</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 3" data-card="3:hearts"><span class="card-corner" aria-hidden="true">3<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">3<span class="corner-suit">♥</span></span></span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 3" data-card="3:spades"><span class="card-corner" aria-hidden="true">3<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">3<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">开池的人只剩 32，为翻牌击中三条付 8 值吗？</h3>
+          <p class="example-given">按只有开池者入池的情形算。先假设身后都弃、没中就放弃；即使你中牌必胜且对手总付清余下 32，回报是否够？</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>单挑有效筹码</dt><dd>20 BB</dd></div><div><dt>本次跟注</dt><dd>8</dd></div><div><dt>中牌时最多净赢</dt><dd>43</dd></div></dl>
+          <p class="example-decision"><strong>如果只为了买一张 3，弃牌。</strong>翻牌至少出现一张 3 的概率约 11.8%。每中一次大约会落空 7.5 次，光是七次半失败的跟注就损失约 60。即使中牌时拿到现有 11 和对手余下的 32，也只净赢 43。对手更深，或你能在没中三条时也赢，才要换一种算法。原局弃牌。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-2</span> 前位的 64 同花</summary>
+    <figure class="hand-example" id="example-tag-original-02"><figcaption id="example-tag-original-02-question"><a class="example-permalink" href="#example-tag-original-02" aria-label="牌例 3-2，前位的 64 同花"><span>牌例 3-2</span>前位的 64 同花</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-02-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">枪口位下一位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-02-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">九人桌，两盲合计 9。枪口弃牌，腾腾从 1,300 的筹码中加到 20。你有 1,100，紧接着行动，身后还有六人。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>29</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 6" data-card="6:hearts"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♥</span></span></span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 4" data-card="4:hearts"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">两人都有上千筹码，为什么还要放弃这手同花隔张？</h3>
+          <p class="example-given">题设中，前位加注者开得紧，后面的玩家中有几位经常再加注。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>跟注成本</dt><dd>20</dd></div><div><dt>起手有效筹码（对开池者）</dt><dd>1,100</dd></div><div><dt>身后待行动</dt><dd>6 人</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。</strong>够深的筹码只给了你赢大底池的上限。付 20 未必能买到翻牌，身后的再加注可能迫使你放弃；即使进了底池，也可能有玩家在你之后行动。把这类投机跟注留给身后干扰少、且能最后行动的场合。</p>
+          </details></div>
+
+        <p class="replay-source">原例盲注栏印作 3/26，与初始底池 9 及开到 20 不符。这里只按明确的初始底池计算。</p>
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="open-raise" tabindex="-1"><h2>位置与开池尺寸</h2>
+  <p>前面全弃时，第一个加注入局称为<strong>开池</strong>。同是枪口位（UTG），九人桌身后有八人，六人桌只有五人。越多人尚未行动，越容易有人拿到能跟注或再加注的牌。到了按钮位（BTN），不仅只剩两个盲位，翻牌后还总能最后行动，这两点共同支持更宽的开池范围。<sup class="citation"><a class="citation-mark" id="cite-1-1" href="#note-1" role="doc-noteref" aria-label="注释 1" aria-describedby="cite-1-1-tip">[1]</a><span class="citation-tip" role="tooltip" id="cite-1-1-tip"><b>PokerStars Learn · Opening the Pot</b><span>六人桌中，身后待行动人数、偷盲机会和翻牌后的位置会改变率先加注的范围。</span></span></sup></p>
+  <p>选择尺寸时先想对手的反应。无前注、无抽水时，非盲位玩家开到 2.5 BB，争取的是 1.5 BB 盲注。如果只靠所有人立即弃牌获利，一遇抵抗就放弃，这笔偷盲要约 62.5% 的成功率才能打平。开到 4 BB，要约 72.7%。你的牌被跟后通常还有价值，但多下的 1.5 BB 总有成本。盲位爱用差牌跟大注时，强牌可以多收费；身后多位玩家爱再加注时，扩大尺寸也会放大被迫弃牌的代价。<sup class="citation"><a class="citation-mark" id="cite-2-1" href="#note-2" role="doc-noteref" aria-label="注释 2" aria-describedby="cite-2-1-tip">[2]</a><span class="citation-tip" role="tooltip" id="cite-2-1-tip"><b>GTO Wizard · Preflop Raise Sizing: Examining 2 Key Factors</b><span>比较开池尺寸时，要同时衡量多冒的风险、盲位弃牌的机会，以及身后玩家的跟注与再加注。</span></span></sup></p>
+  <p>读牌的人也在看你的尺寸。相似位置、相似桌况，先采用容易执行的一种尺寸；如果每次拿 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span> 开到 5 BB、拿边缘牌却只开 2 BB，等于提前替对手分类。<a href="#example-tag-open-qq">牌例 3-7</a> 中，前位 <span class="cash-inline-hand" role="img" aria-label="QQ，具体手牌 Q♥ Q♠"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i></span></span> 遇上一桌爱看翻牌的玩家。先比较直接加注和率先只投 1 BB 两条路线，再看六人一起看翻牌后，这手超对的处境怎样变化。</p>
+  <figure class="hand-example" id="example-tag-open-qq"><figcaption id="example-tag-open-qq-question"><a class="example-permalink" href="#example-tag-open-qq" aria-label="牌例 3-7，枪口位的口袋 Q"><span>牌例 3-7</span>枪口位的口袋 Q</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-open-qq-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="kelin" data-folded="flop turn river">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">第三位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="2" data-person="tengteng" data-folded="flop turn river">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">第四位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="3" data-person="xingxing" data-folded="river">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">按钮位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="4" data-person="minmin" data-folded="flop turn river">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">小盲位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="5" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">大盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-open-qq-street" value="preflop" checked><span>翻牌前</span></label><label><input type="radio" name="example-tag-open-qq-street" value="flop"><span>翻牌</span></label><label><input type="radio" name="example-tag-open-qq-street" value="turn"><span>转牌</span></label><label><input type="radio" name="example-tag-open-qq-street" value="river"><span>河牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 8" data-card="8:clubs"><span class="card-corner" aria-hidden="true">8<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">8<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 5" data-card="5:hearts"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 4" data-card="4:diamonds"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 6" data-card="6:hearts"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 2" data-card="2:diamonds"><span class="card-corner" aria-hidden="true">2<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">2<span class="corner-suit">♦</span></span></span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>15</b></span><span data-at="flop">底池 <b>195</b></span><span data-at="turn">底池 <b>195</b></span><span data-at="river">底池 <b>195</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng" data-folded="river">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">枪口位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 Q" data-card="Q:hearts"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♥</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 Q" data-card="Q:spades"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 九人桌，盲注 5/10。你有 2,800，最先行动。按钮位有 2,200，小盲有 900，两人都打得主动。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 原局你只跟 10，克林、腾腾、星星都跟，敏敏补齐，旺旺过牌，六人底池 60。两盲、你及两个中位都过牌，星星下注 45；小盲弃，大盲和你跟，两个中位弃。</p><p class="replay-line" data-at="turn"><strong>转牌</strong> · 大盲过牌。现在有一张 7 就成顺，你和按钮也都过牌。</p><p class="replay-line" data-at="river"><strong>河牌</strong> · 大盲下注 100，你和按钮都弃牌。无人跟的 100 退回，大盲收下 195。</p>
+        <div class="street-review" data-at="flop"><details class="example-answer"><summary>超对在翻牌有哪两次主动下注的机会？</summary><p>两盲过牌时，原分析倾向直接下约一池，向对子和听顺收费。原局你过牌，等按钮下 45、大盲跟进时，池中已有 150，还可以考虑加到约 200。按钮可能是在全桌示弱后下注，大盲也未必是强成牌；但六人看翻牌，76 已成顺，两对与暗三条也在范围里，加注前仍要计划怎样回应再加。</p></details></div><div class="street-review" data-at="turn"><details class="example-answer"><summary>6♥ 为什么值得停下来？</summary><p>原来愿意跟 45 的 7x 已经成顺。面对两个对手，用 <span class="cash-inline-hand" role="img" aria-label="QQ，花色未指定"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">Q</i><i class="playing-card rank-only">Q</i></span></span> 再下注，很难得到更差牌的跟注。一轮过牌能保留超对的摊牌价值。</p></details></div>
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">后面的人都爱看翻牌，<span class="cash-inline-hand" role="img" aria-label="QQ，花色未指定"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">Q</i><i class="playing-card rank-only">Q</i></span></span> 怎么入池？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>大盲注</dt><dd>10</dd></div><div><dt>开池示例</dt><dd>加到 30</dd></div><div><dt>每个冷跟者需投入</dt><dd>30</dd></div></dl>
+          <p class="example-decision"><strong>优先加注到 30，让较弱的牌付钱看翻牌。</strong><span class="cash-inline-hand" role="img" aria-label="QQ，花色未指定"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">Q</i><i class="playing-card rank-only">Q</i></span></span> 领先许多愿意跟的对子和高牌。加注有机会缩减人数，即使有人跟进，也能在领先时多收一注。若身后几乎每次都会加注，才有理由考虑平跟后再加；在一张大家都爱跟的桌上，平跟更可能招来一圈跟注。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-14</span> 中位首入的 QJo</summary>
+    <figure class="hand-example" id="example-tag-original-14"><figcaption id="example-tag-original-14-question"><a class="example-permalink" href="#example-tag-original-14" aria-label="牌例 3-14，中位首入的 QJo"><span>牌例 3-14</span>中位首入的 QJo</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-14-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">HJ</span>
+      </div><div class="replay-seat" data-seat="2" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">CO</span>
+      </div><div class="replay-seat" data-seat="3" data-person="kelin">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">BTN</span>
+      </div><div class="replay-seat" data-seat="4" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">SB</span>
+      </div><div class="replay-seat" data-seat="5" data-person="jianjian">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">BB</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-14-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">九人桌，盲注 25/50，前面弃到你。你有 1,050，身后还有五人，其中 HJ 只有 440。题设桌风紧凶。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>75</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第四位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 Q" data-card="Q:clubs"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♣</span></span></span><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 J" data-card="J:hearts"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">还剩五人没行动，<span class="cash-inline-hand" role="img" aria-label="QJo，示意 Q♠ J♥"><b>QJo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i><i class="playing-card suit-hearts" data-card="J:hearts">J<em>♥</em></i></span></span> 值得第一个入池吗？</h3>
+          <p class="example-given">如果大家弃得多，开池能争取两盲。若短筹码再加到全下，你打算用 Q 高跟多少？</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>你的筹码</dt><dd>21 BB</dd></div><div><dt>HJ 起手筹码</dt><dd>8.8 BB</dd></div><div><dt>可争的两盲</dt><dd>1.5 BB</dd></div></dl>
+          <p class="example-decision"><strong>没有明确的偷盲依据，可以直接弃牌。</strong><span class="cash-inline-hand" role="img" aria-label="QJo，示意 Q♠ J♥"><b>QJo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i><i class="playing-card suit-hearts" data-card="J:hearts">J<em>♥</em></i></span></span> 被 <span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KQ，花色未指定"><b>KQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">Q</i></span></span> 或 <span class="cash-inline-hand" role="img" aria-label="AJ，花色未指定"><b>AJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">J</i></span></span> 跟住时，即便翻出一对也常处于劣势。若身后明显过度弃牌，可以小额开池，同时提前决定怎样应对再加注。原局选择加注，剩余玩家全弃，净赢两盲 75。</p>
+          </details></div>
+
+        <p class="replay-source">原例同时记载盲注 25/50 和开池到 30，两者不相容。可以确认加注收下盲注，实际加到多少无从确定。</p>
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-13</span> A7 同花偷盲遇小盲大额再加注</summary>
+    <figure class="hand-example" id="example-tag-original-13"><figcaption id="example-tag-original-13-question"><a class="example-permalink" href="#example-tag-original-13" aria-label="牌例 3-13，A7 同花偷盲遇小盲大额再加注"><span>牌例 3-13</span>A7 同花偷盲遇小盲大额再加注</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-13-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">小盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-13-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 25/50，弃到你，你从 4,800 中开到 175。按钮弃牌，小盲敏敏从起手 8,400 再加到 700，大盲弃。你仍有位置，要补 525 才能看翻牌。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>925</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 A" data-card="A:hearts"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♥</span></span></span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 7" data-card="7:hearts"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">后位适合开池的 <span class="cash-inline-hand" role="img" aria-label="A7，花色未指定"><b>A7</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">7</i></span></span> 同花，也适合接小盲的再加注吗？</h3>
+          <p class="example-given">在这个局面中，把小盲的再加注范围估得很紧。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>补入成本</dt><dd>525</dd></div><div><dt>跟注后底池</dt><dd>1,450</dd></div><div><dt>跟注后你的后手</dt><dd>4,100</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。</strong>首入时有直接拿走盲注的机会。现在对方主动把总价提到 14 BB，<span class="cash-inline-hand" role="img" aria-label="A7，花色未指定"><b>A7</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">7</i></span></span> 的高牌优势面对这批牌会大幅缩水，中了顶对也可能被更好的 A 压制。付 525 的直接门槛是 525 ÷ 1,450 ≈ 36.2%，还要考虑翻牌后的投入；原先投入的 175 不构成继续的理由。</p>
+          </details></div>
+
+        <p class="replay-source">按下注流水校正底池为 925：你的 175、小盲总共 700、大盲弃掉的 50。小盲所贴的 25 已含在 700 内。</p>
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="hand-families" tabindex="-1"><h2>牌型与互补策略</h2>
+  <p>可以先按牌型决定入局目的，再决定遇到反击怎么办。同一类牌内部也有差别：<span class="cash-inline-hand" role="img" aria-label="JJ，花色未指定"><b>JJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">J</i><i class="playing-card rank-only">J</i></span></span> 有时能在低牌面持续取值，<span class="cash-inline-hand" role="img" aria-label="33，花色未指定"><b>33</b><span class="cash-hand-cards"><i class="playing-card rank-only">3</i><i class="playing-card rank-only">3</i></span></span> 却很少有这个余地。</p>
+  <dl class="cash-principles">
+    <div><dt>大对子与最高的两张单牌</dt><dd><span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KK，花色未指定"><b>KK</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">K</i></span></span> 常愿意把底池做大，让较弱对子和高张付钱。<span class="cash-inline-hand" role="img" aria-label="QQ，花色未指定"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">Q</i><i class="playing-card rank-only">Q</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 遇到紧手开池、另一名紧手再加注，要重新估对手继续投入的范围。后者遇到 <span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AJ，花色未指定"><b>AJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">J</i></span></span> 时踢脚占优，撞上前面那两种大对子却常常落后。</dd></div>
+    <div><dt>中小对子</dt><dd>中对可以靠现有牌力取胜，也能加注让两张高牌放弃翻牌机会。小对子若主要靠翻出暗三条赚钱，跟注额、双方后手、身后是否有人会挤压，缺一项都可能让这笔账失效。对手即使有钱，也得拿着一手愿意继续付钱的牌。</dd></div>
+    <div><dt>麻烦高张与同花 A</dt><dd><span class="cash-inline-hand" role="img" aria-label="KJo，示意 K♠ J♥"><b>KJo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="J:hearts">J<em>♥</em></i></span></span>、<span class="cash-inline-hand" role="img" aria-label="QTo，示意 Q♠ 10♥"><b>QTo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i><i class="playing-card suit-hearts" data-card="10:hearts">10<em>♥</em></i></span></span> 容易在翻牌击中顶对时输给更好的踢脚。它们在后位率先加注能赢盲注，面对前位强范围冷跟却少了这条出路。同花小 A 还能组成最大的同花，但在 A 高翻牌只有弱踢脚时，仍应按一对计价。</dd></div>
+    <div><dt>同花连张与隔张牌</dt><dd>同是 9 高，<span class="cash-inline-hand" role="img" aria-label="98s，示意 9♠ 8♠"><b>98s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i><i class="playing-card suit-spades" data-card="8:spades">8<em>♠</em></i></span></span> 的两张牌同花且相连，<span class="cash-inline-hand" role="img" aria-label="97s，示意 9♠ 7♠"><b>97s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i><i class="playing-card suit-spades" data-card="7:spades">7<em>♠</em></i></span></span> 中间缺 8，<span class="cash-inline-hand" role="img" aria-label="96s，示意 9♠ 6♠"><b>96s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i><i class="playing-card suit-spades" data-card="6:spades">6<em>♠</em></i></span></span> 中间缺 7 和 8。隔张越多，两张手牌一起参与做顺子的牌面越少。这些辅助牌有机会在低牌面组成隐蔽强牌，便宜入场、有位置、双方较深时更值得考虑。底端顺子和小同花也可能是次强牌。若身后常有人再加注，你可能连翻牌都见不到。</dd></div>
+  </dl>
+  <p>哈林顿说的<strong>互补策略</strong>，是让同一个动作可以代表几种有理由这样打的牌。前位开池偶尔含一手同花连张，对手就不能一见低牌面便断定你没中。但要算组合数：<span class="cash-inline-hand" role="img" aria-label="JJ，花色未指定"><b>JJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">J</i><i class="playing-card rank-only">J</i></span></span> 到 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span> 共 24 种，<span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 共 16 种，合计 40 种；从 <span class="cash-inline-hand" role="img" aria-label="32s，示意 3♠ 2♠"><b>32s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="3:spades">3<em>♠</em></i><i class="playing-card suit-spades" data-card="2:spades">2<em>♠</em></i></span></span> 到 <span class="cash-inline-hand" role="img" aria-label="KQs，示意 K♠ Q♠"><b>KQs</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i></span></span> 的 11 组连续同花牌已有 44 种。每一种都开，原本用来补充强牌的小部分就比强牌还多。隔张或不同花的连牌还得再打折：同花连张同时有顺和花两种改善路径，非同花小连张少了一条。在多人底池追成小同花也可能输给更大同花，单看同花二字不足以决定跟注。原章用个人混合频率说明这个问题，本站的六人桌紧凶预设则提供固定起点；要改变频率，先说清哪种桌况让另一条路线也有利润。</p>
+  <p>用 <a href="#example-tag-suited-connector">牌例 3-18</a> 的九人桌枪口位 <span class="cash-inline-hand" role="img" aria-label="54s，具体手牌 5♦ 4♦"><b>54s</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="5:diamonds">5<em>♦</em></i><i class="playing-card suit-diamonds" data-card="4:diamonds">4<em>♦</em></i></span></span> 检查这条边界。身后哪些人肯平跟、哪些人喜欢再加注？这一次翻牌击中两对，是辅助牌偶尔能赢一个大底池的理由。它究竟值得加注几次，还要计入其余许多没中的翻牌，以及你在不利位置能否处理那些牌面。</p>
+  <figure class="hand-example" id="example-tag-suited-connector"><figcaption id="example-tag-suited-connector-question"><a class="example-permalink" href="#example-tag-suited-connector" aria-label="牌例 3-18，前位的 5♦4♦"><span>牌例 3-18</span>前位的 5♦4♦</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-suited-connector-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="minmin" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">第三位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="2" data-person="jianjian" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">按钮前位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-suited-connector-street" value="preflop" checked><span>翻牌前</span></label><label><input type="radio" name="example-tag-suited-connector-street" value="flop"><span>翻牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 10" data-card="10:diamonds"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 5" data-card="5:hearts"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 4" data-card="4:clubs"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>15</b></span><span data-at="flop">底池 <b>105</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">枪口位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 5" data-card="5:diamonds"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♦</span></span></span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="方片 4" data-card="4:diamonds"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♦</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 九人桌，盲注 5/10。你有 830，最先行动。第三位有 1,260，爱便宜看牌；按钮前位有 720，打得偏紧。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 原局你开到 30，敏敏和尖尖各跟 30，两盲和其他人弃牌。底池 105。你击中两底对，下注 70，两人都弃。未被跟的 70 退回。</p>
+        <div class="street-review" data-at="flop"><details class="example-answer"><summary>击中两底对，应当直接下注还是等过牌加注？</summary><p>若有人会用不少牌下注，过牌加注才有价值。这里你是翻前加注者，一名跟注者偏紧；三个人都过牌的可能并不小。两底对还会被反超，先下 70 可以立刻向顶对和听牌收费。</p></details></div>
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">给强牌范围搭配少量同花连牌，就要用这一手开池吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>对第三位有效筹码</dt><dd>83 BB</dd></div><div><dt>对按钮前位有效筹码</dt><dd>72 BB</dd></div><div><dt>书中开池额</dt><dd>30</dd></div></dl>
+          <p class="example-decision"><strong>一般可以弃；只有桌况支持，才让它偶尔随强牌一起加注。</strong>枪口位身后还有八人。若多人会跟或再加，<span class="cash-inline-hand" role="img" aria-label="54s，示意 5♠ 4♠"><b>54s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="5:spades">5<em>♠</em></i><i class="playing-card suit-spades" data-card="4:spades">4<em>♠</em></i></span></span> 常要在不利位置用较弱的牌继续。书中让它偶尔从前位加注，目的是让自己的开池范围在部分低牌面上也有强牌组合。同花连牌种类多，全部都开，就失去了“少量搭配”的条件。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-5</span> 98 同花面对枪口位开池</summary>
+    <figure class="hand-example" id="example-tag-original-05"><figcaption id="example-tag-original-05-question"><a class="example-permalink" href="#example-tag-original-05" aria-label="牌例 3-5，98 同花面对枪口位开池"><span>牌例 3-5</span>98 同花面对枪口位开池</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-05-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">枪口位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-05-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 2/4，星星起手 300，从枪口加到 16。接下来两人弃牌。你有 430，还隔着五位没行动的玩家。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>22</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第四位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="黑桃 9" data-card="9:spades"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♠</span></span></span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 8" data-card="8:spades"><span class="card-corner" aria-hidden="true">8<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">8<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">枪口位近来比较活跃，足以让中位用 98 同花跟 4 BB 吗？</h3>
+          <p class="example-given">这桌整体偏紧。题设给枪口位的判断是比多数人活跃，但没有频繁乱加的证据。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>开池大小</dt><dd>4 BB</dd></div><div><dt>补入筹码</dt><dd>16</dd></div><div><dt>与枪口位的有效深度</dt><dd>75 BB</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。偶尔跟一次，也要有具体理由。</strong>投机牌能让你的跟注范围覆盖中小连张牌面，但对方在枪口开到 4 BB，身后还有挤压风险。若后位多半弃牌，且开池者愿意在你中强牌时付钱，跟注才更有吸引力。原例的低频跟注是这种桌况下的一种混合打法。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="isolation" tabindex="-1"><h2>溜入与隔离</h2>
+  <p>前面无人加注，只投 1 BB 进池叫<strong>溜入</strong>。第一个溜入会丢掉直接拿下盲注的机会，也给身后玩家便宜价格。在后面跟着已有的溜入者只付 1 BB，却是在争夺一个已经更大的底池。面对多家溜入，如果自己有位置、拿着小对子或能做成强听牌的同花牌，而且身后少有人反加，随后平跟就有实际依据。</p>
+  <p>原章还讨论了<strong>九人深筹桌偶尔率先溜入</strong>的条件。有些桌子多人惯于平跟，自己对翻牌后的对手和下注习惯也足够熟悉；有时身后有人专爱加注惩罚溜入者，前位以 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span> 溜入，才有机会再加注取值。若大家都只跟，你允许了好几手本会弃牌的牌便宜看翻牌，自己还要先行动。这样的代价以及对手是否已经留意你的形象，决定了第二条路线是否值得保留。</p>
+  <p><strong>隔离加注</strong>希望留下一个起手范围较弱的对手，最好还能在翻牌后最后行动。先看溜入者会不会弃、会用哪些更弱的牌跟，再看加注能不能挡住身后的人。只有一位爱用弱牌跟到底的对手时，可以用能压制他的高张取值；已有三四家都不肯弃时，拿边缘牌尝试“赶走所有人”会很昂贵，应把加注范围偏向在多人底池仍有优势的牌。增加尺寸是一种手段，隔离成功与否要看实际跟了几家。<sup class="citation"><a class="citation-mark" id="cite-3-1" href="#note-3" role="doc-noteref" aria-label="注释 3" aria-describedby="cite-3-1-tip">[3]</a><span class="citation-tip" role="tooltip" id="cite-3-1-tip"><b>Upswing Poker · How to Maximize Your Winnings Versus Multiple Limpers</b><span>文章比较隔离加注与随后平跟，说明溜入人数、位置和对手跟注习惯怎样影响选择。</span></span></sup></p>
+  <p><a href="#example-tag-isolate-at">牌例 3-21</a> 把位置换到小盲：你有 <span class="cash-inline-hand" role="img" aria-label="ATo，具体手牌 A♥ 10♦"><b>ATo</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="A:hearts">A<em>♥</em></i><i class="playing-card suit-diamonds" data-card="10:diamonds">10<em>♦</em></i></span></span>，前面只有一名后位溜入者。补半个盲注很便宜，却会让大盲免费看牌，翻牌后自己还要先说话。想想加注到 5 BB 被较弱的 A 或 T 跟注，与补齐后进入三人底池，两条路线分别在赚谁的钱。</p>
+  <figure class="hand-example" id="example-tag-isolate-at"><figcaption id="example-tag-isolate-at-question"><a class="example-permalink" href="#example-tag-isolate-at" aria-label="牌例 3-21，小盲的 A♥10♦ 与一名平跟者"><span>牌例 3-21</span>小盲的 A♥10♦ 与一名平跟者</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-isolate-at-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="kelin" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">按钮前位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="2" data-person="wangwang" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">大盲位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-isolate-at-street" value="preflop" checked><span>翻牌前</span></label><label><input type="radio" name="example-tag-isolate-at-street" value="flop"><span>翻牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 A" data-card="A:spades"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 8" data-card="8:clubs"><span class="card-corner" aria-hidden="true">8<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">8<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 5" data-card="5:hearts"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>10</b></span><span data-at="flop">底池 <b>44</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">小盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 A" data-card="A:hearts"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♥</span></span></span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="方片 10" data-card="10:diamonds"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♦</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 盲注 2/4。前面弃到克林，他有 580，平跟 4；按钮弃牌。你起手 440，已贴 2；旺旺有 360，还没有行动。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 你翻前加到 20，大盲弃，克林补 16 跟。两人各投 20，加死大盲 4，底池 44。你击中顶对，下注 30，克林弃牌，你收下 44。</p>
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">只需补 2 就能看翻牌，为什么还可以加注？</h3>
+          <p class="example-given">这位后位玩家入池偏宽，较弱的 A 和一些更小的高牌也可能跟一次加注。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>与平跟者有效筹码</dt><dd>110 BB</dd></div><div><dt>加到 20 还需投入</dt><dd>18</dd></div><div><dt>若只跟一家</dt><dd>底池 44（大盲弃）</dd></div></dl>
+          <p class="example-decision"><strong>可以隔离加到 20。</strong>只补齐会给大盲免费过牌的机会，翻牌后你还要最先说话。对宽而愿意跟的范围，加注能从较差的牌收费，也可能挡住大盲。若这名玩家常用强牌平跟后再加，或者大盲特别爱再加，别机械地拿 <span class="cash-inline-hand" role="img" aria-label="ATo，示意 A♠ 10♥"><b>ATo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-hearts" data-card="10:hearts">10<em>♥</em></i></span></span> 把池做大。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-4</span> T9 同花溜入后遇小加注</summary>
+    <figure class="hand-example" id="example-tag-original-04"><figcaption id="example-tag-original-04-question"><a class="example-permalink" href="#example-tag-original-04" aria-label="牌例 3-4，T9 同花溜入后遇小加注"><span>牌例 3-4</span>T9 同花溜入后遇小加注</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-04-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">大盲位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="jianjian">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">小盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-04-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 2/4，弃到起手 430 的你。你先溜入 4，后面两位弃牌，尖尖补齐，起手 320 的旺旺加到 12。现在轮到你，小盲还要回应加注。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>20</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前两位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 10" data-card="10:diamonds"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♦</span></span></span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="方片 9" data-card="9:diamonds"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♦</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">大盲加到 12，再付 8 能买到什么？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>这次跟注</dt><dd>8</dd></div><div><dt>眼前底池赔率</dt><dd>2.5∶1</dd></div><div><dt>大盲加注后剩余</dt><dd>308</dd></div></dl>
+          <p class="example-decision"><strong>复盘倾向跟这次小加注，实战你选择了弃牌。</strong>首入时可以直接加到 10–12，争取拿走两盲。既然已经溜入，就按眼前补 8 的价格判断。<span class="cash-inline-hand" role="img" aria-label="T9，花色未指定"><b>T9</b><span class="cash-hand-cards"><i class="playing-card rank-only">10</i><i class="playing-card rank-only">9</i></span></span> 同花能做成隐蔽的顺子，你翻牌后对两盲都有位置，大盲也还有后手。若小盲常再加注，继续的价值会下降。实战你弃后，小盲也弃，大盲收池。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-10</span> 枪口位 AK 同花溜入再加</summary>
+    <figure class="hand-example" id="example-tag-original-10"><figcaption id="example-tag-original-10-question"><a class="example-permalink" href="#example-tag-original-10" aria-label="牌例 3-10，枪口位 AK 同花溜入再加"><span>牌例 3-10</span>枪口位 AK 同花溜入再加</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-10-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">按钮前两位</span>
+      </div><div class="replay-seat" data-seat="3" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-seat" data-seat="4" data-person="jianjian">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">大盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-10-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 5/10，你有 1,500，先溜入 10。腾腾加到 50，旺旺和敏敏先后跟注，尖尖再补 40。小盲的 5 也留在池中。现在重新轮到你。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>215</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">枪口位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="黑桃 A" data-card="A:spades"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♠</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 K" data-card="K:spades"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">溜入后遇到一次加注、三人跟注，<span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 同花要不要把价格提上去？</h3>
+          <p class="example-given">原局桌况松凶，起手 2,000 的加注者常主动加价。最初轮到你时，直接开池也合理。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>平跟还需</dt><dd>40</dd></div><div><dt>平跟后底池</dt><dd>255</dd></div><div><dt>原局再加到</dt><dd>700</dd></div></dl>
+          <p class="example-decision"><strong>实战再加到 700，四家都弃牌。</strong>平跟相当于让五人看翻牌。再加注可以当场拿下已累积的底池，被跟还有同花 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 的摊牌前景。但从已投的 10 补到 700，要再投入 690；若碰上 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KK，花色未指定"><b>KK</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">K</i></span></span>，会处于明显劣势。这个很大的尺寸取决于加注者会开多宽、其余三人能否扔牌。此手你净赢其他玩家投入的 205。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="cold-call" tabindex="-1"><h2>冷跟与缺口</h2>
+  <p>面对别人的开池，此前没有主动投入筹码便直接跟注，称为<strong>冷跟</strong>。许多能在按钮开池的牌，并不适合在按钮跟前位开池。自己开池能立即赢盲注，对手也可能用更差的牌防守；冷跟紧手的开池，却要主动付钱对抗他已经选过的范围。这个差别就是<strong>缺口</strong>。尤其要防看似不错的单对牌：在对手几乎只用强 A 和大对子入局时，<span class="cash-inline-hand" role="img" aria-label="A9o，示意 A♠ 9♥"><b>A9o</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i></span></span> 在 A 高翻牌可能最容易多付钱。</p>
+  <p>深筹时，缺口还要结合赢多少、输多少来判断。<span class="cash-inline-hand" role="img" aria-label="97s，示意 9♠ 7♠"><b>97s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i><i class="playing-card suit-spades" data-card="7:spades">7<em>♠</em></i></span></span> 的摊牌牌力通常不如大牌容易直接领先，却可能在有位置、跟注便宜、对手拿超对愿意付钱时，赢下一笔隐蔽顺子的回报。若价格涨了、对手后手很短，或身后有喜欢挤压的人，这笔潜在回报就应打折。小对子也是如此。原章把有效后手达到跟注额的约 20–25 倍，当作单挑时主要靠暗三条取值的一道经验筛选；倍数只代表对手付得起，不能代替对他是否肯付的判断。暗三条的成本可回看<a href="cash-key-plays.html#stack-depth">第二章的 <span class="cash-inline-hand" role="img" aria-label="55，花色未指定"><b>55</b><span class="cash-hand-cards"><i class="playing-card rank-only">5</i><i class="playing-card rank-only">5</i></span></span> 算例</a>。</p>
+  <figure class="entry-drill cash-range" id="entry-drill">
+    <figcaption><h3>按钮位选牌练习</h3></figcaption>
+    <p>六人桌，有效筹码 100 BB，无前注或跨注。把前面的行动依次换成全弃、CO 平跟、CO 开池、枪口位开池。在每种情况下，给 <span class="cash-inline-hand" role="img" aria-label="55，花色未指定"><b>55</b><span class="cash-hand-cards"><i class="playing-card rank-only">5</i><i class="playing-card rank-only">5</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="76s，示意 7♠ 6♠"><b>76s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="7:spades">7<em>♠</em></i><i class="playing-card suit-spades" data-card="6:spades">6<em>♠</em></i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KQo，示意 K♠ Q♥"><b>KQo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AQo，示意 A♠ Q♥"><b>AQo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span> 各选一个动作，再打开对照表。每格都可以进入对应的完整矩阵。s 表示同花，o 表示非同花。</p>
+    <details><summary>查看四种场景的建议</summary>
+    <div class="cash-data-scroll" role="region" aria-label="按钮位翻前行动对照，可横向滚动" tabindex="0"><table>
+      <caption>按钮位 · 本站紧凶训练预设</caption>
+      <thead><tr><th scope="col">前面行动</th><th scope="col">55</th><th scope="col">76s</th><th scope="col">KQo</th><th scope="col">AQo</th></tr></thead>
+      <tbody><tr><th scope="row">前面全弃</th><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=unopened&amp;hand=55" aria-label="前面全弃，按钮位 55：开池，查看完整矩阵">开池</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=unopened&amp;hand=76s" aria-label="前面全弃，按钮位 76s：开池，查看完整矩阵">开池</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=unopened&amp;hand=KQo" aria-label="前面全弃，按钮位 KQo：开池，查看完整矩阵">开池</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=unopened&amp;hand=AQo" aria-label="前面全弃，按钮位 AQo：开池，查看完整矩阵">开池</a></td></tr><tr><th scope="row">CO 平跟 1 BB</th><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=limped&amp;hand=55&amp;opponent=CO" aria-label="CO 平跟 1 BB，按钮位 55：隔离加注，查看完整矩阵">隔离加注</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=limped&amp;hand=76s&amp;opponent=CO" aria-label="CO 平跟 1 BB，按钮位 76s：跟注，查看完整矩阵">跟注</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=limped&amp;hand=KQo&amp;opponent=CO" aria-label="CO 平跟 1 BB，按钮位 KQo：隔离加注，查看完整矩阵">隔离加注</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=limped&amp;hand=AQo&amp;opponent=CO" aria-label="CO 平跟 1 BB，按钮位 AQo：隔离加注，查看完整矩阵">隔离加注</a></td></tr><tr><th scope="row">CO 加到 2.5 BB</th><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=55&amp;opponent=CO" aria-label="CO 加到 2.5 BB，按钮位 55：跟注，查看完整矩阵">跟注</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=76s&amp;opponent=CO" aria-label="CO 加到 2.5 BB，按钮位 76s：弃牌，查看完整矩阵">弃牌</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=KQo&amp;opponent=CO" aria-label="CO 加到 2.5 BB，按钮位 KQo：跟注，查看完整矩阵">跟注</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=AQo&amp;opponent=CO" aria-label="CO 加到 2.5 BB，按钮位 AQo：再加注，查看完整矩阵">再加注</a></td></tr><tr><th scope="row">UTG 加到 2.5 BB</th><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=55&amp;opponent=UTG" aria-label="UTG 加到 2.5 BB，按钮位 55：弃牌，查看完整矩阵">弃牌</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=76s&amp;opponent=UTG" aria-label="UTG 加到 2.5 BB，按钮位 76s：弃牌，查看完整矩阵">弃牌</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=KQo&amp;opponent=UTG" aria-label="UTG 加到 2.5 BB，按钮位 KQo：弃牌，查看完整矩阵">弃牌</a></td><td><a href="ranges.html?position=BTN&amp;style=tag&amp;scenario=raised&amp;hand=AQo&amp;opponent=UTG" aria-label="UTG 加到 2.5 BB，按钮位 AQo：跟注，查看完整矩阵">跟注</a></td></tr></tbody></table></div>
+    <p>先横向看 CO 加注那一行：<span class="cash-inline-hand" role="img" aria-label="76s，示意 7♠ 6♠"><b>76s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="7:spades">7<em>♠</em></i><i class="playing-card suit-spades" data-card="6:spades">6<em>♠</em></i></span></span> 和 <span class="cash-inline-hand" role="img" aria-label="55，花色未指定"><b>55</b><span class="cash-hand-cards"><i class="playing-card rank-only">5</i><i class="playing-card rank-only">5</i></span></span> 要付同样的价格，预设却给了不同的动作。再纵向看 <span class="cash-inline-hand" role="img" aria-label="KQo，示意 K♠ Q♥"><b>KQo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span>：只把加注者从 CO 改成枪口位，继续的理由就弱了。回到实战，还要判断这名对手实际从该位置开哪些牌，以及两盲会不会再加注。</p>
+  </details></figure>
+  <p><span class="cash-inline-hand" role="img" aria-label="KQo，具体手牌 K♦ Q♠"><b>KQo</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="K:diamonds">K<em>♦</em></i><i class="playing-card suit-spades" data-card="Q:spades">Q<em>♠</em></i></span></span> 面对偏紧的前位开池，主要担心顶对被压制，以及身后的人再加注。和前面 <a href="#example-tag-short-pair">牌例 3-1</a> 的 <span class="cash-inline-hand" role="img" aria-label="33，具体手牌 3♥ 3♠"><b>33</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="3:hearts">3<em>♥</em></i><i class="playing-card suit-spades" data-card="3:spades">3<em>♠</em></i></span></span> 对照，两手都可能应当放弃，原因却不同：小对子更担心的是，真中了大牌，对手也没足够的钱可付。</p>
+  <figure class="hand-example" id="example-tag-gap-kq"><figcaption id="example-tag-gap-kq-question"><a class="example-permalink" href="#example-tag-gap-kq" aria-label="牌例 3-17，K♦Q♠ 冷跟后遇到再加注"><span>牌例 3-17</span>K♦Q♠ 冷跟后遇到再加注</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-gap-kq-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">按钮位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-gap-kq-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 5/10。偏紧的星星起手 760，开到 30；你有 1,280，跟 30。按钮位的敏敏有 1,800，挤压到 150。两盲弃，星星补 120。轮到你。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>345</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第五位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 K" data-card="K:diamonds"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♦</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 Q" data-card="Q:spades"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">已经跟过 30，两个对手愿意打到 150，还要再补 120 吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>还要补</dt><dd>120</dd></div><div><dt>跟注后底池</dt><dd>465</dd></div><div><dt>按直接摊牌算的门槛</dt><dd>25.8%</dd></div></dl>
+          <p class="example-decision"><strong>这里弃牌，原局也放掉了这手牌。</strong><span class="cash-inline-hand" role="img" aria-label="KQo，示意 K♠ Q♥"><b>KQo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="Q:hearts">Q<em>♥</em></i></span></span> 在前面无人入池时可以主动开池；冷跟紧手却容易遇到 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>，中了顶对还可能继续付钱。现在连原开池者也愿意跟再加注，你还夹在两家之间。120 ÷ 465 只给出无后续下注时的门槛。除非有可靠证据表明两家都宽，并且能兑现足够权益，否则没有理由追这口池。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-12</span> 大盲位 AJo 面对开池和冷跟</summary>
+    <figure class="hand-example" id="example-tag-original-12"><figcaption id="example-tag-original-12-question"><a class="example-permalink" href="#example-tag-original-12" aria-label="牌例 3-12，大盲位 AJo 面对开池和冷跟"><span>牌例 3-12</span>大盲位 AJo 面对开池和冷跟</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-12-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">按钮位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-12-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 2/4，你起手 390。前两位弃牌，起手 410 的旺旺加到 16。中间三位弃牌，起手 180 的按钮腾腾跟 16。行动到大盲，底池 38。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>38</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">大盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 A" data-card="A:diamonds"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♦</span></span></span><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 J" data-card="J:hearts"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">已经贴了大盲，补 12 去找一对 A 划算吗？</h3>
+          <p class="example-given">题设中的按钮肯争底池，但跟进别人的加注也有选择。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>还需补入</dt><dd>12</dd></div><div><dt>跟注后底池</dt><dd>50</dd></div><div><dt>按直接价格需取得的底池份额</dt><dd>24%</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。</strong>翻牌见 A 时，开池或冷跟范围里的 <span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 会让顶对反而成为花钱的牌；见 J 时也还要考虑对手可能的超对。三人底池中你每一轮都先行动。24% 是眼前的价格，不能保证你付 12 之后就能把原始摊牌权益全部兑现。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-16</span> 四人底池的 Q♣10♣</summary>
+    <figure class="hand-example" id="example-tag-original-16"><figcaption id="example-tag-original-16-question"><a class="example-permalink" href="#example-tag-original-16" aria-label="牌例 3-16，四人底池的 Q♣10♣"><span>牌例 3-16</span>四人底池的 Q♣10♣</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-16-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">小盲位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="xingxing" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">第三位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="3" data-person="jianjian" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">第五位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-16-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-16-street" value="flop" checked><span>翻牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 Q" data-card="Q:spades"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 9" data-card="9:diamonds"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 6" data-card="6:diamonds"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>210</b></span><span data-at="flop">底池 <b>1,340</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 Q" data-card="Q:clubs"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♣</span></span></span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 10" data-card="10:clubs"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♣</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 九人桌，盲注 5/10。星星溜入 10，尖尖加到 50。你有 1,200，对加注者有位置，但身后的激进小盲仍可行动。原局你跟 50，按钮弃牌，敏敏补到 50，大盲弃，星星再补 40，四人看翻牌。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 敏敏和星星过牌，尖尖下注 140，你用顶对跟 140。敏敏全下 850，星星和尖尖弃牌，现在要你再补 710。</p>
+        <div class="street-review" data-at="preflop"><details class="example-answer"><summary>隔离加注者很松，为什么同花 QT 仍可能弃？</summary><p>你对溜入者和隔离者有位置，却尚未看见两盲的回应。跟 50 可能招来再加注，也可能把底池变成四人局。Q 高翻牌会让你拿到一手肯继续付钱、却经常被更好踢脚压制的牌。原局选择跟注，复盘可以在这里提前放弃。</p></details></div>
+        <div class="replay-analysis" data-at="flop">
+          <h3 class="example-question">小盲对一个下注和一个跟注全下，还要用顶对付 710 吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>可赢底池</dt><dd>1,340</dd></div><div><dt>还需跟注</dt><dd>710</dd></div><div><dt>保本胜率</dt><dd>34.6%</dd></div></dl>
+          <p class="example-decision"><strong>这一次弃牌。</strong>面对三人下注的玩家和已经跟注的你，小盲仍愿意推入 850。判断要依据这条行动线：更强的 Q、暗三条能压住你，方块强听牌也有不少补牌。缺少对手会拿足够多弱牌这样打的依据。翻牌前少跟这次隔离加注，也能避开四人局里拿边缘顶对面对大注的难题。原局你弃牌，对手没有亮牌。</p>
+          </details></div>
+
+        <p class="replay-source">按盲注 5/10 及翻牌四位参与者还原：小盲补 45 到 50，弃牌大盲留下 10，翻牌底池为 210。书中写小盲补 40、底池 205。</p>
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="reraises" tabindex="-1"><h2>再加注与挤压</h2>
+  <p>翻前把大盲看作第一注、开池看作第二注，第一次再加注就是 <strong>3-bet</strong>。哪怕同是 <span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>，对按钮宽开池再加注，可能有较弱的 Ax 愿意跟；对很紧的枪口开池再加注，却可能赶走原本领先的牌，只留下更强的对手。遇到很少弃给再加注的人，优先把能领先其跟注范围的牌拿来加注。对手经常开得宽、面对再加注又弃得多时，才有理由在强牌以外加入少量能阻挡强牌、被跟后还有出路的牌。例如 <span class="cash-inline-hand" role="img" aria-label="A5s，示意 A♠ 5♠"><b>A5s</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-spades" data-card="5:spades">5<em>♠</em></i></span></span> 拿走一张 A，对手可能的 <span class="cash-inline-hand" role="img" aria-label="AA，示意 A♦ A♣"><b>AA</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="A:diamonds">A<em>♦</em></i><i class="playing-card suit-clubs" data-card="A:clubs">A<em>♣</em></i></span></span> 从 6 种组合减到 3 种，<span class="cash-inline-hand" role="img" aria-label="AK，示意 A♥ K♦"><b>AK</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="A:hearts">A<em>♥</em></i><i class="playing-card suit-diamonds" data-card="K:diamonds">K<em>♦</em></i></span></span> 从 16 种减到 12 种（假设尚无其他明牌）。这让它有时适合做再加注诈唬，但如果对手宽跟、很少弃，手里有一张 A 也买不来弃牌收益。<sup class="citation"><a class="citation-mark" id="cite-4-1" href="#note-4" role="doc-noteref" aria-label="注释 4" aria-describedby="cite-4-1-tip">[4]</a><span class="citation-tip" role="tooltip" id="cite-4-1-tip"><b>PokerStars Learn · 3-Betting Preflop</b><span>再加注的牌可以主要取自强牌，也可以由强牌配合诈唬牌构成，选择取决于对手面对再加注如何回应。</span></span></sup></p>
+  <p>如果开池和再加注中间还夹着一个或多个跟注者，这个 3-bet 叫<strong>挤压</strong>（squeeze）。池里的筹码多了，原加注者身后还有人，一些跟注者原本只想便宜看牌。三个条件一起制造压力。可原加注者依然可能是 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span>，跟注者也可能慢打；单凭“有人跟过”就频繁诈唬，很容易在更大的底池里撞上强牌。<sup class="citation"><a class="citation-mark" id="cite-5-1" href="#note-5" role="doc-noteref" aria-label="注释 5" aria-describedby="cite-5-1-tip">[5]</a><span class="citation-tip" role="tooltip" id="cite-5-1-tip"><b>GTO Wizard · How To Construct a Squeezing Range</b><span>有人开池又有人跟注时，身后的再加注会同时向两人施压。文中的具体求解条件与本站牌例各不相同。</span></span></sup></p>
+  <p><a href="#example-tag-squeeze-ak">牌例 3-22</a> 让你拿大盲位 <span class="cash-inline-hand" role="img" aria-label="AK，具体手牌 A♥ K♣"><b>AK</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="A:hearts">A<em>♥</em></i><i class="playing-card suit-clubs" data-card="K:clubs">K<em>♣</em></i></span></span> 面对后位开池和小盲跟注。先设想三人看翻牌时你相对两人的位置，再比较大额加注能收下已有筹码的机会，以及被更强范围跟住的成本。</p>
+  <figure class="hand-example" id="example-tag-squeeze-ak"><figcaption id="example-tag-squeeze-ak-question"><a class="example-permalink" href="#example-tag-squeeze-ak" aria-label="牌例 3-22，大盲的 A♥K♣ 面对一加一跟"><span>牌例 3-22</span>大盲的 A♥K♣ 面对一加一跟</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-squeeze-ak-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="jianjian">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">小盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-squeeze-ak-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 5/10。尖尖起手 2,330，加到 30。按钮弃牌；腾腾有 1,700，补 25 跟。你起手 690，已经贴了大盲 10。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>70</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">大盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 A" data-card="A:hearts"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♥</span></span></span><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 K" data-card="K:clubs"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♣</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">补 20 可以看翻牌，拿 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 什么时候值得把价格抬高？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>对两人有效筹码</dt><dd>69 BB</dd></div><div><dt>只跟后的底池</dt><dd>90</dd></div><div><dt>加到 150 需再投入</dt><dd>140</dd></div></dl>
+          <p class="example-decision"><strong>可以用 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 挤压；原局加到 150，两人都弃牌。</strong>若平跟，翻后小盲先行动、你在中间、开池者最后。再加注能向较差的高牌收费，也可能直接收走两家已投的 60。假设只有开池者跟到 150，底池便是 330，你剩 540；没中翻牌时仍要看牌面和范围。若两家只肯用极强的牌打大池，平跟保留较弱的牌也有理由。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <p>换到<strong>自己开池后遭遇再加注</strong>的一边。比如六人桌按钮开到 2.5 BB，小盲加到 10 BB，大盲弃牌，无前注、无抽水，此前双方各有 100 BB。你还要补 7.5 BB，补完底池是 21 BB、双方各剩 90 BB，翻牌 SPR 约 4.3。你有位置，又能结束翻前行动；若是在前位遇到按钮再加注，或后面还有冷跟者待行动，同一副牌的处境就不同。能对抗对方范围、又希望保留他较弱的牌时可以跟；面对 3-bet 再加注称为 4-bet。选择它之前，先说明哪些差牌会跟、哪些强牌可能弃，以及面对全下准备怎么办。<sup class="citation"><a class="citation-mark" id="cite-6-1" href="#note-6" role="doc-noteref" aria-label="注释 6" aria-describedby="cite-6-1-tip">[6]</a><span class="citation-tip" role="tooltip" id="cite-6-1-tip"><b>PokerStars Learn · Facing 3-Bets</b><span>面对翻前再加注，尺寸、位置和筹码深度会一起影响继续游戏的范围。</span></span></sup></p>
+  <p><a href="#example-tag-nines-squeezed">牌例 3-23</a> 中你是持 <span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♦ 9♣"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="9:diamonds">9<em>♦</em></i><i class="playing-card suit-clubs" data-card="9:clubs">9<em>♣</em></i></span></span> 的原开池者，身后却有第三个人还没行动。分别算自己弃、跟、再加注的结果：谁能借你的跟注便宜留在池里？短筹码小盲愿意推入余下筹码的范围，除了较高的对子还有哪些牌？只用“我已经投了 18”解释不了下一步。</p>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-6</span> TT 跟进三人再加注底池</summary>
+    <figure class="hand-example" id="example-tag-original-06"><figcaption id="example-tag-original-06-question"><a class="example-permalink" href="#example-tag-original-06" aria-label="牌例 3-6，TT 跟进三人再加注底池"><span>牌例 3-6</span>TT 跟进三人再加注底池</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-06-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="jianjian" data-folded="flop">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">枪口位下一位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="2" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">按钮位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-06-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-06-street" value="flop" checked><span>翻牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 7" data-card="7:spades"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 6" data-card="6:hearts"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 4" data-card="4:clubs"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>315</b></span><span data-at="flop">底池 <b>715</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前两位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 10" data-card="10:diamonds"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♦</span></span></span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 10" data-card="10:clubs"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♣</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 盲注 5/10。前位尖尖有 1,500，开到 30，你从 1,800 中平跟。按钮腾腾有 3,000，再加至 100，两盲弃。尖尖补了 70。你面对 245 的底池，补 70 即结束本轮；实战跟注，三人看翻牌。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 尖尖过牌，你也过牌。腾腾向 315 下注 400，前位弃牌。轮到你。</p>
+        <div class="street-review" data-at="preflop"><details class="example-answer"><summary>按钮再加到 100，第二笔 70 怎么算？</summary><p>前一笔 30 已经在底池里。你是这一轮最后行动的人，补 70 争现有的 245，两家还有较深后手；这让拿 <span class="cash-inline-hand" role="img" aria-label="TT，花色未指定"><b>TT</b><span class="cash-hand-cards"><i class="playing-card rank-only">10</i><i class="playing-card rank-only">10</i></span></span> 平跟比在后面还有人能挤压时更可行。进入翻牌后，即使三张都是小牌，也要重新估计按钮对两家持续下注的范围。</p></details></div>
+        <div class="replay-analysis" data-at="flop">
+          <h3 class="example-question">翻牌没发高牌，为什么超对仍可放弃？</h3>
+          <p class="example-given">题设给前位较紧的开池范围，按钮较激进。按钮这次翻牌前向两位玩家加注，翻牌又向两人下了超池注。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>跟注成本</dt><dd>400</dd></div><div><dt>跟注后底池</dt><dd>1,115</dd></div><div><dt>跟注后手</dt><dd>1,300</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。</strong>翻前第二次跟注时有 3.5∶1 的直接价格，且两名对手都有足够筹码，翻中暗三条有机会多收钱。现在你虽然是超对，但按钮仍可能有更大的对子；跟注会把底池打到接近剩余筹码。若只凭“他平时很凶”就跟，还得解释他用哪些较差的牌向两人下这样大的注。此局未摊牌。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-11</span> AK 面对溜入再加</summary>
+    <figure class="hand-example" id="example-tag-original-11"><figcaption id="example-tag-original-11-question"><a class="example-permalink" href="#example-tag-original-11" aria-label="牌例 3-11，AK 面对溜入再加"><span>牌例 3-11</span>AK 面对溜入再加</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-11-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">枪口位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="kelin" data-folded="preflop flop">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">枪口位下一位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-11-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-11-street" value="flop" checked><span>翻牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 Q" data-card="Q:hearts"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 J" data-card="J:hearts"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 7" data-card="7:spades"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>233</b></span><span data-at="flop">底池 <b>389</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 A" data-card="A:hearts"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♥</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 K" data-card="K:spades"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 盲注 3/6，你有 400。星星溜入后，克林加到 24，你在后位跟注。按钮和两盲弃，星星再加到 100，克林弃。面对 157 的底池，你再付 76，留下 300 去打翻牌。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 星星向 233 下注 156，约三分之二池，轮到你。</p>
+        <div class="street-review" data-at="preflop"><details class="example-answer"><summary>第一次跟 24 和再补 76，要对抗同一批牌吗？</summary><p>第一次面对的是激进玩家隔离溜入者，你有位置，跟注可以把较差的 A 和 K 留在池里。第二次出价的人变成了先溜入再加注的枪口位。你付 76 争 157，原局选择跟注。若他很少在这条路线上诈唬，持有 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 的阻断作用也不足以单独证明跟注有利。</p></details></div>
+        <div class="replay-analysis" data-at="flop">
+          <h3 class="example-question">翻牌能靠一张 10 成顺，值得跟 156 吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>跟注成本</dt><dd>156</dd></div><div><dt>跟注后底池</dt><dd>545</dd></div><div><dt>跟注后手</dt><dd>144</dd></div></dl>
+          <p class="example-decision"><strong>实战弃牌。</strong>若对手有 <span class="cash-inline-hand" role="img" aria-label="AQ，花色未指定"><b>AQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">Q</i></span></span>，发 K 可能反超；若他是暗三条，配成一对 A 或 K 并不够。四张 10 能成顺，但 T♥ 也可能补成对手的同花。你有 A♥，转牌、河牌连续发红桃还可能成最大同花；这需要看完两张。翻前持一张 A、一张 K 虽会减少 <span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KK，花色未指定"><b>KK</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">K</i></span></span> 的组合，却不能抹去对手溜入再加所表露的强度。跟 156 只买到转牌，接下来剩下的 144 很可能还要面对另一注。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="blind-defense" tabindex="-1"><h2>盲位防守</h2>
+  <p><strong>小盲和大盲的折扣不同。</strong>弃到小盲时，继续补 0.5 BB 虽便宜，大盲却仍可加注，翻牌后也是你先行动。反过来，大盲面对按钮开到 2.5 BB、小盲弃牌，要补 1.5 BB；补完底池 5.5 BB，眼前的保本份额约 27.3%。你这次能结束行动，却仍要在翻牌后先表态。若换成只有小盲加注，大盲翻牌后有位置，同样价格往往更容易把权益兑现出来。</p>
+  <p>遇到多人，底池越大、入场越便宜，并不等于任意两张都能防守。<a href="#example-tag-cheap-ace">牌例 3-20</a> 的 <span class="cash-inline-hand" role="img" aria-label="A4o，具体手牌 A♦ 4♣"><b>A4o</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="A:diamonds">A<em>♦</em></i><i class="playing-card suit-clubs" data-card="4:clubs">4<em>♣</em></i></span></span> 只用补 8 就能争取眼前的 54，表面只需 8 ÷ 62 ≈ 12.9%。但还有四个对手和三轮下注，中了一张 A 也常受更好踢脚压制。把“全员都过牌到摊牌”的胜率直接与 12.9% 比，会高估实际能拿回的份额。<sup class="citation"><a class="citation-mark" id="cite-7-1" href="#note-7" role="doc-noteref" aria-label="注释 7" aria-describedby="cite-7-1-tip">[7]</a><span class="citation-tip" role="tooltip" id="cite-7-1-tip"><b>PokerStars Learn · Defending the Big Blind Multi-Way</b><span>Dave Roemer 用大盲面对开池和多家跟注的牌局，区分按摊牌计算的权益和后续能实际赢得的底池份额。</span></span></sup></p>
+  <figure class="hand-example" id="example-tag-cheap-ace"><figcaption id="example-tag-cheap-ace-question"><a class="example-permalink" href="#example-tag-cheap-ace" aria-label="牌例 3-20，大盲的 A♦4♣ 与四名对手"><span>牌例 3-20</span>大盲的 A♦4♣ 与四名对手</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-cheap-ace-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">第二位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">第五位</span>
+      </div><div class="replay-seat" data-seat="3" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-seat" data-seat="4" data-person="jianjian">
+      <img class="replay-portrait" src="assets/avatars/jianjian.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">尖尖</span>
+      <span class="replay-position">按钮位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-cheap-ace-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 2/4。腾腾有 440，前位开到 12；星星、敏敏和尖尖各跟 12，小盲弃。你有 500，已贴大盲 4，翻前最后行动。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>54</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">大盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 A" data-card="A:diamonds"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♦</span></span></span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 4" data-card="4:clubs"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♣</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">投入 8 可以争眼前的 54，这张不同花弱 A 就值得守吗？</h3>
+          <p class="example-given">牌桌整体偏紧。三个跟注者起手分别有 400、460 和 180；你即使跟注，也没有全下。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>还要补</dt><dd>8</dd></div><div><dt>跟注后底池</dt><dd>62</dd></div><div><dt>按直接摊牌算的门槛</dt><dd>12.9%</dd></div></dl>
+          <p class="example-decision"><strong>这手不同花弱 A 可以弃牌。</strong>你不用担心身后再加，却要在翻牌后最先面对四个人。有 A 的翻牌上，较好踢脚可能让你再付几轮；没有 A 时，你也常会在看完五张牌前弃掉。8 ÷ 62 并不保证你能拿到这部分底池。换成有坚果同花潜力的同花 A，或改为单挑宽范围，才需要重估同样的价格。原局弃牌。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  <p>现金桌还要看抽水。若牌室按底池抽成且没见翻牌就不抽，边缘跟注看到翻牌要负担这笔成本，翻牌前直接拿下底池则可避开。抽水比例、上限、是否有前注不同，防守范围都会变化。快捷矩阵采用明确的桌型与深度，可用来比较动作；用到另外一桌，先把这些条件换成眼前的数字。<sup class="citation"><a class="citation-mark" id="cite-8-1" href="#note-8" role="doc-noteref" aria-label="注释 8" aria-describedby="cite-8-1-tip">[8]</a><span class="citation-tip" role="tooltip" id="cite-8-1-tip"><b>GTO Wizard · Rake &amp; Rakeback Explained: Optimize Your Poker Earnings</b><span>现金桌抽水会降低部分入局动作的收益；是否见翻牌才抽、抽水上限和前注设置都会影响范围比较。</span></span></sup></p>
+  <p>把刚看的弱 A 换成大盲的 <span class="cash-inline-hand" role="img" aria-label="55，具体手牌 5♣ 5♦"><b>55</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="5:clubs">5<em>♣</em></i><i class="playing-card suit-diamonds" data-card="5:diamonds">5<em>♦</em></i></span></span>、小盲的 <span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♥ 9♠"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i></span></span>，再问一次：折扣相同吗，跟注能结束行动吗？如果前面全弃只剩两盲，小盲还可以主动决定要不要把底池做大。</p>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-9</span> 大盲位 55 能否便宜看翻牌</summary>
+    <figure class="hand-example" id="example-tag-original-09"><figcaption id="example-tag-original-09-question"><a class="example-permalink" href="#example-tag-original-09" aria-label="牌例 3-9，大盲位 55 能否便宜看翻牌"><span>牌例 3-9</span>大盲位 55 能否便宜看翻牌</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-09-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="xingxing">
+      <img class="replay-portrait" src="assets/avatars/xingxing.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">星星</span>
+      <span class="replay-position">按钮前位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-09-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 2/4。敏敏起手 120，开到 12；星星起手 200，跟 12。按钮和小盲弃牌，你从 320 中已贴大盲 4。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>30</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">大盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 5" data-card="5:clubs"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♣</span></span></span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="方片 5" data-card="5:diamonds"><span class="card-corner" aria-hidden="true">5<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">5<span class="corner-suit">♦</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">大盲只需补 8 就能关门，挖暗三条的回报够吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>跟注成本</dt><dd>8</dd></div><div><dt>直接底池赔率</dt><dd>30∶8 = 3.75∶1</dd></div><div><dt>两位对手各剩</dt><dd>108 / 188</dd></div></dl>
+          <p class="example-decision"><strong>原例给出的选择是弃牌。</strong>你最后回应翻前加注，跟 8 确实能看到翻牌。但翻后每轮都要先说话，而且开池者只有 108 可付。若没中暗三条就弃、中了才能继续，每中一次约伴随 7.5 次落空。7.5 × 8 − 30 ≈ 30，中牌后平均还得再赢约 30 才够。若对手肯用较差的一对付钱，跟注也有理由。刚坐下还不了解两人的付费习惯，选择等机会。</p>
+          </details></div>
+
+        <p class="replay-source">直接价格按实际投入复算：开池及跟注各 12，加两盲 6，现有 30；大盲还要补 8。</p>
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-3</span> 小盲用 99 回应偷盲</summary>
+    <figure class="hand-example" id="example-tag-original-03"><figcaption id="example-tag-original-03-question"><a class="example-permalink" href="#example-tag-original-03" aria-label="牌例 3-3，小盲用 99 回应偷盲"><span>牌例 3-3</span>小盲用 99 回应偷盲</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-03-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="kelin">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">按钮前位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">大盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-03-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 5/10。弃到按钮前位的克林，对方有 1,200，开到 40。按钮弃牌，你起手 1,140，已贴小盲 5。敏敏还未行动。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>55</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">小盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 9" data-card="9:hearts"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♥</span></span></span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 9" data-card="9:spades"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">按钮前位频繁开池，<span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♥ 9♠"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i></span></span> 在小盲该只补到 40 吗？</h3>
+          <p class="example-given">按题设，开池者在这个位置遇到前面都弃时，加注范围很宽。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>平跟还需</dt><dd>35</dd></div><div><dt>平跟后底池（大盲行动前）</dt><dd>90</dd></div><div><dt>与开池者的起手有效筹码</dt><dd>114 BB</dd></div></dl>
+          <p class="example-decision"><strong>可以再加注，向较宽的开池范围收费。</strong><span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♥ 9♠"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i><i class="playing-card suit-spades" data-card="9:spades">9<em>♠</em></i></span></span> 往往领先偷盲者，却很难在带两张高牌的翻牌上面对连续下注。平跟还可能让大盲便宜进池。实战你再加到 240，大盲和开池者均弃。240 是此次开池额的六倍；直接赢下盲注和开池筹码的结果，不能证明每次反偷都要用这个尺寸。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-19</span> 小盲位的 A9o</summary>
+    <figure class="hand-example" id="example-tag-original-19"><figcaption id="example-tag-original-19-question"><a class="example-permalink" href="#example-tag-original-19" aria-label="牌例 3-19，小盲位的 A9o"><span>牌例 3-19</span>小盲位的 A9o</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-19-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">大盲位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-19-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-19-street" value="flop"><span>翻牌</span></label><label><input type="radio" name="example-tag-original-19-street" value="turn"><span>转牌</span></label><label><input type="radio" name="example-tag-original-19-street" value="river" checked><span>河牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 J" data-card="J:clubs"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 7" data-card="7:hearts"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 3" data-card="3:diamonds"><span class="card-corner" aria-hidden="true">3<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">3<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 4" data-card="4:spades"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 9" data-card="9:spades"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♠</span></span></span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>20</b></span><span data-at="flop">底池 <b>20</b></span><span data-at="turn">底池 <b>20</b></span><span data-at="river">底池 <b>20</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">小盲位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 A" data-card="A:diamonds"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♦</span></span></span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 9" data-card="9:hearts"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 九人桌，盲注 5/10。其余人都弃到你，你有 1,200，大盲有 1,800。这是本桌你们第一次只剩两盲交手。<span class="cash-inline-hand" role="img" aria-label="A9o，示意 A♠ 9♥"><b>A9o</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i></span></span> 可以率先加注，原局你补 5 到 10，旺旺过牌。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 你只有 A 高，选择过牌，原计划若对方下注可以跟一轮。旺旺也过牌。此时大盲可以拿着比你差的高牌，也可以用弱成牌控池。</p><p class="replay-line" data-at="turn"><strong>转牌</strong> · 4♠ 没有给你配对。你再过牌，旺旺也过牌，两人都没有往底池加钱。</p><p class="replay-line" data-at="river"><strong>河牌</strong> · 9♠ 让你得到一对 9，现在你先行动。</p>
+        <div class="street-review" data-at="preflop"><details class="example-answer"><summary>小盲补齐只是为了省半个盲注吗？</summary><p>这手 <span class="cash-inline-hand" role="img" aria-label="A9o，示意 A♠ 9♥"><b>A9o</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="A:spades">A<em>♠</em></i><i class="playing-card suit-hearts" data-card="9:hearts">9<em>♥</em></i></span></span> 可以直接加注偷盲。原局选择补齐，若对手再加注还可以按尺寸跟进。当同桌第一次看到你在小盲补齐时，你也有机会让他们记住：补齐的范围里包含有摊牌价值的牌。</p></details></div>
+        <div class="replay-analysis" data-at="river">
+          <h3 class="example-question">河牌配到一对 9，主动下小注还是过牌？</h3>
+          <p class="example-given">题设中的大盲此前表现谨慎。这是你们首次在这桌单独交手，你希望对方以后看到你补齐或过牌时，也得考虑你手里可能有成牌。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>翻牌底池</dt><dd>20</dd></div><div><dt>河牌底池</dt><dd>20</dd></div><div><dt>过牌的投入</dt><dd>0</dd></div></dl>
+          <p class="example-decision"><strong>可以过牌，让对手用没中的牌尝试诈唬。</strong>翻牌前补齐使大盲保留大量边缘手牌；连续两轮过牌，也没有排除一对 7 或较弱的对子。若这位对手会用这些牌跟小注却很少自己下注，下注收薄价值也有根据。若他常在别人示弱后尝试偷池，过牌给他主动下注的机会。打到这一刻，仍不能把他两次过牌直接读成没牌。</p>
+          </details></div>
+        <details class="example-showdown" data-at="river"><summary>看旺旺的摊牌</summary><div><div class="replay-cards" role="group" aria-label="旺旺的手牌"><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 Q" data-card="Q:hearts"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♥</span></span></span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 7" data-card="7:clubs"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♣</span></span></span></div><p>原局你和旺旺都过牌。旺旺翻牌就有一对 7，河牌被你的一对 9 超过，你赢下 20。</p></div></details>
+
+      </div></fieldset></figure>
+  </details>
+</section>
+<section id="preflop-review" tabindex="-1"><h2>翻前复盘</h2>
+  <p>先遮住翻牌和摊牌，只记三行。第一行写有效筹码、位置和行动顺序，逐笔列出底池中已有多少、自己还要补多少。第二行分别写原开池者和身后玩家至少两类合理的牌，指出自己被跟后靠什么赢。第三行只改一个条件重做决定，例如把原开池者从枪口换到按钮，或把短筹码换成 100 BB。说清楚哪一项变化足以让你从弃牌改为跟注或再加注。</p>
+  <p>拿 <span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♦ 9♣"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="9:diamonds">9<em>♦</em></i><i class="playing-card suit-clubs" data-card="9:clubs">9<em>♣</em></i></span></span> 被挤压的一手练习：你投 18、后位跟 18、小盲加到总额 54，弃牌的大盲留下 6，轮到你时底池是 96。补 36 后是 132，可身后玩家还没说话。假如他弃牌，你和小盲单挑；假如他也补 36，底池涨到 168。现在把小盲换成只拿高对才这样打的人，重新写下愿意投入多少。把两次决定放在一起，比记住原局后来发了什么牌更能指导下一手。</p>
+  <p>再独立复盘一手 <span class="cash-inline-hand" role="img" aria-label="66，具体手牌 6♣ 6♥"><b>66</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="6:clubs">6<em>♣</em></i><i class="playing-card suit-hearts" data-card="6:hearts">6<em>♥</em></i></span></span>。把第一次跟 20 时的对手、有效筹码和价格写在左边，把后位再加到 60 后的三项写在右边。开池者弃牌了，原本指望从他那里赢的筹码还在吗？</p>
+  <figure class="hand-example" id="example-tag-original-24"><figcaption id="example-tag-original-24-question"><a class="example-permalink" href="#example-tag-original-24" aria-label="牌例 3-24，口袋 6 第二次面对加注"><span>牌例 3-24</span>口袋 6 第二次面对加注</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-24-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="wangwang" data-folded="preflop">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">第三位</span>
+      <span class="replay-folded">已弃牌</span></div><div class="replay-seat" data-seat="2" data-person="minmin">
+      <img class="replay-portrait" src="assets/avatars/minmin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">敏敏</span>
+      <span class="replay-position">CO</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-24-street" value="preflop" checked><span>翻牌前</span></label></div>
+          <p class="replay-preflop-line">盲注 5/10，你有 900。经常小额开池的旺旺加到 20，你跟注。起手 400 的敏敏在 CO 再加到 60，两盲和旺旺都弃牌，轮到你。</p>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>115</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第四位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 6" data-card="6:clubs"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♣</span></span></span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 6" data-card="6:hearts"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♥</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">先跟了 20，现在还要补 40，判断跟第一次一样吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>跟注成本</dt><dd>40</dd></div><div><dt>跟注后底池</dt><dd>155</dd></div><div><dt>对手后手</dt><dd>340</dd></div></dl>
+          <p class="example-decision"><strong>弃牌，把第二次定价与第一次分开。</strong>第一次只付 20，对手范围宽，还有机会靠一对赢。现在换成一名向两家再加注的对手，你没有位置。假设不中暗三条就放弃、中牌就赢，按翻牌至少一张 6 的概率 11.76% 粗算，每次中牌除了眼前的 115，还得平均再赢约 185 才能抵消落空时损失的 40。对手虽剩 340，却未必肯付这么多。原局放弃。若再加注者范围很宽、<span class="cash-inline-hand" role="img" aria-label="66，具体手牌 6♣ 6♥"><b>66</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="6:clubs">6<em>♣</em></i><i class="playing-card suit-hearts" data-card="6:hearts">6<em>♥</em></i></span></span> 不改善也常有摊牌价值，就需重新估算。</p>
+          </details></div>
+
+
+      </div></fieldset></figure>
+</section>
+<section id="casebook" tabindex="-1"><h2>牌例：问题与分析</h2>
+  <p>这三手把翻前选择和后面的难题连起来。先选行动，把自己担心的对手范围和愿意付的价格写下来，再按街推进。到了下一次加注，检查刚才的判断还有哪些成立。</p>
+  <p>先从前位 <span class="cash-inline-hand" role="img" aria-label="44，具体手牌 4♣ 4♦"><b>44</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="4:clubs">4<em>♣</em></i><i class="playing-card suit-diamonds" data-card="4:diamonds">4<em>♦</em></i></span></span> 开始。以挖暗三条为目的进池，真的在翻牌击中，转牌却遇到加注：此时若还想打光，指望哪几种更弱的牌来跟？</p>
+  <figure class="hand-example" id="example-tag-original-08"><figcaption id="example-tag-original-08-question"><a class="example-permalink" href="#example-tag-original-08" aria-label="牌例 3-8，前位的口袋 4"><span>牌例 3-8</span>前位的口袋 4</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-08-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="kelin">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">按钮前两位</span>
+      </div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-08-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-08-street" value="flop"><span>翻牌</span></label><label><input type="radio" name="example-tag-original-08-street" value="turn" checked><span>转牌</span></label><label><input type="radio" name="example-tag-original-08-street" value="river"><span>河牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 A" data-card="A:hearts"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 9" data-card="9:diamonds"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 4" data-card="4:spades"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 J" data-card="J:diamonds"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 2" data-card="2:clubs"><span class="card-corner" aria-hidden="true">2<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">2<span class="corner-suit">♣</span></span></span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>95</b></span><span data-at="flop">底池 <b>235</b></span><span data-at="turn">底池 <b>905</b></span><span data-at="river">底池 <b>3,715</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">枪口位下一位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 4" data-card="4:clubs"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♣</span></span></span><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="方片 4" data-card="4:diamonds"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♦</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 盲注 5/10，你有 1,850。枪口弃牌后你溜入 10，克林从 2,400 中加至 40，其余玩家弃。你补 30，两人带着 95 的底池看翻牌。后位常有人隔离时，原例建议在前位直接弃 <span class="cash-inline-hand" role="img" aria-label="44，具体手牌 4♣ 4♦"><b>44</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="4:clubs">4<em>♣</em></i><i class="playing-card suit-diamonds" data-card="4:diamonds">4<em>♦</em></i></span></span>。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 你击中暗三条，过牌给翻前进攻者。克林向 95 下注 70，你跟注。过牌跟注让对方的单对 A 仍有机会在下一轮付钱。</p><p class="replay-line" data-at="turn"><strong>转牌</strong> · 你先下 170，克林加到 500。你还剩 1,570，补 330 才能看河牌。</p><p class="replay-line" data-at="river"><strong>河牌</strong> · 实战你在转牌再加到全下，克林跟注。两人按起手有效筹码 1,850 各自投入，加上弃牌两盲的 15，河牌发出后直接摊牌。</p>
+
+        <div class="replay-analysis" data-at="turn">
+          <h3 class="example-question">深筹码击中暗三条，转牌遭遇加注，该用它打光吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>眼前底池</dt><dd>905</dd></div><div><dt>平跟还需</dt><dd>330</dd></div><div><dt>平跟后底池 / 你的后手</dt><dd>1,235 / 1,240</dd></div></dl>
+          <p class="example-decision"><strong>复盘倾向先跟注，把河牌留作下一次决定。</strong>转牌 J 给了 <span class="cash-inline-hand" role="img" aria-label="AJ，花色未指定"><b>AJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">J</i></span></span> 两对，也使 <span class="cash-inline-hand" role="img" aria-label="JJ，花色未指定"><b>JJ</b><span class="cash-hand-cards"><i class="playing-card rank-only">J</i><i class="playing-card rank-only">J</i></span></span> 变成更高的暗三条。比 <span class="cash-inline-hand" role="img" aria-label="44，具体手牌 4♣ 4♦"><b>44</b><span class="cash-hand-cards"><i class="playing-card suit-clubs" data-card="4:clubs">4<em>♣</em></i><i class="playing-card suit-diamonds" data-card="4:diamonds">4<em>♦</em></i></span></span> 弱、愿意加到 500 的牌，未必还愿意跟你再加到全下，一手强牌也有价值上限。原例还考虑平跟后河牌小注、遇大加注再评估。原局选择现在推入全部筹码。</p>
+          </details></div>
+        <details class="example-showdown" data-at="river"><summary>看克林的摊牌</summary><div><div class="replay-cards" role="group" aria-label="克林的手牌"><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="黑桃 9" data-card="9:spades"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♠</span></span></span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="红桃 9" data-card="9:hearts"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♥</span></span></span></div><p>翻牌两人都击中暗三条，河牌没有改变领先者。克林的三条 9 赢过三条 4，收下底池。</p></div></details>
+
+      </div></fieldset></figure>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-15</span> KJo 面对前位开池</summary>
+    <p>要分开看两位对手：是哪一位打开了底池，又是哪一位一路跟到转牌才加注？再算你的剩余筹码，区分按钮推出的总额和自己能赢到的部分。</p>
+    <figure class="hand-example" id="example-tag-original-15"><figcaption id="example-tag-original-15-question"><a class="example-permalink" href="#example-tag-original-15" aria-label="牌例 3-15，KJo 面对前位开池"><span>牌例 3-15</span>KJo 面对前位开池</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-original-15-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="tengteng">
+      <img class="replay-portrait" src="assets/avatars/tengteng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">腾腾</span>
+      <span class="replay-position">按钮位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="kelin" data-folded="turn river">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">枪口位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-original-15-street" value="preflop"><span>翻牌前</span></label><label><input type="radio" name="example-tag-original-15-street" value="flop"><span>翻牌</span></label><label><input type="radio" name="example-tag-original-15-street" value="turn" checked><span>转牌</span></label><label><input type="radio" name="example-tag-original-15-street" value="river"><span>河牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 K" data-card="K:clubs"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 8" data-card="8:spades"><span class="card-corner" aria-hidden="true">8<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">8<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 7" data-card="7:spades"><span class="card-corner" aria-hidden="true">7<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">7<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 J" data-card="J:clubs"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 4" data-card="4:hearts"><span class="card-corner" aria-hidden="true">4<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">4<span class="corner-suit">♥</span></span></span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>42</b></span><span data-at="flop">底池 <b>132</b></span><span data-at="turn">底池 <b>590</b></span><span data-at="river">底池 <b>848</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第五位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="红桃 K" data-card="K:hearts"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♥</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 J" data-card="J:spades"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♠</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 九人桌，盲注 2/4，你有 400。谨慎的枪口位开到 12，轮到你时身后还有人。<span class="cash-inline-hand" role="img" aria-label="KJo，示意 K♠ J♥"><b>KJo</b><span class="cash-hand-cards"><i class="playing-card suit-spades" data-card="K:spades">K<em>♠</em></i><i class="playing-card suit-hearts" data-card="J:hearts">J<em>♥</em></i></span></span> 常受更好的 K 压制，这里可弃；原局你跟，较松的按钮也跟，两盲弃牌。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 克林面对两人下注 30。你有顶对，身后的按钮还没行动。你跟 30，按钮也跟 30，三人留下。</p><p class="replay-line" data-at="turn"><strong>转牌</strong> · 克林过牌，你击中顶两对，下注 100，自己还剩 258。腾腾加到 400，克林弃牌。对你最多算到本轮 358，多出的 42 无人能跟。</p><p class="replay-line" data-at="river"><strong>河牌</strong> · 原局你在转牌补了 258，全下后不再下注。河牌发出红桃 4，双方摊牌。</p>
+        <div class="street-review" data-at="flop"><details class="example-answer"><summary>K 高翻牌中顶对，为什么还要留意按钮？</summary><p>枪口位在两人面前下注，可能有 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KQ，花色未指定"><b>KQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">Q</i></span></span> 或超对，也可能在用更差的一对下注。付 30 时眼前有 72，按钮却还可以跟或加。原局选择跟一次，随后按钮也跟；这一信息要带进转牌，不能只追踪最初的开池者。</p></details></div>
+        <div class="replay-analysis" data-at="turn">
+          <h3 class="example-question">枪口位弃牌后，顶两对要补最后 258 吗？</h3>
+
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>目前有资格赢</dt><dd>590</dd></div><div><dt>跟注成本</dt><dd>258</dd></div><div><dt>保本胜率</dt><dd>30.4%</dd></div></dl>
+          <p class="example-decision"><strong>先比较按钮会用什么成牌和听牌加注，再决定是否跟到摊牌。</strong><span class="cash-inline-hand" role="img" aria-label="T9，花色未指定"><b>T9</b><span class="cash-hand-cards"><i class="playing-card rank-only">10</i><i class="playing-card rank-only">9</i></span></span> 跟翻牌后在转牌成顺，<span class="cash-inline-hand" role="img" aria-label="88，花色未指定"><b>88</b><span class="cash-hand-cards"><i class="playing-card rank-only">8</i><i class="playing-card rank-only">8</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="77，花色未指定"><b>77</b><span class="cash-hand-cards"><i class="playing-card rank-only">7</i><i class="playing-card rank-only">7</i></span></span> 也可以沿这条路线打；强同花或顺子听牌则可能半诈唬。对手有效投入 358，包括跟你下注的 100。当前可赢 132＋100＋358＝590，需 258 ÷ 848 ≈ 30.4% 的权益。如果他大多是顺子或暗三条，弃掉两对合理；若强听牌占比足够高，跟注才有回报。已投入的筹码不构成跟注理由。</p>
+          </details></div>
+        <details class="example-showdown" data-at="river"><summary>看腾腾的摊牌</summary><div><div class="replay-cards" role="group" aria-label="腾腾的手牌"><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="黑桃 10" data-card="10:spades"><span class="card-corner" aria-hidden="true">10<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">10<span class="corner-suit">♠</span></span></span><span class="playing-card suit-spades" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 9" data-card="9:spades"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♠</span></span></span></div><p>腾腾在翻牌就有两头顺子听牌和同花听牌，转牌成了 J 高顺子。河牌没有让你的两对补成葫芦，按钮赢下 848。</p></div></details>
+        <p class="replay-source">转牌按双方可匹配的筹码计算。</p>
+      </div></fieldset></figure>
+  </details>
+  <details>
+    <summary><span class="case-summary-number">牌例 3-23</span> 口袋 9 开池后面对小盲挤压</summary>
+    <p>用翻前复盘中列出的 96 作为起点。比较跟注与再加注，哪条路线给后位留下较好的价格？若能隔离小盲，愿意用哪些牌和他的全下范围对抗？</p>
+    <figure class="hand-example" id="example-tag-nines-squeezed"><figcaption id="example-tag-nines-squeezed-question"><a class="example-permalink" href="#example-tag-nines-squeezed" aria-label="牌例 3-23，口袋 9 开池后面对小盲挤压"><span>牌例 3-23</span>口袋 9 开池后面对小盲挤压</a></figcaption>
+    <fieldset class="replay" aria-labelledby="example-tag-nines-squeezed-question">
+      <div class="replay-room">
+        <div class="replay-rivals" role="group" aria-label="其他玩家"><div class="replay-seat" data-seat="1" data-person="wangwang">
+      <img class="replay-portrait" src="assets/avatars/wangwang.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">旺旺</span>
+      <span class="replay-position">小盲位</span>
+      </div><div class="replay-seat" data-seat="2" data-person="kelin" data-folded="flop turn river">
+      <img class="replay-portrait" src="assets/avatars/kelin.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">克林</span>
+      <span class="replay-position">第五位</span>
+      <span class="replay-folded">已弃牌</span></div></div>
+        <div class="replay-felt table-felt">
+          <div class="replay-controls" role="radiogroup" aria-label="牌局阶段"><label><input type="radio" name="example-tag-nines-squeezed-street" value="preflop" checked><span>翻牌前</span></label><label><input type="radio" name="example-tag-nines-squeezed-street" value="flop"><span>翻牌</span></label><label><input type="radio" name="example-tag-nines-squeezed-street" value="turn"><span>转牌</span></label><label><input type="radio" name="example-tag-nines-squeezed-street" value="river"><span>河牌</span></label></div>
+          <div class="replay-board" role="group" aria-label="公共牌"><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="黑桃 Q" data-card="Q:spades"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♠</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 Q" data-card="Q:hearts"><span class="card-corner" aria-hidden="true">Q<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">Q<span class="corner-suit">♥</span></span></span></span><span class="replay-slot" data-dealt="flop"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-diamonds royal-card" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="方片 J" data-card="J:diamonds"><span class="card-corner" aria-hidden="true">J<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">J<span class="corner-suit">♦</span></span></span></span><span class="replay-slot" data-dealt="turn"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="梅花 2" data-card="2:clubs"><span class="card-corner" aria-hidden="true">2<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">2<span class="corner-suit">♣</span></span></span></span><span class="replay-slot" data-dealt="river"><span class="replay-unknown" role="img" aria-label="未发出的公共牌">♠</span><span class="playing-card suit-hearts" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:0" role="img" aria-label="红桃 6" data-card="6:hearts"><span class="card-corner" aria-hidden="true">6<span class="corner-suit">♥</span></span><span class="card-pip" aria-hidden="true">♥</span><span class="card-corner bottom" aria-hidden="true">6<span class="corner-suit">♥</span></span></span></span></div>
+          <div class="replay-pot"><span data-at="preflop">底池 <b>96</b></span><span data-at="flop">底池 <b>424</b></span><span data-at="turn">底池 <b>424</b></span><span data-at="river">底池 <b>424</b></span></div>
+        </div>
+        <div class="replay-hero"><div class="replay-seat" data-seat="0" data-person="juyipeng">
+      <img class="replay-portrait" src="assets/avatars/juyipeng.webp" width="48" height="48" loading="lazy" decoding="async" alt=""><span class="replay-name">掬一捧</span>
+      <span class="replay-position">第三位</span>
+      </div><div class="replay-cards" role="group" aria-label="掬一捧的手牌"><span class="playing-card suit-diamonds" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="方片 9" data-card="9:diamonds"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♦</span></span><span class="card-pip" aria-hidden="true">♦</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♦</span></span></span><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="梅花 9" data-card="9:clubs"><span class="card-corner" aria-hidden="true">9<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">9<span class="corner-suit">♣</span></span></span></div></div>
+      </div>
+      <div class="replay-notes">
+        <p class="replay-line" data-at="preflop"><strong>翻牌前</strong> · 盲注 3/6。你有 650，开到 18；克林跟 18。旺旺起手 200，从小盲再加到 54，大盲弃牌。你先决定，克林仍可行动。</p><p class="replay-line" data-at="flop"><strong>翻牌</strong> · 原局你再加到 200，克林弃，旺旺跟完最后的 146。两人各投 200，另有冷跟的 18 和死大盲 6。小盲已全下，后面只发公共牌。</p><p class="replay-line" data-at="turn"><strong>转牌</strong> · 没有后续下注，发出转牌。</p><p class="replay-line" data-at="river"><strong>河牌</strong> · 没有后续下注。最后五张公共牌已齐，可以核对摊牌。</p>
+
+        <div class="replay-analysis" data-at="preflop">
+          <h3 class="example-question">有人还没跟完，<span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♦ 9♣"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="9:diamonds">9<em>♦</em></i><i class="playing-card suit-clubs" data-card="9:clubs">9<em>♣</em></i></span></span> 只是补到 54，还是继续加注？</h3>
+          <p class="example-given">你和小盲之间有效筹码约 33 BB。小盲平时偏紧，刚输过大池；这一点本身还不能证明他在诈唬。</p>
+          <details class="example-answer"><summary>看判断与计算</summary>
+          <dl class="example-amounts"><div><dt>当前底池</dt><dd>18 + 18 + 54 + 6 = 96</dd></div><div><dt>你平跟后底池</dt><dd>132</dd></div><div><dt>后位也跟则为</dt><dd>168</dd></div></dl>
+          <p class="example-decision"><strong>小盲会用未成对的高牌或更小对子挤压时，可以考虑再加到 200。</strong>再加让身后的克林一次面对额外 182，有机会隔离小盲。若小盲只肯拿更大的对子继续，<span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♦ 9♣"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="9:diamonds">9<em>♦</em></i><i class="playing-card suit-clubs" data-card="9:clubs">9<em>♣</em></i></span></span> 就得靠他弃掉足够多的其他牌才能获利。平跟要补 36，之后还要应付后位的选择；对几乎只用大对子挤压的玩家，弃牌也合理。</p>
+          <p class="replay-variation"><b>换一个范围。</b>若后位一定弃，小盲只拿 <span class="cash-inline-hand" role="img" aria-label="QQ，花色未指定"><b>QQ</b><span class="cash-hand-cards"><i class="playing-card rank-only">Q</i><i class="playing-card rank-only">Q</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="KK，花色未指定"><b>KK</b><span class="cash-hand-cards"><i class="playing-card rank-only">K</i><i class="playing-card rank-only">K</i></span></span>、<span class="cash-inline-hand" role="img" aria-label="AA，花色未指定"><b>AA</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">A</i></span></span> 或 <span class="cash-inline-hand" role="img" aria-label="AK，花色未指定"><b>AK</b><span class="cash-hand-cards"><i class="playing-card rank-only">A</i><i class="playing-card rank-only">K</i></span></span> 挤压，且每种合法组合等可能并必跟，你现在还要投入 182，争取最终的 424，需要约 42.9% 权益。用你的 9♦9♣ 分别对这 34 种组合枚举公共牌，平均权益约 35.8%。在这个假设下推入 200 的 EV 约为 0.358 × 424 − 182 = −30。换成会挤压后弃牌、或用更小对子跟推的人，再计算一次。</p></details></div>
+        <details class="example-showdown" data-at="river"><summary>看旺旺的摊牌</summary><div><div class="replay-cards" role="group" aria-label="旺旺的手牌"><span class="playing-card suit-clubs" style="--angle:0deg;--y:0px;--deal-index:0;--deal-offset:18" role="img" aria-label="梅花 A" data-card="A:clubs"><span class="card-corner" aria-hidden="true">A<span class="corner-suit">♣</span></span><span class="card-pip" aria-hidden="true">♣</span><span class="card-corner bottom" aria-hidden="true">A<span class="corner-suit">♣</span></span></span><span class="playing-card suit-spades royal-card" style="--angle:0deg;--y:0px;--deal-index:1;--deal-offset:-18" role="img" aria-label="黑桃 K" data-card="K:spades"><span class="card-corner" aria-hidden="true">K<span class="corner-suit">♠</span></span><span class="card-pip" aria-hidden="true">♠</span><span class="card-corner bottom" aria-hidden="true">K<span class="corner-suit">♠</span></span></span></div><p>小盲亮出 A♣ K♠。牌面上的一对 Q 双方共用，你的 <span class="cash-inline-hand" role="img" aria-label="99，具体手牌 9♦ 9♣"><b>99</b><span class="cash-hand-cards"><i class="playing-card suit-diamonds" data-card="9:diamonds">9<em>♦</em></i><i class="playing-card suit-clubs" data-card="9:clubs">9<em>♣</em></i></span></span> 组成两对，赢下 424。这个结果不代表对类似挤压都应打到全下。</p></div></details>
+        <p class="replay-source">按每人实际投入重算了翻牌前底池，小盲已贴的 3 包含在 54 中。</p>
+      </div></fieldset></figure>
+  </details>
+</section>
+<section class="cash-endnotes" id="notes" role="doc-endnotes" aria-labelledby="notes-heading"><h2 id="notes-heading">注释</h2><ol><li id="note-1" tabindex="-1"><span class="note-number">[1]</span><a class="note-source" href="https://www.pokerstars.com/poker/learn/lesson/opening-the-pot/" title="PokerStars Learn · Opening the Pot — 六人桌中，身后待行动人数、偷盲机会和翻牌后的位置会改变率先加注的范围。">PokerStars Learn · Opening the Pot</a><span class="note-returns"><a class="note-back" href="#cite-1-1" role="doc-backlink" aria-label="注释 1，返回正文" title="返回正文">↩</a></span></li><li id="note-2" tabindex="-1"><span class="note-number">[2]</span><a class="note-source" href="https://blog.gtowizard.com/preflop-raise-sizing-examining-2-key-factors/" title="GTO Wizard · Preflop Raise Sizing: Examining 2 Key Factors — 比较开池尺寸时，要同时衡量多冒的风险、盲位弃牌的机会，以及身后玩家的跟注与再加注。">GTO Wizard · Preflop Raise Sizing: Examining 2 Key Factors</a><span class="note-returns"><a class="note-back" href="#cite-2-1" role="doc-backlink" aria-label="注释 2，返回正文" title="返回正文">↩</a></span></li><li id="note-3" tabindex="-1"><span class="note-number">[3]</span><a class="note-source" href="https://upswingpoker.com/vs-multiple-limpers/" title="Upswing Poker · How to Maximize Your Winnings Versus Multiple Limpers — 文章比较隔离加注与随后平跟，说明溜入人数、位置和对手跟注习惯怎样影响选择。">Upswing Poker · How to Maximize Your Winnings Versus Multiple Limpers</a><span class="note-returns"><a class="note-back" href="#cite-3-1" role="doc-backlink" aria-label="注释 3，返回正文" title="返回正文">↩</a></span></li><li id="note-4" tabindex="-1"><span class="note-number">[4]</span><a class="note-source" href="https://www.pokerstars.com/poker/learn/lesson/3-betting-preflop/" title="PokerStars Learn · 3-Betting Preflop — 再加注的牌可以主要取自强牌，也可以由强牌配合诈唬牌构成，选择取决于对手面对再加注如何回应。">PokerStars Learn · 3-Betting Preflop</a><span class="note-returns"><a class="note-back" href="#cite-4-1" role="doc-backlink" aria-label="注释 4，返回正文" title="返回正文">↩</a></span></li><li id="note-5" tabindex="-1"><span class="note-number">[5]</span><a class="note-source" href="https://blog.gtowizard.com/how-to-construct-a-squeezing-range/" title="GTO Wizard · How To Construct a Squeezing Range — 有人开池又有人跟注时，身后的再加注会同时向两人施压。文中的具体求解条件与本站牌例各不相同。">GTO Wizard · How To Construct a Squeezing Range</a><span class="note-returns"><a class="note-back" href="#cite-5-1" role="doc-backlink" aria-label="注释 5，返回正文" title="返回正文">↩</a></span></li><li id="note-6" tabindex="-1"><span class="note-number">[6]</span><a class="note-source" href="https://www.pokerstars.com/poker/learn/lesson/facing-3-bets/" title="PokerStars Learn · Facing 3-Bets — 面对翻前再加注，尺寸、位置和筹码深度会一起影响继续游戏的范围。">PokerStars Learn · Facing 3-Bets</a><span class="note-returns"><a class="note-back" href="#cite-6-1" role="doc-backlink" aria-label="注释 6，返回正文" title="返回正文">↩</a></span></li><li id="note-7" tabindex="-1"><span class="note-number">[7]</span><a class="note-source" href="https://www.pokerstars.com/poker/learn/strategies/defending-the-big-blind-multiway/" title="PokerStars Learn · Defending the Big Blind Multi-Way — Dave Roemer 用大盲面对开池和多家跟注的牌局，区分按摊牌计算的权益和后续能实际赢得的底池份额。">PokerStars Learn · Defending the Big Blind Multi-Way</a><span class="note-returns"><a class="note-back" href="#cite-7-1" role="doc-backlink" aria-label="注释 7，返回正文" title="返回正文">↩</a></span></li><li id="note-8" tabindex="-1"><span class="note-number">[8]</span><a class="note-source" href="https://blog.gtowizard.com/rake-rakeback-explained-optimize-your-poker-earnings/" title="GTO Wizard · Rake &amp; Rakeback Explained: Optimize Your Poker Earnings — 现金桌抽水会降低部分入局动作的收益；是否见翻牌才抽、抽水上限和前注设置都会影响范围比较。">GTO Wizard · Rake &amp; Rakeback Explained: Optimize Your Poker Earnings</a><span class="note-returns"><a class="note-back" href="#cite-8-1" role="doc-backlink" aria-label="注释 8，返回正文" title="返回正文">↩</a></span></li></ol></section><nav class="cash-pager" aria-label="章节导航">
+      <a rel="prev" href="cash-key-plays.html">← 玩法要点</a>
+      <a href="cash.html#cases">牌例索引</a>
+
+    </nav></div></div></article>
+    </main>
+    <footer class="site-footer wrap">
+      <a class="brand footer-brand" href="index.html">Holdem<span class="brand-period">.</span></a>
+
+      <span class="footer-suits" aria-hidden="true"><span class="suit-spades">♠</span> <span class="suit-hearts">♥</span> <span class="suit-clubs">♣</span> <span class="suit-diamonds">♦</span></span>
+    </footer>
+  </body>
+</html>

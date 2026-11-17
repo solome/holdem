@@ -1,0 +1,83 @@
+/* Chapter and example fragments should land immediately, even across a long article. */
+html { scroll-behavior: auto; }
+
+.reading-toc-mobile { display: none; }
+
+@media (max-width: 1024px), (horizontal-viewport-segments: 2) {
+  html:has(.reading-toc-mobile) {
+    scroll-padding-top: calc(var(--safe-area-top) + var(--control-touch) + var(--space-2));
+  }
+  .reading-toc-mobile {
+    display: block;
+    position: sticky;
+    top: var(--safe-area-top);
+    z-index: 5;
+    min-width: 0;
+    background: var(--page);
+    border: 1px solid #dce3d1;
+    border-radius: var(--radius-control);
+  }
+  .reading-toc-mobile > summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--control-touch);
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-control);
+    color: var(--green);
+    font-size: var(--font-label);
+    font-weight: 600;
+    list-style: none;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .reading-toc-mobile > summary::-webkit-details-marker { display: none; }
+  .reading-toc-mobile > summary:focus-visible {
+    outline: 2px solid #9c8551;
+    outline-offset: -2px;
+  }
+  .reading-toc-mobile > summary svg { flex: none; margin-left: auto; }
+  .reading-toc-mobile[open] > summary svg { transform: rotate(180deg); }
+  .reading-toc-current {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--text-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+  .reading-toc-links {
+    position: absolute;
+    inset: calc(100% + var(--space-1)) -1px auto;
+    max-height: min(calc(var(--layout-height) * 0.52), 320px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: var(--space-1);
+    border: 1px solid #dce3d1;
+    border-radius: var(--radius-panel);
+    background: #fcfdf7;
+    box-shadow: var(--menu-shadow);
+  }
+  .reading-toc-links ol { list-style: none; margin: 0; padding: 0; }
+  .reading-toc-links a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-touch);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-control);
+    color: var(--text-secondary);
+    font-size: var(--font-label);
+  }
+  .reading-toc-links a[aria-current] { color: var(--green); background: #e8eddf; font-weight: 600; }
+}
+
+@media (vertical-viewport-segments: 2) {
+  body:has(.reading-toc-mobile) {
+    scroll-padding-top: calc(var(--safe-area-top) + var(--control-touch) + var(--space-2));
+  }
+}
+
+@media print {
+  .reading-toc-mobile { display: none; }
+}
