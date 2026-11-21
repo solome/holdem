@@ -1,6 +1,7 @@
 import { REVIEW_CASES, REVIEW_SOURCES } from "./review-cases.mjs";
 import { REVIEW_EQUITY } from "./review-equity-data.mjs";
 import { buildSidePots } from "./review-equity.mjs";
+import { readReviewLocation, writeReviewLocation } from "./review-location.mjs";
 import { REVIEW_PEOPLE } from "./review-people.mjs";
 import { AVATAR_URLS } from "./review-avatar-urls.js";
 import { createAvatarPreview } from "./avatar-preview.js";
@@ -12,6 +13,7 @@ import { getFriendSimulationProfile } from "./friend-player-profiles.mjs";
 const STREETS = ["preflop", "flop", "turn", "river"];
 const STREET_KEYS = { preflop: "rPreflop", flop: "rFlop", turn: "rTurn", river: "rRiver" };
 const POT_KEYS = { main: "rMainPot", side1: "rSidePot1", side2: "rSidePot2" };
+const POSITION_KEYS = { SB: "rSmallBlind", BB: "rBigBlind", BTN: "rButton" };
 const FRIEND_STREETS = ["preflop", "flop", "turn", "river"];
 const FRIEND_PROFILE_KEYS = {
   balanced: "rFriendProfileBalanced",
@@ -75,9 +77,9 @@ const percentage = (value) => `${(value * 100).toFixed(2)}%`;
 export function createHandReview({ element, translate, renderCard, getLanguage = () => "zh-CN" }) {
   const t = (key, values) => escapeHtml(translate(key, values));
   const local = (value) => escapeHtml(typeof value === "string" ? value : value?.[getLanguage()] ?? value?.["zh-CN"] ?? "");
-  const state = { caseIndex: 0, streetIndex: 0, pot: "main", expanded: new Map(), friendStreet: "preflop" };
-  const friendTableClient = createFriendTableClient(element.ownerDocument, Object.keys(REVIEW_PEOPLE));
   const win = element.ownerDocument.defaultView;
+  const state = { caseIndex: readReviewLocation(new URL(win.location.href)), streetIndex: 0, pot: "main", expanded: new Map(), friendStreet: "preflop" };
+  const friendTableClient = createFriendTableClient(element.ownerDocument, Object.keys(REVIEW_PEOPLE));
   let friendTable;
   let friendStatus = "idle";
   let friendAnnouncement;
@@ -112,8 +114,10 @@ export function createHandReview({ element, translate, renderCard, getLanguage =
   }
 
   function storyMarkup(hand) {
-    if (!hand.story) return `<p class="review-overview">${local(hand.overview)}</p>`;
-    return `<section class="review-story" aria-labelledby="review-story-title"><div class="review-story-copy"><span class="review-story-eyebrow">${local(hand.story.eyebrow)}</span><h2 id="review-story-title">${local(hand.story.title)}</h2><div class="review-story-paragraphs">${hand.story.paragraphs.map((paragraph) => `<p>${local(paragraph)}</p>`).join("")}</div></div>${hand.story.quote ? `<blockquote class="review-story-quote"><p>${local(hand.story.quote)}</p><cite class="review-story-attribution">${escapeHtml(REVIEW_PEOPLE.juyipeng.name)}</cite></blockquote>` : ""}</section>`;
+    const { story } = hand;
+    if (!story) return `<p class="review-overview">${local(hand.overview)}</p>`;
+    const speaker = REVIEW_PEOPLE[story.quotePersonId ?? "juyipeng"];
+    return `<section class="review-story" aria-labelledby="review-story-title"><div class="review-story-copy"><span class="review-story-eyebrow">${local(story.eyebrow)}</span><h2 id="review-story-title">${local(story.title)}</h2><div class="review-story-paragraphs">${story.paragraphs.map((paragraph) => `<p>${local(paragraph)}</p>`).join("")}</div></div>${story.quote ? `<blockquote class="review-story-quote"><p>${local(story.quote)}</p><cite class="review-story-attribution">${escapeHtml(speaker.name)}</cite></blockquote>` : ""}</section>`;
   }
 
   function stageMarkup() {
@@ -121,7 +125,11 @@ export function createHandReview({ element, translate, renderCard, getLanguage =
   }
 
   function tableMarkup(hand, street) {
-    return `<section class="review-table" aria-labelledby="review-board-title"><div class="review-table-heading"><h2 id="review-board-title">${t("rBoard")}</h2><span>${t(STREET_KEYS[street.id])}</span></div><div class="review-board">${Array.from({ length: 5 }, (_, index) => street.board[index] ? renderCard(street.board[index], { fan: false }) : `<span class="review-card-empty" role="img" aria-label="${t("rUnrevealed")}"><span aria-hidden="true">♠</span></span>`).join("")}</div><div class="review-pot-total"><div><span>${t("rPot")}</span><strong>${amountLabel(hand, state.streetIndex, potAmount(hand, state.streetIndex))}</strong></div><span>${t("rAfterActions")}</span></div><div class="review-players${hand.players.length === 2 ? " review-players-two" : ""}">${hand.players.map((player) => `<div class="review-player${player.id === hand.heroId ? " review-player-hero" : ""}"><div class="review-player-top"><h3>${playerName(hand, player.id)}</h3>${player.position === "SB" ? `<span class="review-position-tag">${t("rSmallBlind")}</span>` : ""}</div><div class="review-hole-cards" aria-label="${t("rHoleCards")}">${player.hand.map((card) => renderCard(card, { fan: false })).join("")}</div><span class="review-stack">${player.stackNote ? local(player.stackNote) : player.stack == null ? t("rUnknownStack") : t(player.stackApprox ? "rApproxInitialStack" : "rInitialStack", { amount: player.stack })}</span></div>`).join("")}</div></section>`;
+    const players = hand.players.map((player) => {
+      const positionKey = POSITION_KEYS[player.position];
+      return `<div class="review-player${player.id === hand.heroId ? " review-player-hero" : ""}"><div class="review-player-top"><h3>${playerName(hand, player.id)}</h3>${positionKey ? `<span class="review-position-tag">${t(positionKey)}</span>` : ""}</div><div class="review-hole-cards" aria-label="${t("rHoleCards")}">${player.hand.map((card) => renderCard(card, { fan: false })).join("")}</div><span class="review-stack">${player.stackNote ? local(player.stackNote) : player.stack == null ? t("rUnknownStack") : t(player.stackApprox ? "rApproxInitialStack" : "rInitialStack", { amount: player.stack })}</span></div>`;
+    }).join("");
+    return `<section class="review-table" aria-labelledby="review-board-title"><div class="review-table-heading"><h2 id="review-board-title">${t("rBoard")}</h2><span>${t(STREET_KEYS[street.id])}</span></div><div class="review-board">${Array.from({ length: 5 }, (_, index) => street.board[index] ? renderCard(street.board[index], { fan: false }) : `<span class="review-card-empty" role="img" aria-label="${t("rUnrevealed")}"><span aria-hidden="true">♠</span></span>`).join("")}</div><div class="review-pot-total"><div><span>${t("rPot")}</span><strong>${amountLabel(hand, state.streetIndex, potAmount(hand, state.streetIndex))}</strong></div><span>${t("rAfterActions")}</span></div><div class="review-players${hand.players.length === 2 ? " review-players-two" : ""}">${players}</div></section>`;
   }
 
   function equityMarkup(hand, street) {
@@ -274,6 +282,18 @@ export function createHandReview({ element, translate, renderCard, getLanguage =
     if (focusSelector) element.querySelector(focusSelector)?.focus({ preventScroll: true });
   }
 
+  function selectCase(caseIndex, focusSelector) {
+    state.caseIndex = caseIndex;
+    state.streetIndex = 0;
+    state.pot = "main";
+    render(focusSelector);
+  }
+
+  win.addEventListener("hashchange", () => {
+    const caseIndex = readReviewLocation(new URL(win.location.href));
+    if (caseIndex !== state.caseIndex) selectCase(caseIndex);
+  });
+
   element.addEventListener("click", (event) => {
     const button = event.target.closest("button");
     if (!button || !element.contains(button) || button.disabled) return;
@@ -289,10 +309,14 @@ export function createHandReview({ element, translate, renderCard, getLanguage =
       refreshFriendTable(`[data-friend-street="${state.friendStreet}"]`);
       element.querySelector(".review-live-status").textContent = translate("rFriendTableStageStatus", { stage: translate(STREET_KEYS[state.friendStreet]) });
     } else if (button.dataset.reviewCase !== undefined) {
-      state.caseIndex = Number(button.dataset.reviewCase);
-      state.streetIndex = 0;
-      state.pot = "main";
-      render(`[data-review-case="${state.caseIndex}"]`);
+      const caseIndex = Number(button.dataset.reviewCase);
+      const next = writeReviewLocation(win.location.href, REVIEW_CASES[caseIndex].id);
+      if (next.href !== win.location.href) {
+        try {
+          win.history.pushState(win.history.state, "", next.href);
+        } catch { win.location.hash = next.hash; }
+      }
+      selectCase(caseIndex, `[data-review-case="${caseIndex}"]`);
     } else if (button.dataset.reviewStreet !== undefined || button.dataset.reviewStep !== undefined) {
       state.streetIndex = button.dataset.reviewStreet !== undefined ? Number(button.dataset.reviewStreet) : Math.max(0, Math.min(3, state.streetIndex + Number(button.dataset.reviewStep)));
       if (state.streetIndex === 0 && state.pot === "side2") state.pot = "main";

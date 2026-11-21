@@ -184,4 +184,9 @@ export const REVIEW_EQUITY_DEALS = Object.freeze({
     board: fromText("10d 8c 5h Js 7c"),
     pots: [{ id: "main", eligible: ["A", "B"] }],
   },
+  queenOnTheRiver: {
+    players: [{ id: "A", hand: fromText("Kd Ks") }, { id: "B", hand: fromText("Qd Qh") }],
+    board: fromText("6d 6s 5d 4s Qc"),
+    pots: [{ id: "main", eligible: ["A", "B"] }],
+  },
 });

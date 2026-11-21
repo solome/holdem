@@ -34,7 +34,11 @@ test("fast evaluator cross-checks 2400 reproducible random five-, six-, and seve
 });
 
 test("stored exact results have correct combination counts and conserve every pot's equity", () => {
-  const expectedCounts = { fourWay: [1086008, 820, 40, 1], headsUp: [1712304, 990, 44, 1] };
+  const expectedCounts = {
+    fourWay: [1086008, 820, 40, 1],
+    headsUp: [1712304, 990, 44, 1],
+    queenOnTheRiver: [1712304, 990, 44, 1],
+  };
   for (const [caseId, streets] of Object.entries(REVIEW_EQUITY)) {
     assert.deepEqual(Object.values(streets).map(({ totalOutcomes }) => totalOutcomes), expectedCounts[caseId]);
     for (const stage of Object.values(streets)) {
@@ -105,7 +109,7 @@ test("side pots keep other known hands blocked, and future actual board cards re
   }
 });
 
-test("both recorded winners have the correct final hands; the second river is the seven of clubs", () => {
+test("all recorded winners have the correct final hands", () => {
   const first = REVIEW_EQUITY_DEALS.fourWay;
   assert.equal(evaluateReviewHand([...first.players[3].hand, ...first.board]).category, "full-house");
   assert.equal(REVIEW_EQUITY.fourWay.river.players.find(({ id }) => id === "D").win, 1);
@@ -115,6 +119,11 @@ test("both recorded winners have the correct final hands; the second river is th
   assert.equal(evaluateReviewHand([...second.players[0].hand, ...second.board]).category, "one-pair");
   assert.equal(evaluateReviewHand([...second.players[1].hand, ...second.board]).category, "straight");
   assert.equal(REVIEW_EQUITY.headsUp.river.players.find(({ id }) => id === "B").win, 1);
+  const third = REVIEW_EQUITY_DEALS.queenOnTheRiver;
+  assert.deepEqual(third.board, hand("6d 6s 5d 4s Qc"));
+  assert.equal(evaluateReviewHand([...third.players[0].hand, ...third.board]).category, "two-pair");
+  assert.equal(evaluateReviewHand([...third.players[1].hand, ...third.board]).category, "full-house");
+  assert.equal(REVIEW_EQUITY.queenOnTheRiver.river.players.find(({ id }) => id === "B").win, 1);
 });
 
 test("the second turn straight is vulnerable to exactly three nines giving QQ a queen-high straight", () => {
@@ -130,6 +139,27 @@ test("the second turn straight is vulnerable to exactly three nines giving QQ a 
     assert.equal(a.category, "straight");
     assert.equal(b.category, "straight");
     assert.ok(a.score > b.score);
+  }
+});
+
+test("QQ beats KK on only the queen of clubs or spades and never ties from the turn", () => {
+  const deal = REVIEW_EQUITY_DEALS.queenOnTheRiver;
+  const [kings, queens] = deal.players;
+  assert.deepEqual(kings.hand, hand("Kd Ks"));
+  assert.deepEqual(queens.hand, hand("Qd Qh"));
+  const turn = deal.board.slice(0, 4);
+  const result = calculateReviewEquity({ ...deal, board: turn });
+  assert.equal(result.totalOutcomes, 44);
+  assert.equal(result.players[0].wins, 42);
+  assert.equal(result.players[1].wins, 2);
+  assert.equal(result.players[1].equity, 2 / 44);
+  assert.ok(result.players.every(({ ties }) => ties === 0));
+  for (const river of hand("Qc Qs")) {
+    const board = [...turn, river];
+    const a = evaluateBest([...kings.hand, ...board]);
+    const b = evaluateBest([...queens.hand, ...board]);
+    assert.equal(b.category, "full-house");
+    assert.ok(b.score > a.score);
   }
 });
 

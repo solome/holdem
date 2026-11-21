@@ -430,6 +430,131 @@ export const REVIEW_CASES = [
       ],
     },
   },
+  {
+    id: "queenOnTheRiver",
+    title: L("坚哥，翻", "堅哥，翻", "Jian, turn it over"),
+    subtitle: L("Q♦ Q♥ 对 K♦ K♠ · 98 BB 有效筹码", "Q♦ Q♥ 對 K♦ K♠ · 98 BB 有效籌碼", "Q♦ Q♥ vs. K♦ K♠ · 98 BB effective"),
+    heroId: "B",
+    players: [
+      { id: "A", personId: "tengteng", hand: [card("K", "diamonds"), card("K", "spades")], stack: 98, position: "BB" },
+      { id: "B", personId: "juyipeng", hand: [card("Q", "diamonds"), card("Q", "hearts")], stack: 98, position: "BTN" },
+    ],
+    assumptions: [
+      L(
+        "翻前按加注到 30 BB 记录，掬一捧补 18 BB。两人各投入 30 + 30 + 38 = 98 BB。",
+        "翻前按加注到 30 BB 記錄，掬一捧補 18 BB。兩人各投入 30 + 30 + 38 = 98 BB。",
+        "The preflop raise is recorded as 30 BB total, so 掬一捧 calls 18 BB more. Each player puts in 30 + 30 + 38 = 98 BB.",
+      ),
+      L(
+        "口述在翻牌和转牌都记了掬一捧先过牌。按 BTN 对 BB 的常规翻后顺序，应由腾腾先行动。逐街行动只列两人的下注和跟注。",
+        "口述在翻牌和轉牌都記了掬一捧先過牌。按 BTN 對 BB 的常規翻後順序，應由騰騰先行動。逐街行動只列兩人的下注和跟注。",
+        "The account has 掬一捧 checking first on the flop and turn. The big blind acts first against the button under standard postflop order. The replay lists the recorded bets and calls.",
+      ),
+    ],
+    streets: [
+      {
+        id: "preflop",
+        board: [],
+        actions: [
+          action("B", L("开到", "開到", "Open to"), 12, "raise"),
+          action("A", L("再加注到", "再加注到", "Re-raise to"), 30, "raise"),
+          action("B", L("跟注至", "跟注至", "Call to"), 30, "call"),
+        ],
+        analysis: [
+          analysis("B", L("QQ 补 18 BB 看翻牌", "QQ 補 18 BB 看翻牌", "QQ calls 18 BB more to see a flop"), L(
+            "掬一捧在按钮位拿 Q♦ Q♥ 开到 12 BB，腾腾立刻从大盲再加到 30 BB。掬一捧补 18 BB 跟进，翻后有位置优势。跟注是否划算，取决于腾腾会用哪些牌打这个再加注。",
+            "掬一捧在按鈕位拿 Q♦ Q♥ 開到 12 BB，騰騰立刻從大盲再加到 30 BB。掬一捧補 18 BB 跟進，翻後有位置優勢。跟注是否划算，取決於騰騰會用哪些牌打這個再加注。",
+            "掬一捧 opens to 12 BB on the button with Q♦ Q♥. 腾腾 immediately makes it 30 BB from the big blind. 掬一捧 calls 18 BB more and will have position postflop. The value of the call depends on what hands 腾腾 re-raises with.",
+          )),
+        ],
+        note: L("已知底池 60 BB，两人各剩 68 BB。", "已知底池 60 BB，兩人各剩 68 BB。", "The recorded pot is 60 BB, with 68 BB behind for each player."),
+      },
+      {
+        id: "flop",
+        board: [card("6", "diamonds"), card("6", "spades"), card("5", "diamonds")],
+        actions: [
+          action("A", L("持续下注", "持續下注", "Continuation bet"), 30, "bet"),
+          action("B", L("跟注", "跟注", "Call"), 30, "call"),
+        ],
+        analysis: [
+          analysis("B", L("低张成对，QQ 跟半池", "低張成對，QQ 跟半池", "QQ calls half pot on a low, paired board"), L(
+            "6♦ 6♠ 5♦ 上，QQ 和 KK 都是超对，摊牌回看仍是腾腾领先。腾腾下注 30 BB，掬一捧跟注。两人手里各只有一张方片，这一街都得转牌和河牌连出方片才可能成同花。",
+            "6♦ 6♠ 5♦ 上，QQ 和 KK 都是超對，攤牌回看仍是騰騰領先。騰騰下注 30 BB，掬一捧跟注。兩人手裡各只有一張方片，這一街都得轉牌和河牌連出方片才可能成同花。",
+            "QQ and KK are both overpairs on 6♦ 6♠ 5♦, with 腾腾 still ahead. 腾腾 bets 30 BB and 掬一捧 calls. Each holds one diamond and would need diamonds on both remaining streets to make a flush.",
+          )),
+        ],
+        note: L("跟注后，已知底池 120 BB，两人各剩 38 BB。", "跟注後，已知底池 120 BB，兩人各剩 38 BB。", "After the call, the recorded pot is 120 BB, with 38 BB behind for each player."),
+      },
+      {
+        id: "turn",
+        board: [card("6", "diamonds"), card("6", "spades"), card("5", "diamonds"), card("4", "spades")],
+        actions: [
+          action("A", L("全下", "全下", "Shove"), 38, "all-in"),
+          action("B", L("跟注", "跟注", "Call"), 38, "call"),
+        ],
+        analysis: [
+          analysis("B", L("摊牌回看，QQ 只剩两张救命牌", "攤牌回看，QQ 只剩兩張救命牌", "With both hands known, QQ has two outs"), L(
+            "跟 38 BB 争夺已知的 196 BB 底池，需要约 19.39% 的权益。摊牌回看，对上这组 KK，掬一捧只有 Q♣ 或 Q♠ 能赢，独赢率是 2/44，约 4.55%。当时的跟注还得按腾腾的全下范围判断。",
+            "跟 38 BB 爭奪已知的 196 BB 底池，需要約 19.39% 的權益。攤牌回看，對上這組 KK，掬一捧只有 Q♣ 或 Q♠ 能贏，獨贏率是 2/44，約 4.55%。當時的跟注還得按騰騰的全下範圍判斷。",
+            "Calling 38 BB for the recorded 196 BB pot requires about 19.39% equity. Against these exact kings, only Q♣ or Q♠ wins for 掬一捧: 2 of 44 rivers, or about 4.55%. At the table, the call depends on 腾腾’s full shoving range.",
+          )),
+        ],
+        note: L("两边都推完了。腾腾亮出 K♦ K♠，请坚坚翻最后一张。", "兩邊都推完了。騰騰亮出 K♦ K♠，請堅堅翻最後一張。", "Both stacks are in. 腾腾 shows K♦ K♠ and asks 坚坚 to turn over the last card."),
+      },
+      {
+        id: "river",
+        board: [card("6", "diamonds"), card("6", "spades"), card("5", "diamonds"), card("4", "spades"), card("Q", "clubs")],
+        actions: [],
+        analysis: [
+          analysis("B", L("Q♣ 绝杀，QQQ66", "Q♣ 絕殺，QQQ66", "Q♣ wins it with QQQ66"), L(
+            "梅花 Q 和掬一捧手里的两张 Q 凑成三条，配上牌面的一对 6，组成 Q 满 6 的葫芦。腾腾是 K、6 两对，Q 踢脚。领先到转牌的 KK，在最后一张被反超。",
+            "梅花 Q 和掬一捧手裡的兩張 Q 湊成三條，配上牌面的一對 6，組成 Q 滿 6 的葫蘆。騰騰是 K、6 兩對，Q 踢腳。領先到轉牌的 KK，在最後一張被反超。",
+            "The Q♣ joins 掬一捧’s two queens, and the paired sixes give him queens full of sixes. 腾腾 finishes with kings and sixes and a queen kicker. The kings led through the turn and lost on the last card.",
+          )),
+        ],
+        note: L("坚坚一翻，是梅花 Q。全桌一下子欢呼起来。", "堅堅一翻，是梅花 Q。全桌一下子歡呼起來。", "坚坚 turns it over. It’s the Q♣, and the whole table erupts in cheers."),
+      },
+    ],
+    result: {
+      winner: "B",
+      label: L("葫芦 · QQQ66", "葫蘆 · QQQ66", "Full house · QQQ66"),
+      body: L(
+        "掬一捧用 Q 满 6 的葫芦收下已知底池 196 BB，净赢 98 BB。前面好几次拿 QQ 都没赢，这回终于靠一张梅花 Q 结束了连败。",
+        "掬一捧用 Q 滿 6 的葫蘆收下已知底池 196 BB，淨贏 98 BB。前面好幾次拿 QQ 都沒贏，這回終於靠一張梅花 Q 結束了連敗。",
+        "Queens full of sixes wins 掬一捧 the recorded 196 BB pot, a net gain of 98 BB. After several losses holding QQ, one queen of clubs finally breaks the streak.",
+      ),
+    },
+    takeaways: [
+      L(
+        "腾腾亮出 KK 时那句笃定的「坚哥，翻」，和坚坚翻牌后全桌的欢呼，前后只隔了一张梅花 Q。",
+        "騰騰亮出 KK 時那句篤定的「堅哥，翻」，和堅堅翻牌後全桌的歡呼，前後只隔了一張梅花 Q。",
+        "A single queen of clubs separates 腾腾’s confident “Jian, turn it over” from the cheers that followed.",
+      ),
+    ],
+    potNote: L(
+      "底池按两人已知投入计算，腾腾的大盲计入翻前 30 BB。未记录的盲注、前注或抽水未计入。",
+      "底池按兩人已知投入計算，騰騰的大盲計入翻前 30 BB。未記錄的盲注、前注或抽水未計入。",
+      "The pot uses the two recorded contributions. 腾腾’s big blind is part of his preflop 30 BB. Unrecorded blinds, antes, and rake are omitted.",
+    ),
+    story: {
+      eyebrow: L("朋友局牌记", "朋友局牌記", "From the friends’ table"),
+      title: L("又是 QQ，这次打到了最后一张", "又是 QQ，這次打到了最後一張", "Queens again, with one card to come"),
+      paragraphs: [
+        L(
+          "在这手之前，掬一捧已经好几次拿 QQ 跟人对抗，结果一次也没赢。这回他在按钮位又摸到 Q♦ Q♥，开到 12 BB。腾腾在大盲位立刻加到 30 BB，掬一捧补上 18 BB，两个人看翻牌。",
+          "在這手之前，掬一捧已經好幾次拿 QQ 跟人對抗，結果一次也沒贏。這回他在按鈕位又摸到 Q♦ Q♥，開到 12 BB。騰騰在大盲位立刻加到 30 BB，掬一捧補上 18 BB，兩個人看翻牌。",
+          "掬一捧 had lost several recent hands holding QQ. Now there they were again on the button: Q♦ Q♥. He opened to 12 BB, 腾腾 immediately made it 30 BB from the big blind, and 掬一捧 put in 18 BB more to see the flop.",
+        ),
+        L(
+          "翻牌是 6♦ 6♠ 5♦。腾腾再打 30 BB，掬一捧跟了。转牌落下 4♠，腾腾把最后 38 BB 全推了进去，掬一捧也跟到底。腾腾亮出 K♦ K♠，语气笃定，招呼坚坚来翻最后一张。",
+          "翻牌是 6♦ 6♠ 5♦。騰騰再打 30 BB，掬一捧跟了。轉牌落下 4♠，騰騰把最後 38 BB 全推了進去，掬一捧也跟到底。騰騰亮出 K♦ K♠，語氣篤定，招呼堅堅來翻最後一張。",
+          "The flop came 6♦ 6♠ 5♦. 腾腾 bet another 30 BB and 掬一捧 called. On the 4♠ turn, 腾腾 pushed in his last 38 BB and 掬一捧 called again. 腾腾 turned over K♦ K♠ and confidently asked 坚坚 to deal the final card.",
+        ),
+      ],
+      quote: L("坚哥，翻", "堅哥，翻", "Jian, turn it over."),
+      quotePersonId: "tengteng",
+    },
+  },
 ];
 
 export const REVIEW_SOURCES = [

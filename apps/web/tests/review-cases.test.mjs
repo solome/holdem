@@ -19,7 +19,7 @@ test("friend identities persist across hands even when their local player IDs ch
 });
 
 test("displayed records and each revealed street match the exact probability inputs", () => {
-  assert.deepEqual(REVIEW_CASES.map(({ id }) => id), ["fourWay", "headsUp"]);
+  assert.deepEqual(REVIEW_CASES.map(({ id }) => id), ["fourWay", "headsUp", "queenOnTheRiver"]);
   for (const record of REVIEW_CASES) {
     const deal = REVIEW_EQUITY_DEALS[record.id];
     assert.deepEqual(record.players.map(({ id, hand }) => ({ id, hand })), deal.players);
@@ -53,16 +53,41 @@ test("recorded action totals yield the first hand's three pots and the second ha
   ]);
 });
 
-test("both records identify the user and the winning five cards correctly", () => {
-  for (const [index, record] of REVIEW_CASES.entries()) {
-    assert.equal(record.heroId, index === 0 ? "D" : "B");
+test("all records identify the user and the winning five cards correctly", () => {
+  const winningRanks = {
+    fourWay: ["6", "6", "5", "5", "5"],
+    headsUp: ["J", "10", "9", "8", "7"],
+    queenOnTheRiver: ["Q", "Q", "Q", "6", "6"],
+  };
+  for (const record of REVIEW_CASES) {
+    assert.equal(record.heroId, record.id === "fourWay" ? "D" : "B");
     assert.equal(record.result.winner, record.heroId);
     const board = record.streets.at(-1).board;
     const scores = record.players.map((player) => ({ id: player.id, hand: evaluateBest([...player.hand, ...board]) }));
     const winner = scores.find(({ id }) => id === record.heroId);
     assert.ok(scores.filter(({ id }) => id !== record.heroId).every(({ hand }) => hand.score < winner.hand.score));
-    assert.deepEqual(winner.hand.bestCards.map(({ rank }) => rank), index === 0 ? ["6", "6", "5", "5", "5"] : ["J", "10", "9", "8", "7"]);
-    assert.equal(record.streets[2].actions.length, 0);
+    assert.deepEqual(winner.hand.bestCards.map(({ rank }) => rank), winningRanks[record.id]);
+    assert.equal(record.streets[2].actions.length, record.id === "queenOnTheRiver" ? 2 : 0);
     assert.equal(record.streets[3].actions.length, 0);
   }
+});
+
+test("the queen-on-the-river replay records the players, betting order, and 196 BB pot", () => {
+  const record = REVIEW_CASES.find(({ id }) => id === "queenOnTheRiver");
+  assert.deepEqual(record.players.map(({ id, personId, stack, position }) => ({ id, personId, stack, position })), [
+    { id: "A", personId: "tengteng", stack: 98, position: "BB" },
+    { id: "B", personId: "juyipeng", stack: 98, position: "BTN" },
+  ]);
+  assert.deepEqual(record.streets.map(({ actions }) => actions.map(({ player, kind, to }) => [player, kind, to])), [
+    [["B", "raise", 12], ["A", "raise", 30], ["B", "call", 30]],
+    [["A", "bet", 30], ["B", "call", 30]],
+    [["A", "all-in", 38], ["B", "call", 38]],
+    [],
+  ]);
+  const invested = contributions(record);
+  assert.deepEqual(invested, [{ id: "A", contribution: 98 }, { id: "B", contribution: 98 }]);
+  assert.deepEqual(buildSidePots(invested), [
+    { kind: "pot", amount: 196, eligible: ["A", "B"], contributors: ["A", "B"] },
+  ]);
+  assert.equal(record.story.quotePersonId, "tengteng");
 });

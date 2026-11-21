@@ -785,5 +785,211 @@ export const REVIEW_EQUITY = {
         }
       ]
     }
+  },
+  "queenOnTheRiver": {
+    "preflop": {
+      "exact": true,
+      "totalOutcomes": 1712304,
+      "remainingCards": 48,
+      "missingBoardCards": 5,
+      "players": [
+        {
+          "id": "A",
+          "win": 0.8170237294312225,
+          "tie": 0.004648707238901504,
+          "equity": 0.8193480830506732,
+          "wins": 1398993,
+          "ties": 7960
+        },
+        {
+          "id": "B",
+          "win": 0.178327563329876,
+          "tie": 0.004648707238901504,
+          "equity": 0.18065191694932675,
+          "wins": 305351,
+          "ties": 7960
+        }
+      ],
+      "pots": [
+        {
+          "id": "main",
+          "eligible": [
+            "A",
+            "B"
+          ],
+          "players": [
+            {
+              "id": "A",
+              "win": 0.8170237294312225,
+              "tie": 0.004648707238901504,
+              "equity": 0.8193480830506732,
+              "wins": 1398993,
+              "ties": 7960
+            },
+            {
+              "id": "B",
+              "win": 0.178327563329876,
+              "tie": 0.004648707238901504,
+              "equity": 0.18065191694932675,
+              "wins": 305351,
+              "ties": 7960
+            }
+          ]
+        }
+      ]
+    },
+    "flop": {
+      "exact": true,
+      "totalOutcomes": 990,
+      "remainingCards": 45,
+      "missingBoardCards": 2,
+      "players": [
+        {
+          "id": "A",
+          "win": 0.9161616161616162,
+          "tie": 0,
+          "equity": 0.9161616161616162,
+          "wins": 907,
+          "ties": 0
+        },
+        {
+          "id": "B",
+          "win": 0.08383838383838384,
+          "tie": 0,
+          "equity": 0.08383838383838384,
+          "wins": 83,
+          "ties": 0
+        }
+      ],
+      "pots": [
+        {
+          "id": "main",
+          "eligible": [
+            "A",
+            "B"
+          ],
+          "players": [
+            {
+              "id": "A",
+              "win": 0.9161616161616162,
+              "tie": 0,
+              "equity": 0.9161616161616162,
+              "wins": 907,
+              "ties": 0
+            },
+            {
+              "id": "B",
+              "win": 0.08383838383838384,
+              "tie": 0,
+              "equity": 0.08383838383838384,
+              "wins": 83,
+              "ties": 0
+            }
+          ]
+        }
+      ]
+    },
+    "turn": {
+      "exact": true,
+      "totalOutcomes": 44,
+      "remainingCards": 44,
+      "missingBoardCards": 1,
+      "players": [
+        {
+          "id": "A",
+          "win": 0.9545454545454546,
+          "tie": 0,
+          "equity": 0.9545454545454546,
+          "wins": 42,
+          "ties": 0
+        },
+        {
+          "id": "B",
+          "win": 0.045454545454545456,
+          "tie": 0,
+          "equity": 0.045454545454545456,
+          "wins": 2,
+          "ties": 0
+        }
+      ],
+      "pots": [
+        {
+          "id": "main",
+          "eligible": [
+            "A",
+            "B"
+          ],
+          "players": [
+            {
+              "id": "A",
+              "win": 0.9545454545454546,
+              "tie": 0,
+              "equity": 0.9545454545454546,
+              "wins": 42,
+              "ties": 0
+            },
+            {
+              "id": "B",
+              "win": 0.045454545454545456,
+              "tie": 0,
+              "equity": 0.045454545454545456,
+              "wins": 2,
+              "ties": 0
+            }
+          ]
+        }
+      ]
+    },
+    "river": {
+      "exact": true,
+      "totalOutcomes": 1,
+      "remainingCards": 43,
+      "missingBoardCards": 0,
+      "players": [
+        {
+          "id": "A",
+          "win": 0,
+          "tie": 0,
+          "equity": 0,
+          "wins": 0,
+          "ties": 0
+        },
+        {
+          "id": "B",
+          "win": 1,
+          "tie": 0,
+          "equity": 1,
+          "wins": 1,
+          "ties": 0
+        }
+      ],
+      "pots": [
+        {
+          "id": "main",
+          "eligible": [
+            "A",
+            "B"
+          ],
+          "players": [
+            {
+              "id": "A",
+              "win": 0,
+              "tie": 0,
+              "equity": 0,
+              "wins": 0,
+              "ties": 0
+            },
+            {
+              "id": "B",
+              "win": 1,
+              "tie": 0,
+              "equity": 1,
+              "wins": 1,
+              "ties": 0
+            }
+          ]
+        }
+      ]
+    }
   }
 };

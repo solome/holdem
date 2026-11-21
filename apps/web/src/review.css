@@ -1,4 +1,5 @@
 .review-view {
+  container-type: inline-size;
   padding: var(--space-10) 0;
 }
 .review-page-header {
@@ -22,6 +23,11 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
+}
+@container (min-width: 900px) {
+  .review-cases {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 .review-case {
   position: relative;
